@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Guess from './components/Guess';
-import * as pokedex from './data/pokedex.json';
+import * as pokedex from './pokedex.json';
 import './App.css';
 
 function App() {
