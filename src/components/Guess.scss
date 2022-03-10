@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    min-height: 150px;
+    min-height: 210px;
     max-width: 550px;
     padding: 20px;
     border-bottom: 1px solid black;
@@ -12,6 +12,7 @@
 
     @media (min-width: 500px) {
         flex-direction: row;
+        min-height: 150px;
     }
 }
 

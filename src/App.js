@@ -83,7 +83,11 @@ function App() {
                                     return pokemon.name.english;
                                 })}
                             />
-                            <input type="submit" value="Guess" className="game-button"></input>
+                            <input
+                                type="submit"
+                                value="Guess"
+                                className="game-button"
+                            ></input>
                         </form>
                         <div className="guesses">
                             {guesses &&
