@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import * as pokedex from './pokedex.json';
 import './App.css';
@@ -11,7 +12,6 @@ function App() {
 
     useEffect(() => {
         if (!pokemon.name) {
-            //  const today = new Date();
             const randomNumber = Math.ceil(Math.random() * 100);
             const index = Math.min(Math.max(randomNumber, 0), 809);
             const pokemon = pokedex[index];
@@ -30,15 +30,12 @@ function App() {
     };
 
     const handleClick = (e) => {
-        console.log(e);
+        e.preventDefault();
         if (guess) {
-            console.log(pokedex);
             const valid = Array.from(pokedex).find(
                 (pokemon) =>
                     pokemon.name.english.toLowerCase() === guess.toLowerCase()
             );
-
-            console.log(valid);
 
             if (valid) {
                 const pokemonBaseTotal = getBaseStats(pokemon);
@@ -67,7 +64,7 @@ function App() {
     };
 
     const handleType = (e) => {
-        setGuess(e.target.value);
+        setGuess(e[0]);
     };
 
     return (
@@ -76,18 +73,24 @@ function App() {
             {!hasWon ? (
                 pokemon.name && (
                     <div className="game-container">
-                        <div className="game-input">
-                            <input
-                                onKeyUp={handleType}
+                        <form className="game-form" onSubmit={handleClick}>
+                            <Typeahead
+                                id="input"
+                                className="game-input"
+                                onChange={handleType}
                                 placeholder="who's that pokemon?"
-                            ></input>
-                            <button onClick={handleClick}>Guess</button>
-                        </div>
+                                options={Array.from(pokedex).map((pokemon) => {
+                                    return pokemon.name.english;
+                                })}
+                            />
+                            <input type="submit" value="Guess" className="game-button"></input>
+                        </form>
                         <div className="guesses">
                             {guesses &&
                                 guesses.map((guess) => {
                                     return (
                                         <Guess
+                                            key={guess.name}
                                             guess={guess}
                                             pokemon={pokemon}
                                         />

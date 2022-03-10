@@ -1,10 +1,11 @@
 .container {
     text-align: center;
+    padding-top: 40px;
 }
 
 .guesses {
     height: 75vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -13,4 +14,18 @@
 
 .types-container {
     width: fit-content;
+}
+
+.game-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-input,
+.game-button {
+    height: 40px;
+    padding: 0 10px;
+    font-size: 16px;
 }
