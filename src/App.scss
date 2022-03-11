@@ -1,0 +1,27 @@
+.container {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.select-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+    &-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        width: 200px;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .active {
+        color: white;
+        background-color: gray;
+    }
+}
