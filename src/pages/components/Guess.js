@@ -91,7 +91,7 @@ export default function Guess(props) {
         const baseTotalClass = determineProximity(absTotalDifference);
         return (
             <div className={`base-total ${baseTotalClass}`}>
-                Base total: {baseTotal.total}{' '}
+                Base stat total: {baseTotal.total}{' '}
                 {showArrows && (
                     <i
                         className={`bi bi-arrow-${

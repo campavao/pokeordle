@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { getIntWithinRange, filterSuggestions } from './components/utils';
+import { getIntWithinRange, filterSuggestions, getBaseStats } from './components/utils';
 
 import * as pokedex from './pokedex.json';
 import './App.css';
@@ -34,12 +34,6 @@ function DailyGame() {
             }
         }
     }, [pokemon.name]);
-
-    const getBaseStats = (guessPokemon) => {
-        const { hp, attack, defense, spAttack, spDefense, speed } =
-            guessPokemon.base;
-        return hp + attack + defense + spAttack + spDefense + speed;
-    };
 
     const handleClick = (e) => {
         e.preventDefault();

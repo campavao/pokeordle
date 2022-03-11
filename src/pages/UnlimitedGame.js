@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { filterSuggestions } from './components/utils';
+import {
+    getIntWithinRange,
+    filterSuggestions,
+    getBaseStats,
+} from './components/utils';
 
 import * as pokedex from './pokedex.json';
 import './App.css';
@@ -13,15 +17,9 @@ function UnlimitedGame() {
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
 
-    const getRandomInt = (min, max) => {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-    };
-
     useEffect(() => {
         if (!pokemon.name) {
-            const index = getRandomInt(1, 810);
+            const index = getIntWithinRange(Math.random(), 1, 810);
             const pokemon = pokedex[index];
             const imgNum =
                 index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
@@ -30,12 +28,6 @@ function UnlimitedGame() {
             setPokemon(pokemon);
         }
     }, [pokemon.name]);
-
-    const getBaseStats = (guessPokemon) => {
-        const { hp, attack, defense, spAttack, spDefense, speed } =
-            guessPokemon.base;
-        return hp + attack + defense + spAttack + spDefense + speed;
-    };
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -93,7 +85,7 @@ function UnlimitedGame() {
     return (
         <div className="unlimited-container">
             <strong className="message">
-                Unlimited guesses, all Generations.
+                Unlimited guesses, all Generations up to Gen 7.
             </strong>
             {!hasWon ? (
                 pokemon.name && (

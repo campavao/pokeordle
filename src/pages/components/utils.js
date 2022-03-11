@@ -7,3 +7,9 @@ export const getIntWithinRange = (input, min, max) => {
 export const filterSuggestions = (pokemon, guesses, genCap) =>
     pokemon.id <= genCap &&
     !guesses.find((guess) => guess.index.id === pokemon.id);
+
+export const getBaseStats = (guessPokemon) => {
+    const { hp, attack, defense, spAttack, spDefense, speed } =
+        guessPokemon.base;
+    return hp + attack + defense + spAttack + spDefense + speed;
+};
