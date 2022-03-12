@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { getIntWithinRange, filterSuggestions, getBaseStats } from './components/utils';
+import {
+    getIntWithinRange,
+    filterSuggestions,
+    getBaseStats,
+} from './components/utils';
 
 import * as pokedex from './pokedex.json';
 import './App.css';
@@ -15,7 +19,7 @@ function OriginalGame() {
 
     useEffect(() => {
         if (!pokemon.name) {
-            const index = getIntWithinRange(Math.random(), 1, 810);
+            const index = getIntWithinRange(Math.random(), 1, 152);
             const pokemon = pokedex[index];
             const imgNum =
                 index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
@@ -80,9 +84,7 @@ function OriginalGame() {
 
     return (
         <div className="original-container">
-            <strong className="message">
-                Unlimited guesses. Only Gen 1.
-            </strong>
+            <strong className="message">Unlimited guesses. Only Gen 1.</strong>
 
             {!hasWon ? (
                 pokemon.name && (
