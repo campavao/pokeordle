@@ -15,6 +15,7 @@ function DailyGame() {
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
     const [remainingGuesses, setRemainingGuesses] = useState(8);
+    const [currStreak, setCurrStreak] = useState(0);
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -29,7 +30,7 @@ function DailyGame() {
             if (!gameState || gameState.dailyDate !== new Date().getDate()) {
                 const legacyStreak = localStorage.getItem('streak');
                 const streak = legacyStreak
-                    ? legacyStreak
+                    ? Number(legacyStreak)
                     : !gameState
                     ? 0
                     : gameState.streak;
@@ -37,6 +38,8 @@ function DailyGame() {
                 if (legacyStreak) {
                     localStorage.removeItem('streak');
                 }
+
+                setCurrStreak(streak);
 
                 localStorage.setItem(
                     'gameState',
@@ -50,6 +53,7 @@ function DailyGame() {
             } else {
                 setHasWon(gameState.dailyWon);
                 setRemainingGuesses(gameState.numGuessesLeft);
+                setCurrStreak(gameState.streak);
             }
         }
     }, [pokemon.name]);
@@ -103,13 +107,15 @@ function DailyGame() {
                     const previousGameState = JSON.parse(
                         localStorage.getItem('gameState')
                     );
+                    const streak = (Number(previousGameState.streak) || 0) + 1;
+                    setCurrStreak(streak);
                     localStorage.setItem(
                         'gameState',
                         JSON.stringify({
                             dailyWon: true,
                             dailyDate: new Date().getDate(),
-                            numGuessesLeft: remainingGuesses,
-                            streak: (previousGameState.streak || 0) + 1,
+                            numGuessesLeft: remainingGuesses - 1,
+                            streak: streak,
                         })
                     );
                     setHasWon(true);
@@ -133,6 +139,7 @@ function DailyGame() {
             <strong className="message">
                 New Pokemon every day, once a day. Only Gen 1.
             </strong>
+            <p>Current streak: {currStreak}</p>
 
             {remainingGuesses === 0 ? (
                 <h2>You lost. The Pokemon was {pokemon.name.english}.</h2>
