@@ -28,5 +28,28 @@
 .message {
     display: block;
     height: 50px;
-    /* margin: 10px; */
+}
+
+.game-answer,
+.game-hint {
+    width: 200px;
+    height: 200px;
+}
+
+.game-hint {
+    filter: brightness(0);
+}
+
+.game-hint-button {
+    margin-left: 10px;
+}
+
+.game-reset {
+    margin-top: 20px;
+}
+
+.game-reveal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

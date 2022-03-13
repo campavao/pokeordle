@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { getIntWithinRange, filterSuggestions, getBaseStats } from './components/utils';
+import { filterSuggestions, getBaseStats } from './components/utils';
 
 import * as pokedex from './pokedex.json';
 import './App.css';
+
+const idList = process.env.REACT_APP_POKEMON_DAILY_LIST.split(', ');
 
 function DailyGame() {
     const [pokemon, setPokemon] = useState({});
@@ -16,21 +18,38 @@ function DailyGame() {
 
     useEffect(() => {
         if (!pokemon.name) {
-            const today = new Date();
-            const todaysNumber = Math.floor(
-                (today.getDay() * (today.getFullYear() - 2000)) /
-                    today.getDate()
-            );
-            const index = getIntWithinRange('0.' + todaysNumber, 1, 152);
-            setPokemon(pokedex[index]);
+            const startingDate = new Date('3/13/2022').setHours(0, 0, 0, 0);
+            const today = new Date().setHours(0, 0, 0, 0);
+            const todaysNumber = Math.round((today - startingDate) / 865e5);
+            const index = Number(idList[todaysNumber]);
+            setPokemon(Array.from(pokedex).find((poke) => poke.id === index));
 
-            const dailyDone = Number(localStorage.getItem('dailyDone'));
-            if (dailyDone === 1) {
-                setRemainingGuesses(0);
-            } else if (dailyDone !== today.getDate()) {
-                localStorage.clear();
+            const gameState = JSON.parse(localStorage.getItem('gameState'));
+
+            if (!gameState || gameState.dailyDate !== new Date().getDate()) {
+                const legacyStreak = localStorage.getItem('streak');
+                const streak = legacyStreak
+                    ? legacyStreak
+                    : !gameState
+                    ? 0
+                    : gameState.streak;
+
+                if (legacyStreak) {
+                    localStorage.removeItem('streak');
+                }
+
+                localStorage.setItem(
+                    'gameState',
+                    JSON.stringify({
+                        dailyWon: false,
+                        dailyDate: new Date().getDate(),
+                        numGuessesLeft: 8,
+                        streak: streak,
+                    })
+                );
             } else {
-                setHasWon(localStorage.getItem('dailyDone'));
+                setHasWon(gameState.dailyWon);
+                setRemainingGuesses(gameState.numGuessesLeft);
             }
         }
     }, [pokemon.name]);
@@ -40,8 +59,15 @@ function DailyGame() {
         setRemainingGuesses(remainingGuesses - 1);
         if (remainingGuesses - 1 === 0) {
             console.log('wiping');
-            localStorage.setItem('dailyDone', 1);
-            localStorage.setItem('streak', 0);
+            localStorage.setItem(
+                'gameState',
+                JSON.stringify({
+                    dailyWon: false,
+                    dailyDate: new Date().getDate(),
+                    numGuessesLeft: remainingGuesses,
+                    streak: 0,
+                })
+            );
         }
 
         if (guess) {
@@ -74,10 +100,17 @@ function DailyGame() {
                 setGuesses([guess, ...guesses]);
 
                 if (valid.id === pokemon.id) {
-                    localStorage.setItem('dailyDone', new Date().getDate());
+                    const previousGameState = JSON.parse(
+                        localStorage.getItem('gameState')
+                    );
                     localStorage.setItem(
-                        'streak',
-                        (Number(localStorage.getItem('streak')) || 0) + 1
+                        'gameState',
+                        JSON.stringify({
+                            dailyWon: true,
+                            dailyDate: new Date().getDate(),
+                            numGuessesLeft: remainingGuesses,
+                            streak: (previousGameState.streak || 0) + 1,
+                        })
                     );
                     setHasWon(true);
                 }

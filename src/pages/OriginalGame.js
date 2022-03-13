@@ -6,6 +6,7 @@ import {
     getIntWithinRange,
     filterSuggestions,
     getBaseStats,
+    getImg,
 } from './components/utils';
 
 import * as pokedex from './pokedex.json';
@@ -16,18 +17,22 @@ function OriginalGame() {
     const [guess, setGuess] = useState('');
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
+    const [viewHint, setViewHint] = useState(false);
 
     useEffect(() => {
         if (!pokemon.name) {
-            const index = getIntWithinRange(Math.random(), 1, 152);
-            const pokemon = pokedex[index];
-            const imgNum =
-                index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
-            const imgSrc = `/data/images/${imgNum}.png`;
-            pokemon.img = imgSrc;
-            setPokemon(pokemon);
+            initialize();
         }
     }, [pokemon.name]);
+
+    const initialize = () => {
+        setGuess('');
+        setGuesses([]);
+        setViewHint(false);
+        const index = getIntWithinRange(Math.random(), 1, 152);
+        const pokemon = pokedex[index];
+        getImg(pokemon).then((updatedMon) => setPokemon(updatedMon));
+    };
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -61,6 +66,7 @@ function OriginalGame() {
                 setGuesses([guess, ...guesses]);
 
                 if (valid.id === pokemon.id) {
+                    setViewHint(false);
                     setHasWon(true);
                 }
             }
@@ -89,6 +95,13 @@ function OriginalGame() {
             {!hasWon ? (
                 pokemon.name && (
                     <div className="game-container">
+                        {viewHint && pokemon.img && (
+                            <img
+                                className="game-hint"
+                                src={pokemon.img.default}
+                                alt="game hint"
+                            />
+                        )}
                         <TypeList guesses={guesses} />
                         <form className="game-form" onSubmit={handleClick}>
                             <Typeahead
@@ -109,8 +122,15 @@ function OriginalGame() {
                             <input
                                 type="submit"
                                 value="Guess"
-                                className="game-button"
+                                class="btn btn-light game-button"
                             ></input>
+                            <button
+                                type="button"
+                                class="btn btn-outline-dark btn-sm game-hint-button"
+                                onClick={() => setViewHint(!viewHint)}
+                            >
+                                {viewHint ? 'Hide' : 'Show'} hint
+                            </button>
                         </form>
                         <div className="guesses">
                             {guesses &&
@@ -127,7 +147,24 @@ function OriginalGame() {
                     </div>
                 )
             ) : (
-                <h2>You won! The Pokemon was {pokemon.name.english}!</h2>
+                <div className="game-reveal">
+                    <h2>You won! The Pokemon was {pokemon.name.english}!</h2>
+                    {pokemon.img && (
+                        <img
+                            className="game-answer"
+                            src={pokemon.img.default}
+                        />
+                    )}
+                    <button
+                        class="btn btn-outline-dark btn-sm game-reset"
+                        onClick={() => {
+                            setHasWon(false);
+                            initialize();
+                        }}
+                    >
+                        New Pokemon
+                    </button>
+                </div>
             )}
         </div>
     );

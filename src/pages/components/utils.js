@@ -13,3 +13,15 @@ export const getBaseStats = (guessPokemon) => {
         guessPokemon.base;
     return hp + attack + defense + spAttack + spDefense + speed;
 };
+
+export const getImg = async (pokemon) => {
+    const index = pokemon.id;
+    if (!index) return;
+    const imgNum =
+        index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
+    const imgSrc = await import(`../../data/images/${imgNum}.png`);
+    return {
+        ...pokemon,
+        img: imgSrc,
+    };
+};

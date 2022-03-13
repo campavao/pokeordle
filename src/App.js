@@ -6,7 +6,14 @@ import OriginalGame from './pages/OriginalGame';
 import './App.scss';
 
 function App() {
-    const [view, setView] = useState('unlimited');
+    const [view, setView] = useState(
+        localStorage.getItem('view') || 'unlimited'
+    );
+
+    const updateView = (newView) => {
+        setView(newView);
+        localStorage.setItem('view', newView);
+    };
 
     return (
         <div className="container">
@@ -16,25 +23,37 @@ function App() {
                     className={`select-view-item ${
                         view === 'daily' ? 'active' : ''
                     }`}
-                    onClick={() => setView('daily')}
                 >
-                    Daily
+                    <button
+                        className={`select-view-item-button`}
+                        onClick={() => updateView('daily')}
+                    >
+                        Daily
+                    </button>
                 </li>
                 <li
                     className={`select-view-item ${
                         view === 'unlimited' ? 'active' : ''
                     }`}
-                    onClick={() => setView('unlimited')}
                 >
-                    Unlimited
+                    <button
+                        className={'select-view-item-button'}
+                        onClick={() => updateView('unlimited')}
+                    >
+                        Unlimited
+                    </button>
                 </li>
                 <li
                     className={`select-view-item ${
                         view === 'original' ? 'active' : ''
                     }`}
-                    onClick={() => setView('original')}
                 >
-                    Original
+                    <button
+                        className={`select-view-item-button`}
+                        onClick={() => updateView('original')}
+                    >
+                        Original
+                    </button>
                 </li>
             </ul>
             {view === 'daily' && <DailyGame />}
