@@ -1,3 +1,4 @@
+import TypeList from './TypeList';
 import './Guess.scss';
 
 const generations = [
@@ -64,24 +65,12 @@ export default function Guess(props) {
     function Types() {
         return (
             <div className="types-container">
-                Types:{' '}
-                {types.map((type) => {
-                    return (
-                        <div
-                            className={
-                                type.isSameIndex
-                                    ? 'correct'
-                                    : type.isFound
-                                    ? 'almost'
-                                    : 'absent'
-                            }
-                        >
-                            {type.name} {type.isFound ? 'is' : 'is not'} the
-                            same.{' '}
-                        </div>
-                    );
-                })}{' '}
-                out of {pokemon.type.length} possible types.
+                <div>Types:</div>
+                <TypeList
+                    types={types}
+                    useTypeColors={false}
+                    possibleTypes={pokemon.type.length}
+                />
             </div>
         );
     }

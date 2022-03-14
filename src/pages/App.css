@@ -1,5 +1,6 @@
 .guesses {
-    height: 75vh;
+    max-height: 50vh;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;

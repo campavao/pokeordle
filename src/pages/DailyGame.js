@@ -150,7 +150,9 @@ function DailyGame() {
             {!hasWon && remainingGuesses > 0
                 ? pokemon.name && (
                       <div className="game-container">
-                          <TypeList guesses={guesses} />
+                          <TypeList
+                              types={guesses.map((guess) => guess.types).flat()}
+                          />
                           <form className="game-form" onSubmit={handleClick}>
                               <Typeahead
                                   id="input"

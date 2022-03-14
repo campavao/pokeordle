@@ -104,7 +104,9 @@ function UnlimitedGame() {
                             />
                         )}
 
-                        <TypeList guesses={guesses} />
+                        <TypeList
+                            types={guesses.map((guess) => guess.types).flat()}
+                        />
                         <form className="game-form" onSubmit={handleClick}>
                             <Typeahead
                                 id="input"

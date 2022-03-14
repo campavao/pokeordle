@@ -5,8 +5,6 @@
     justify-content: space-between;
     width: 100%;
     min-height: 210px;
-    max-width: 550px;
-    padding: 20px;
     border-bottom: 1px solid black;
     border-radius: 4px;
 
@@ -20,6 +18,9 @@
     display: flex;
     flex-direction: column;
     font-weight: bold;
+    width: 100px;
+    height: 35px;
+    justify-content: flex-end;
 }
 
 .correct-type {
@@ -37,6 +38,11 @@
     background-color: gray;
 }
 
+.mono-type {
+    color: white;
+    background-color: black;
+}
+
 .correct {
     color: green;
 }
@@ -49,6 +55,11 @@
     color: gray;
 }
 
+.types-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .type-list {
     display: flex;
     flex-wrap: wrap;
@@ -58,6 +69,8 @@
     padding: 0;
 
     &-item {
+        color: white;
+        font-weight: 500;
         height: 30px;
         width: 85px;
         list-style: none;
@@ -65,7 +78,85 @@
         justify-content: center;
         align-items: center;
         border: 1px solid black;
-        border-radius: 12px;
+        border-radius: 6px;
         margin: 5px;
+        box-shadow: 0px 2px 0px black, inset 0px 1px 0px white;
+        text-shadow: 1px 2px gray;
     }
+}
+
+.miss {
+    filter: grayscale(1);
+}
+
+.normal {
+    background-color: #a7a777;
+}
+
+.fighting {
+    background-color: #c03028;
+}
+
+.flying {
+    background-color: #9a87c8;
+}
+
+.poison {
+    background-color: #92578c;
+}
+
+.ground {
+    background-color: #e2c269;
+}
+
+.rock {
+    background-color: #b8a038;
+}
+
+.bug {
+    background-color: #a7b721;
+}
+
+.ghost {
+    background-color: #6f5898;
+}
+
+.steel {
+    background-color: #b7b7cf;
+}
+
+.fire {
+    background-color: #ee7e2f;
+}
+
+.water {
+    background-color: #6790ef;
+}
+
+.grass {
+    background-color: #8ed755;
+}
+
+.electric {
+    background-color: #f5cd2b;
+}
+
+.psychic {
+    background-color: #fc5689;
+}
+
+.ice {
+    background-color: #98d8d8;
+}
+
+.dragon {
+    background-color: #7038f7;
+}
+
+.dark {
+    background-color: #6f5747;
+}
+
+.fairy {
+    background-color: #ff64d6;
 }
