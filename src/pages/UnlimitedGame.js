@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
-import TypeList from './components/TypeList';
+import TypeFilter from './components/TypeFilter';
 import {
     getIntWithinRange,
     filterSuggestions,
@@ -10,7 +10,7 @@ import {
 } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import './App.css';
+import './App.scss';
 
 function UnlimitedGame() {
     const [pokemon, setPokemon] = useState({});
@@ -18,6 +18,10 @@ function UnlimitedGame() {
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
     const [viewHint, setViewHint] = useState(false);
+    const [showFilters, setShowFilters] = useState(true);
+    const [includedFilter, setIncludedFilter] = useState([]);
+    const [excludedFilter, setExcludedFilter] = useState([]);
+    const typeRef = React.createRef();
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -36,6 +40,7 @@ function UnlimitedGame() {
 
     const handleClick = (e) => {
         e.preventDefault();
+        typeRef.current.clear();
         if (guess) {
             const valid = Array.from(pokedex).find(
                 (pokemon) =>
@@ -64,12 +69,40 @@ function UnlimitedGame() {
                     },
                 };
                 setGuesses([guess, ...guesses]);
+                const excludedTypes = guess.types
+                    .filter((type) => !type.isFound)
+                    .map((type) => {
+                        return type.name.toLowerCase();
+                    });
+                const newExcludedFilter = [...excludedFilter, ...excludedTypes];
+                setExcludedFilter(newExcludedFilter);
+                setIncludedFilter(
+                    includedFilter.filter(
+                        (filter) => !newExcludedFilter.includes(filter)
+                    )
+                );
 
                 if (valid.id === pokemon.id) {
                     setViewHint(false);
                     setHasWon(true);
+                    setExcludedFilter([]);
+                    setIncludedFilter([]);
                 }
             }
+        }
+    };
+
+    const handleFilterChange = (e) => {
+        const type = e.target.outerText.toLowerCase();
+        if (includedFilter.includes(type)) {
+            setIncludedFilter(
+                includedFilter.filter((filter) => filter !== type)
+            );
+        } else {
+            setIncludedFilter([
+                ...includedFilter,
+                e.target.outerText.toLowerCase(),
+            ]);
         }
     };
 
@@ -103,10 +136,24 @@ function UnlimitedGame() {
                                 alt="game hint"
                             />
                         )}
-
-                        <TypeList
-                            types={guesses.map((guess) => guess.types).flat()}
-                        />
+                        <div className={`game-filter ${showFilters && 'show'}`}>
+                            <TypeFilter
+                                includedFilter={includedFilter}
+                                excludedFilter={excludedFilter}
+                                onClick={handleFilterChange}
+                            />
+                        </div>
+                        <button
+                            class="btn btn-link btn-sm filter-button"
+                            onClick={() => setShowFilters(!showFilters)}
+                        >
+                            Filters{' '}
+                            <i
+                                class={`bi bi-chevron-${
+                                    showFilters ? 'up' : 'down'
+                                }`}
+                            ></i>
+                        </button>
                         <form className="game-form" onSubmit={handleClick}>
                             <Typeahead
                                 id="input"
@@ -117,11 +164,18 @@ function UnlimitedGame() {
                                 placeholder="who's that pokemon?"
                                 options={Array.from(pokedex)
                                     .filter((pokemon) =>
-                                        filterSuggestions(pokemon, guesses, 809)
+                                        filterSuggestions(
+                                            pokemon,
+                                            guesses,
+                                            809,
+                                            includedFilter,
+                                            excludedFilter
+                                        )
                                     )
                                     .map((pokemon) => {
                                         return `#${pokemon.id} ${pokemon.name.english}`;
                                     })}
+                                ref={typeRef}
                             />
                             <input
                                 type="submit"

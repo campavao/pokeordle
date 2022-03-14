@@ -27,7 +27,9 @@
 }
 
 .message {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 50px;
 }
 
@@ -57,4 +59,21 @@
 
 h2 {
     margin-top: 20px;
+}
+
+.game-filter {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+}
+
+.show {
+    max-height: fit-content;
+    transition: max-height 0.25s ease-in;
+}
+
+.filter-button {
+    @media (min-width: 500px) {
+        display: none;
+    }
 }

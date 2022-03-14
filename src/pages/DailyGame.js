@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
 import { filterSuggestions, getBaseStats } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import './App.css';
+import './App.scss';
 
 const idList = process.env.REACT_APP_POKEMON_DAILY_LIST.split(', ');
 
@@ -16,6 +16,7 @@ function DailyGame() {
     const [hasWon, setHasWon] = useState(false);
     const [remainingGuesses, setRemainingGuesses] = useState(8);
     const [currStreak, setCurrStreak] = useState(0);
+    const typeRef = React.createRef();
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -60,6 +61,7 @@ function DailyGame() {
 
     const handleClick = (e) => {
         e.preventDefault();
+        typeRef.current.clear();
         setRemainingGuesses(remainingGuesses - 1);
         if (remainingGuesses - 1 === 0) {
             console.log('wiping');
@@ -172,6 +174,7 @@ function DailyGame() {
                                       .map((pokemon) => {
                                           return pokemon.name.english;
                                       })}
+                                  ref={typeRef}
                               />
                               <input
                                   type="submit"

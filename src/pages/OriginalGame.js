@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
@@ -10,7 +10,7 @@ import {
 } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import './App.css';
+import './App.scss';
 
 function OriginalGame() {
     const [pokemon, setPokemon] = useState({});
@@ -18,6 +18,7 @@ function OriginalGame() {
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
     const [viewHint, setViewHint] = useState(false);
+    const typeRef = React.createRef();
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -36,6 +37,7 @@ function OriginalGame() {
 
     const handleClick = (e) => {
         e.preventDefault();
+        typeRef.current.clear();
         if (guess) {
             const valid = Array.from(pokedex).find(
                 (pokemon) =>
@@ -120,6 +122,7 @@ function OriginalGame() {
                                     .map((pokemon) => {
                                         return `#${pokemon.id} ${pokemon.name.english}`;
                                     })}
+                                ref={typeRef}
                             />
                             <input
                                 type="submit"
