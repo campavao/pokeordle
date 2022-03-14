@@ -6,7 +6,7 @@ export default function TypeFilter(props) {
 
     return (
         <ul className="type-list">
-            {types.map((type) => {
+            {types.map((type, index) => {
                 const isExcluded = excludedFilter.includes(
                     type.english.toLowerCase()
                 );
@@ -18,7 +18,7 @@ export default function TypeFilter(props) {
                 ${type.english.toLowerCase()}`;
 
                 return (
-                    <li key={type} style={{ listStyle: 'none' }}>
+                    <li key={type + index} style={{ listStyle: 'none' }}>
                         <button
                             onClick={onClick}
                             className={`type-list-item ${typeClassName}`}
