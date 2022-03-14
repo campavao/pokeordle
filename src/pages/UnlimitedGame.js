@@ -136,7 +136,11 @@ function UnlimitedGame() {
                                 alt="game hint"
                             />
                         )}
-                        <div className={`game-filter ${showFilters && 'show'}`}>
+                        <div
+                            className={`game-filter ${
+                                showFilters && 'show-filter'
+                            }`}
+                        >
                             <TypeFilter
                                 includedFilter={includedFilter}
                                 excludedFilter={excludedFilter}
