@@ -55,6 +55,18 @@
     color: gray;
 }
 
+.correct-slot {
+    border: 5px solid green;
+}
+
+.almost-slot {
+    border: 5px solid orange;
+}
+
+.absent-slot {
+    border: 5px solid gray;
+}
+
 .types-container {
     display: flex;
     flex-direction: column;

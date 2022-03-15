@@ -10,7 +10,7 @@ import {
 } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import './App.scss';
+import './Pages.scss';
 
 function UnlimitedGame() {
     const [pokemon, setPokemon] = useState({});
@@ -126,6 +126,11 @@ function UnlimitedGame() {
             <strong className="message">
                 Unlimited guesses, all Generations up to Gen 7.
             </strong>
+            {!pokemon.name && (
+                <div>
+                    Game is loading, may take a minute. Please wait/refresh.
+                </div>
+            )}
             {!hasWon ? (
                 pokemon.name && (
                     <div className="game-container">
@@ -216,6 +221,7 @@ function UnlimitedGame() {
                         <img
                             className="game-answer"
                             src={pokemon.img.default}
+                            alt={pokemon?.name?.english}
                         />
                     )}
                     <button

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { filterSuggestions, getBaseStats } from './components/utils';
+import { filterSuggestions, getBaseStats, getImg } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import './App.scss';
+import './Pages.scss';
 
 const idList = process.env.REACT_APP_POKEMON_DAILY_LIST.split(', ');
 
@@ -16,7 +16,16 @@ function DailyGame() {
     const [hasWon, setHasWon] = useState(false);
     const [remainingGuesses, setRemainingGuesses] = useState(8);
     const [currStreak, setCurrStreak] = useState(0);
+    const [viewHint, setViewHint] = useState(false);
     const typeRef = React.createRef();
+
+    const getGameState = () => {
+        return JSON.parse(localStorage.getItem('gameState'));
+    };
+
+    const setGameState = (gameState) => {
+        localStorage.setItem('gameState', JSON.stringify(gameState));
+    };
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -24,9 +33,12 @@ function DailyGame() {
             const today = new Date().setHours(0, 0, 0, 0);
             const todaysNumber = Math.round((today - startingDate) / 865e5);
             const index = Number(idList[todaysNumber]);
-            setPokemon(Array.from(pokedex).find((poke) => poke.id === index));
+            const solution = Array.from(pokedex).find(
+                (poke) => poke.id === index
+            );
+            getImg(solution).then((updatedMon) => setPokemon(updatedMon));
 
-            const gameState = JSON.parse(localStorage.getItem('gameState'));
+            const gameState = getGameState();
 
             if (!gameState || gameState.dailyDate !== new Date().getDate()) {
                 const legacyStreak = localStorage.getItem('streak');
@@ -41,20 +53,18 @@ function DailyGame() {
                 }
 
                 setCurrStreak(streak);
-
-                localStorage.setItem(
-                    'gameState',
-                    JSON.stringify({
-                        dailyWon: false,
-                        dailyDate: new Date().getDate(),
-                        numGuessesLeft: 8,
-                        streak: streak,
-                    })
-                );
+                setGameState({
+                    dailyWon: false,
+                    dailyDate: new Date().getDate(),
+                    numGuessesLeft: 8,
+                    streak: streak,
+                    guesses: [],
+                });
             } else {
                 setHasWon(gameState.dailyWon);
                 setRemainingGuesses(gameState.numGuessesLeft);
                 setCurrStreak(gameState.streak);
+                setGuesses(gameState.guesses);
             }
         }
     }, [pokemon.name]);
@@ -62,19 +72,7 @@ function DailyGame() {
     const handleClick = (e) => {
         e.preventDefault();
         typeRef.current.clear();
-        setRemainingGuesses(remainingGuesses - 1);
-        if (remainingGuesses - 1 === 0) {
-            console.log('wiping');
-            localStorage.setItem(
-                'gameState',
-                JSON.stringify({
-                    dailyWon: false,
-                    dailyDate: new Date().getDate(),
-                    numGuessesLeft: remainingGuesses,
-                    streak: 0,
-                })
-            );
-        }
+        let newGuesses = [];
 
         if (guess) {
             const valid = Array.from(pokedex).find(
@@ -103,7 +101,8 @@ function DailyGame() {
                         difference: pokemonBaseTotal - validBaseTotal,
                     },
                 };
-                setGuesses([guess, ...guesses]);
+                newGuesses = [guess, ...guesses];
+                setGuesses(newGuesses);
 
                 if (valid.id === pokemon.id) {
                     const previousGameState = JSON.parse(
@@ -111,18 +110,35 @@ function DailyGame() {
                     );
                     const streak = (Number(previousGameState.streak) || 0) + 1;
                     setCurrStreak(streak);
-                    localStorage.setItem(
-                        'gameState',
-                        JSON.stringify({
-                            dailyWon: true,
-                            dailyDate: new Date().getDate(),
-                            numGuessesLeft: remainingGuesses - 1,
-                            streak: streak,
-                        })
-                    );
+                    setGameState({
+                        dailyWon: true,
+                        dailyDate: new Date().getDate(),
+                        numGuessesLeft: remainingGuesses,
+                        streak: streak,
+                        guesses: guesses,
+                    });
                     setHasWon(true);
                 }
             }
+        }
+
+        setRemainingGuesses(remainingGuesses - 1);
+        if (remainingGuesses - 1 === 0) {
+            console.log('wiping');
+            setGameState({
+                dailyWon: false,
+                dailyDate: new Date().getDate(),
+                numGuessesLeft: remainingGuesses,
+                streak: 0,
+                guesses: [],
+            });
+        } else {
+            const gameState = getGameState();
+            setGameState({
+                ...gameState,
+                numGuessesLeft: remainingGuesses - 1,
+                guesses: newGuesses,
+            });
         }
     };
 
@@ -143,6 +159,12 @@ function DailyGame() {
             </strong>
             <p>Current streak: {currStreak}</p>
 
+            {!pokemon.name && (
+                <div>
+                    Game is loading, may take a minute. Please wait/refresh.
+                </div>
+            )}
+
             {remainingGuesses === 0 ? (
                 <h2>You lost. The Pokemon was {pokemon.name.english}.</h2>
             ) : (
@@ -152,6 +174,13 @@ function DailyGame() {
             {!hasWon && remainingGuesses > 0
                 ? pokemon.name && (
                       <div className="game-container">
+                          {viewHint && pokemon.img && (
+                              <img
+                                  className="game-hint"
+                                  src={pokemon.img.default}
+                                  alt="game hint"
+                              />
+                          )}
                           <TypeList
                               types={guesses.map((guess) => guess.types).flat()}
                           />
@@ -181,6 +210,13 @@ function DailyGame() {
                                   value="Guess"
                                   className="game-button"
                               ></input>
+                              <button
+                                  type="button"
+                                  class="btn btn-outline-dark btn-sm game-hint-button"
+                                  onClick={() => setViewHint(!viewHint)}
+                              >
+                                  {viewHint ? 'Hide' : 'Show'} hint
+                              </button>
                           </form>
                           <div className="guesses">
                               {guesses &&
@@ -199,7 +235,18 @@ function DailyGame() {
                       </div>
                   )
                 : remainingGuesses > 0 && (
-                      <h2>You won! The Pokemon was {pokemon.name.english}!</h2>
+                      <div className="game-reveal">
+                          <h2>
+                              You won! The Pokemon was {pokemon?.name?.english}!
+                          </h2>
+                          {pokemon.img && (
+                              <img
+                                  className="game-answer"
+                                  src={pokemon.img.default}
+                                  alt={pokemon?.name?.english}
+                              />
+                          )}
+                      </div>
                   )}
         </div>
     );

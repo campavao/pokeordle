@@ -10,7 +10,7 @@ import {
 } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import './App.scss';
+import './Pages.scss';
 
 function OriginalGame() {
     const [pokemon, setPokemon] = useState({});
@@ -94,6 +94,12 @@ function OriginalGame() {
         <div className="original-container">
             <strong className="message">Unlimited guesses. Only Gen 1.</strong>
 
+            {!pokemon.name && (
+                <div>
+                    Game is loading, may take a minute. Please wait/refresh.
+                </div>
+            )}
+
             {!hasWon ? (
                 pokemon.name && (
                     <div className="game-container">
@@ -158,6 +164,7 @@ function OriginalGame() {
                         <img
                             className="game-answer"
                             src={pokemon.img.default}
+                            alt={pokemon?.name?.english}
                         />
                     )}
                     <button

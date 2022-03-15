@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import DailyGame from './pages/DailyGame';
 import UnlimitedGame from './pages/UnlimitedGame';
 import OriginalGame from './pages/OriginalGame';
+import PartyGame from './pages/PartyGame';
+import DailyHardGame from './pages/DailyHardGame';
 import { Instructions } from './pages/Instructions';
 import logo from './images/Pokeordle.png';
 
@@ -11,7 +13,7 @@ function App() {
     const [viewState, setViewState] = useState(
         JSON.parse(localStorage.getItem('viewState'))
     );
-    const [view, setView] = useState(viewState?.view || 'unlimited');
+    const [view, setView] = useState(viewState?.view || 'daily');
     const [showInstructions, setShowInstructions] = useState(
         viewState?.showInstructions || false
     );
@@ -82,6 +84,18 @@ function App() {
                     </li>
                     <li
                         className={`select-view-item ${
+                            view === 'dailyhard' ? 'active' : ''
+                        }`}
+                    >
+                        <button
+                            className={`select-view-item-button`}
+                            onClick={() => updateView('dailyhard')}
+                        >
+                            Daily Hard
+                        </button>
+                    </li>
+                    <li
+                        className={`select-view-item ${
                             view === 'unlimited' ? 'active' : ''
                         }`}
                     >
@@ -104,10 +118,24 @@ function App() {
                             Original
                         </button>
                     </li>
+                    {/* <li
+                        className={`select-view-item ${
+                            view === 'party' ? 'active' : ''
+                        }`}
+                    >
+                        <button
+                            className={`select-view-item-button`}
+                            onClick={() => updateView('party')}
+                        >
+                            Party
+                        </button>
+                    </li> */}
                 </ul>
                 {view === 'daily' && <DailyGame />}
+                {view === 'dailyhard' && <DailyHardGame />}
                 {view === 'unlimited' && <UnlimitedGame />}
                 {view === 'original' && <OriginalGame />}
+                {view === 'party' && <PartyGame />}
             </div>
         </div>
     );
