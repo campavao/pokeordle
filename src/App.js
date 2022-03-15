@@ -8,6 +8,7 @@ import { Instructions } from './pages/Instructions';
 import logo from './images/Pokeordle.png';
 
 import './App.scss';
+import TimedGame from './pages/TimedGame';
 
 function App() {
     const [viewState, setViewState] = useState(
@@ -118,6 +119,18 @@ function App() {
                             Original
                         </button>
                     </li>
+                    <li
+                        className={`select-view-item ${
+                            view === 'timed' ? 'active' : ''
+                        }`}
+                    >
+                        <button
+                            className={`select-view-item-button`}
+                            onClick={() => updateView('timed')}
+                        >
+                            Timed
+                        </button>
+                    </li>
                     {/* <li
                         className={`select-view-item ${
                             view === 'party' ? 'active' : ''
@@ -135,6 +148,7 @@ function App() {
                 {view === 'dailyhard' && <DailyHardGame />}
                 {view === 'unlimited' && <UnlimitedGame />}
                 {view === 'original' && <OriginalGame />}
+                {view === 'timed' && <TimedGame />}
                 {view === 'party' && <PartyGame />}
             </div>
         </div>
