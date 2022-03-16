@@ -135,10 +135,12 @@ function UnlimitedGame() {
                 pokemon.name && (
                     <div className="game-container">
                         {viewHint && pokemon.img && (
-                            <img
+                            <div
                                 className="game-hint"
-                                src={pokemon.img.default}
                                 alt="game hint"
+                                style={{
+                                    backgroundImage: `url(${pokemon.img?.default})`,
+                                }}
                             />
                         )}
                         <div
@@ -218,10 +220,12 @@ function UnlimitedGame() {
                 <div className="game-reveal">
                     <h2>You won! The Pokemon was {pokemon.name.english}!</h2>
                     {pokemon.img && (
-                        <img
+                        <div
                             className="game-answer"
-                            src={pokemon.img.default}
-                            alt={pokemon?.name?.english}
+                            aria-label={pokemon?.name?.english}
+                            style={{
+                                backgroundImage: `url(${pokemon.img?.default})`,
+                            }}
                         />
                     )}
                     <button

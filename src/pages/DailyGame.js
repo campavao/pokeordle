@@ -132,7 +132,7 @@ function DailyGame() {
                 dailyDate: new Date().getDate(),
                 numGuessesLeft: remainingGuesses,
                 streak: 0,
-                guesses: [],
+                guesses: newGuesses,
             });
         } else {
             const gameState = getGameState();
@@ -177,10 +177,12 @@ function DailyGame() {
                 ? pokemon.name && (
                       <div className="game-container">
                           {viewHint && pokemon.img && (
-                              <img
+                              <div
                                   className="game-hint"
-                                  src={pokemon.img.default}
-                                  alt="game hint"
+                                  aria-label={pokemon?.name?.english}
+                                  style={{
+                                      backgroundImage: `url(${pokemon.img?.default})`,
+                                  }}
                               />
                           )}
                           <TypeList
@@ -212,13 +214,15 @@ function DailyGame() {
                                   value="Guess"
                                   className="game-button"
                               ></input>
-                              <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-sm game-hint-button"
-                                  onClick={() => setViewHint(!viewHint)}
-                              >
-                                  {viewHint ? 'Hide' : 'Show'} hint
-                              </button>
+                              {remainingGuesses < 4 && (
+                                  <button
+                                      type="button"
+                                      class="btn btn-outline-dark btn-sm game-hint-button"
+                                      onClick={() => setViewHint(!viewHint)}
+                                  >
+                                      {viewHint ? 'Hide' : 'Show'} hint
+                                  </button>
+                              )}
                           </form>
                           <div className="guesses">
                               {guesses &&
@@ -242,10 +246,12 @@ function DailyGame() {
                               You won! The Pokemon was {pokemon?.name?.english}!
                           </h2>
                           {pokemon.img && (
-                              <img
+                              <div
                                   className="game-answer"
-                                  src={pokemon.img.default}
-                                  alt={pokemon?.name?.english}
+                                  aria-label={pokemon?.name?.english}
+                                  style={{
+                                      backgroundImage: `url(${pokemon.img?.default})`,
+                                  }}
                               />
                           )}
                       </div>

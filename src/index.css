@@ -2,6 +2,8 @@ body {
     margin: 0;
     height: 100%;
     width: 100%;
+    min-height: 100vh;
+    overflow-y: hidden;
     font-family: 'Sora', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

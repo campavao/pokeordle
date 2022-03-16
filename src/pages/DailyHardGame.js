@@ -161,7 +161,7 @@ function DailyHardGame() {
     return (
         <div className="daily-container">
             <strong className="message">
-                New Pokemon every day, once a day. Only Gen 1.
+                New Pokemon every day, once a day. Up to Gen 7.
             </strong>
             <p>Current streak: {currStreak}</p>
 
@@ -181,10 +181,12 @@ function DailyHardGame() {
                 ? pokemon.name && (
                       <div className="game-container">
                           {viewHint && pokemon.img && (
-                              <img
+                              <div
                                   className="game-hint"
-                                  src={pokemon.img.default}
-                                  alt="game hint"
+                                  aria-label={pokemon?.name?.english}
+                                  style={{
+                                      backgroundImage: `url(${pokemon.img?.default})`,
+                                  }}
                               />
                           )}
                           <TypeList
@@ -216,13 +218,15 @@ function DailyHardGame() {
                                   value="Guess"
                                   className="game-button"
                               ></input>
-                              <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-sm game-hint-button"
-                                  onClick={() => setViewHint(!viewHint)}
-                              >
-                                  {viewHint ? 'Hide' : 'Show'} hint
-                              </button>
+                              {remainingGuesses < 4 && (
+                                  <button
+                                      type="button"
+                                      class="btn btn-outline-dark btn-sm game-hint-button"
+                                      onClick={() => setViewHint(!viewHint)}
+                                  >
+                                      {viewHint ? 'Hide' : 'Show'} hint
+                                  </button>
+                              )}
                           </form>
                           <div className="guesses">
                               {guesses &&
@@ -246,10 +250,12 @@ function DailyHardGame() {
                               You won! The Pokemon was {pokemon?.name?.english}!
                           </h2>
                           {pokemon.img && (
-                              <img
+                              <div
                                   className="game-answer"
-                                  src={pokemon.img.default}
-                                  alt={pokemon?.name?.english}
+                                  aria-label={pokemon?.name?.english}
+                                  style={{
+                                      backgroundImage: `url(${pokemon.img?.default})`,
+                                  }}
                               />
                           )}
                       </div>

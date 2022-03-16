@@ -6,7 +6,7 @@
     min-height: 90vh;
     height: 100%;
     width: 100%;
-    overflow-y: hidden;
+    overflow: hidden;
     position: relative;
 
     h1 {
@@ -28,20 +28,30 @@
 
 .select-view {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 0;
+
+    @media (min-width: 500px) {
+        width: unset;
+    }
 
     &-item {
         display: flex;
         justify-content: center;
         align-items: center;
         list-style: none;
-        width: 200px;
         height: 40px;
+        width: 140px;
         border: 1px solid black;
-        border-right: 0;
+        border-radius: 4px;
+        margin: 2px;
         background-color: #3e8bd1;
+
+        @media (min-width: 500px) {
+            width: 200px;
+        }
 
         &-button {
             background: none;
@@ -54,15 +64,6 @@
             @media (min-width: 500px) {
                 font-size: 16px;
             }
-        }
-
-        &:first-of-type {
-            border-radius: 4px 0 0 4px;
-            border-right: 0;
-        }
-        &:last-of-type {
-            border-radius: 0 4px 4px 0;
-            border-right: 1px solid black;
         }
     }
 

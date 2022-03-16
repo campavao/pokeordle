@@ -7,7 +7,7 @@ export function Instructions({ show = false, close }) {
     return (
         <Modal show={show} onHide={close} scrollable={true}>
             <Modal.Header closeButton>
-                <Modal.Title>Welcome to Pokeordle!</Modal.Title>
+                <Modal.Title>Welcome to Pokéordle!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <strong> How to play:</strong>

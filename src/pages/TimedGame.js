@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { getImg, shuffle } from './components/utils';
+import { getQuickImg, shuffle } from './components/utils';
+import {
+    collection,
+    addDoc,
+    serverTimestamp,
+    getDocs,
+    doc,
+    updateDoc,
+} from 'firebase/firestore';
 
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
+import { db } from '../firebase';
 
 function TimedGame() {
+    const [currentSolution, setCurrentSolution] = useState({});
     const [solutionList, setSolutionList] = useState([]);
     const [correctList, setCorrectList] = useState([]);
     const [guess, setGuess] = useState('');
     const [start, setStart] = useState(false);
     const [finished, setFinished] = useState(false);
     const [time, setTime] = useState(0);
+    const [displayTime, setDisplayTime] = useState(0);
     const typeRef = React.createRef();
 
     useEffect(() => {
         if (solutionList.length === 0) {
             initialize();
         }
-    }, [solutionList.length]);
+    });
 
     useEffect(() => {
         let interval;
@@ -41,18 +52,66 @@ function TimedGame() {
         };
     }, [time, finished]);
 
+    useEffect(() => {
+        async function addToLeaderboard() {
+            const username = localStorage.getItem('username');
+            if (!username) return;
+            const leaderboardEntry = {
+                user: username,
+                score: correctList.length,
+                time: displayTime,
+            };
+            const rawEntries = await getDocs(
+                collection(db, 'timed_leaderboard')
+            );
+            const previousEntries = rawEntries.docs.map((document) => {
+                return {
+                    id: document.id,
+                    ...document.data(),
+                };
+            });
+
+            const previousEntry = previousEntries.find(
+                (entry) => entry.user === username && entry.time === displayTime
+            );
+
+            if (!previousEntry) {
+                addDoc(collection(db, 'timed_leaderboard'), {
+                    ...leaderboardEntry,
+                    timestamp: serverTimestamp(),
+                });
+            } else if (
+                previousEntry.time === leaderboardEntry.time &&
+                leaderboardEntry.score > previousEntry.score
+            ) {
+                const docRef = doc(db, 'timed_leaderboard', previousEntry.id);
+                await updateDoc(docRef, {
+                    score: leaderboardEntry.score,
+                });
+            }
+        }
+        if (finished && start) {
+            addToLeaderboard();
+        }
+    }, [finished, start, correctList.length, displayTime]);
+
     const initialize = async () => {
-        const newSolutionList = await Promise.all(
-            shuffle(Array.from(pokedex)).map((pokemon) =>
-                getImg(pokemon).then((updatedMon) => updatedMon)
-            )
-        );
+        const newSolutionList = shuffle(Array.from(pokedex));
         setSolutionList(newSolutionList);
+        updateCurrentSolution(newSolutionList);
+    };
+
+    const updateCurrentSolution = (newSolutionList = solutionList) => {
+        const pokemon = newSolutionList[0];
+        getQuickImg(pokemon).then((pokeWithImg) =>
+            setCurrentSolution(pokeWithImg)
+        );
     };
 
     const handleStart = (startTime) => {
         setStart(true);
         setCorrectList([]);
+        setDisplayTime(startTime / 1000);
         setTime(startTime);
     };
 
@@ -69,6 +128,7 @@ function TimedGame() {
                 setCorrectList([valid, ...correctList]);
                 solutionList.shift();
                 setSolutionList(solutionList);
+                updateCurrentSolution();
             }
         }
     };
@@ -101,14 +161,23 @@ function TimedGame() {
             )}
 
             {!start && solutionList.length > 0 && (
-                <div className="start-buttons">
-                    <button onClick={() => handleStart(15000)}>
+                <div className="start-buttons btn-group">
+                    <button
+                        className="btn btn-outline-dark"
+                        onClick={() => handleStart(15000)}
+                    >
                         15 seconds
                     </button>
-                    <button onClick={() => handleStart(30000)}>
+                    <button
+                        className="btn btn-outline-dark"
+                        onClick={() => handleStart(30000)}
+                    >
                         30 seconds
                     </button>
-                    <button onClick={() => handleStart(60000)}>
+                    <button
+                        className="btn btn-outline-dark"
+                        onClick={() => handleStart(60000)}
+                    >
                         60 seconds
                     </button>
                 </div>
@@ -118,10 +187,12 @@ function TimedGame() {
                 ? solutionList.length > 0 && (
                       <div className="game-container">
                           <div>Time remaining: {time / 1000}</div>
-                          <img
+                          <div
                               className="game-hint"
-                              src={solutionList?.[0]?.img?.default}
                               alt="game hint"
+                              style={{
+                                  backgroundImage: `url(${currentSolution?.img?.default})`,
+                              }}
                           />
 
                           <form className="game-form" onSubmit={handleClick}>
@@ -150,13 +221,21 @@ function TimedGame() {
                   )
                 : start && (
                       <div className="game-reveal">
-                          <img
+                          <div
                               className="game-answer"
-                              src={solutionList?.[0]?.img?.default}
-                              alt={solutionList?.[0]?.name?.english}
+                              aria-label={currentSolution?.name?.english}
+                              style={{
+                                  backgroundImage: `url(${currentSolution?.img?.default})`,
+                              }}
                           />
-                          <q>{solutionList?.[0]?.name?.english}</q>
+                          <q>{currentSolution?.name?.english}</q>
                           <h2>Amount guessed correct: {correctList.length}!</h2>
+                          {localStorage.getItem('username') === '' && (
+                              <p>
+                                  Set a username above to keep track of your
+                                  score!
+                              </p>
+                          )}
                           <button
                               class="btn btn-outline-dark btn-sm game-reset"
                               onClick={() => {

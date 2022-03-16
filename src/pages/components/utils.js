@@ -47,6 +47,20 @@ export const getImg = async (pokemon) => {
     };
 };
 
+export const getQuickImg = async (pokemon) => {
+    const index = pokemon.id;
+    if (!index) return;
+    const imgNum =
+        index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
+    return await import(`../../images/${imgNum}.png`).then((imgSrc) => {
+        console.log(imgSrc);
+        return {
+            ...pokemon,
+            img: imgSrc,
+        };
+    });
+};
+
 export function shuffle(array) {
     let currentIndex = array.length,
         randomIndex;
