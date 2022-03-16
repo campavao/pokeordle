@@ -73,6 +73,7 @@ function DailyGame() {
         e.preventDefault();
         typeRef.current.clear();
         let newGuesses = [];
+        let newHasWon = false;
 
         if (guess) {
             const valid = Array.from(pokedex).find(
@@ -118,12 +119,13 @@ function DailyGame() {
                         guesses: guesses,
                     });
                     setHasWon(true);
+                    newHasWon = true;
                 }
             }
         }
 
         setRemainingGuesses(remainingGuesses - 1);
-        if (remainingGuesses - 1 === 0) {
+        if (!newHasWon && remainingGuesses - 1 === 0) {
             console.log('wiping');
             setGameState({
                 dailyWon: false,
@@ -165,8 +167,8 @@ function DailyGame() {
                 </div>
             )}
 
-            {remainingGuesses === 0 ? (
-                <h2>You lost. The Pokemon was {pokemon.name.english}.</h2>
+            {!hasWon && remainingGuesses === 0 ? (
+                <h2>You lost. The Pokemon was {pokemon?.name?.english}.</h2>
             ) : (
                 <div>Remaining guesses: {remainingGuesses}</div>
             )}
@@ -234,7 +236,7 @@ function DailyGame() {
                           </div>
                       </div>
                   )
-                : remainingGuesses > 0 && (
+                : hasWon && (
                       <div className="game-reveal">
                           <h2>
                               You won! The Pokemon was {pokemon?.name?.english}!
