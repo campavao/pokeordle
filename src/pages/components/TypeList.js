@@ -13,7 +13,7 @@ export default function TypeList(props) {
             })
             .flat()
     );
-    const typeList = Array.from(typeSet).sort((a, b) => b - a);
+    const typeList = Array.from(typeSet);
     const isTypeMissed = (type) => {
         return foundTypes.findIndex((foundType) => foundType.name === type) > -1
             ? ''
