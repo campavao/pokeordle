@@ -6,8 +6,11 @@ import './components/Guess.scss';
 export function Instructions({ show = false, close }) {
     return (
         <Modal show={show} onHide={close} scrollable={true}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton style={{ flexDirection: 'column' }}>
                 <Modal.Title>Welcome to Pokéordle!</Modal.Title>
+                <i style={{ flexDirection: 'column' }}>
+                    New Pokemon every day, once a day. Up to Gen 7.
+                </i>
             </Modal.Header>
             <Modal.Body>
                 <strong> How to play:</strong>

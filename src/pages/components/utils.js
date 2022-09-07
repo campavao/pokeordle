@@ -35,25 +35,25 @@ export const getBaseStats = (guessPokemon) => {
     return hp + attack + defense + spAttack + spDefense + speed;
 };
 
+export const getImgUrl = async (index) => {
+    const imgNum =
+        index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
+    return await import(`../../images/${imgNum}.png`);
+};
+
 export const getImg = async (pokemon) => {
     const index = pokemon.id;
     if (!index) return;
-    const imgNum =
-        index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
-    const imgSrc = await import(`../../images/${imgNum}.png`);
     return {
         ...pokemon,
-        img: imgSrc,
+        img: await getImgUrl(index),
     };
 };
 
 export const getQuickImg = async (pokemon) => {
     const index = pokemon.id;
     if (!index) return;
-    const imgNum =
-        index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
-    return await import(`../../images/${imgNum}.png`).then((imgSrc) => {
-        console.log(imgSrc);
+    return await getImgUrl(index).then((imgSrc) => {
         return {
             ...pokemon,
             img: imgSrc,

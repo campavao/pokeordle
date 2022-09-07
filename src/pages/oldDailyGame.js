@@ -7,9 +7,9 @@ import { filterSuggestions, getBaseStats, getImg } from './components/utils';
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
 
-const idList = process.env.REACT_APP_POKEMON_DAILY_HARD_LIST.split(',');
+const idList = process.env.REACT_APP_POKEMON_DAILY_LIST.split(', ');
 
-function DailyHardGame() {
+function DailyGame() {
     const [pokemon, setPokemon] = useState({});
     const [guess, setGuess] = useState('');
     const [guesses, setGuesses] = useState([]);
@@ -19,44 +19,43 @@ function DailyHardGame() {
     const [viewHint, setViewHint] = useState(false);
     const typeRef = React.createRef();
 
-    const getHardGameState = () => {
-        return JSON.parse(localStorage.getItem('hardGameState'));
+    const getGameState = () => {
+        return JSON.parse(localStorage.getItem('gameState'));
     };
 
-    const setHardGameState = (hardGameState) => {
-        localStorage.setItem('hardGameState', JSON.stringify(hardGameState));
+    const setGameState = (gameState) => {
+        localStorage.setItem('gameState', JSON.stringify(gameState));
     };
 
     useEffect(() => {
         if (!pokemon.name) {
-            const startingDate = new Date('3/15/2022').setHours(0, 0, 0, 0);
+            const startingDate = new Date('3/13/2022').setHours(0, 0, 0, 0);
             const today = new Date().setHours(0, 0, 0, 0);
             const todaysNumber = Math.round((today - startingDate) / 865e5);
-            const index = Number(idList[todaysNumber]);
+            const index = idList[todaysNumber.toFixed()]
+                ? Number(idList[todaysNumber])
+                : 0;
             const solution = Array.from(pokedex).find(
                 (poke) => poke.id === index
             );
             getImg(solution).then((updatedMon) => setPokemon(updatedMon));
 
-            const hardGameState = getHardGameState();
+            const gameState = getGameState();
 
-            if (
-                !hardGameState ||
-                hardGameState.dailyDate !== new Date().getDate()
-            ) {
+            if (!gameState || gameState.dailyDate !== new Date().getDate()) {
                 const legacyStreak = localStorage.getItem('streak');
                 const streak = legacyStreak
                     ? Number(legacyStreak)
-                    : !hardGameState
+                    : !gameState
                     ? 0
-                    : hardGameState.streak;
+                    : gameState.streak;
 
                 if (legacyStreak) {
                     localStorage.removeItem('streak');
                 }
 
                 setCurrStreak(streak);
-                setHardGameState({
+                setGameState({
                     dailyWon: false,
                     dailyDate: new Date().getDate(),
                     numGuessesLeft: 8,
@@ -64,10 +63,10 @@ function DailyHardGame() {
                     guesses: [],
                 });
             } else {
-                setHasWon(hardGameState.dailyWon);
-                setRemainingGuesses(hardGameState.numGuessesLeft);
-                setCurrStreak(hardGameState.streak);
-                setGuesses(hardGameState.guesses);
+                setHasWon(gameState.dailyWon);
+                setRemainingGuesses(gameState.numGuessesLeft);
+                setCurrStreak(gameState.streak);
+                setGuesses(gameState.guesses);
             }
         }
     }, [pokemon.name]);
@@ -109,39 +108,37 @@ function DailyHardGame() {
                 setGuesses(newGuesses);
 
                 if (valid.id === pokemon.id) {
-                    const previoushardGameState = JSON.parse(
-                        localStorage.getItem('hardGameState')
+                    const previousGameState = JSON.parse(
+                        localStorage.getItem('gameState')
                     );
-                    const streak =
-                        (Number(previoushardGameState.streak) || 0) + 1;
+                    const streak = (Number(previousGameState.streak) || 0) + 1;
                     setCurrStreak(streak);
-                    setHardGameState({
+                    setGameState({
                         dailyWon: true,
                         dailyDate: new Date().getDate(),
                         numGuessesLeft: remainingGuesses,
                         streak: streak,
                         guesses: guesses,
                     });
+                    setHasWon(true);
                     newHasWon = true;
-                    setHasWon(newHasWon);
                 }
             }
         }
 
         setRemainingGuesses(remainingGuesses - 1);
-        if (remainingGuesses - 1 === 0 && !newHasWon) {
-            console.log('wiping');
-            setHardGameState({
+        if (!newHasWon && remainingGuesses - 1 === 0) {
+            setGameState({
                 dailyWon: false,
                 dailyDate: new Date().getDate(),
                 numGuessesLeft: remainingGuesses,
                 streak: 0,
-                guesses: [],
+                guesses: newGuesses,
             });
         } else {
-            const hardGameState = getHardGameState();
-            setHardGameState({
-                ...hardGameState,
+            const gameState = getGameState();
+            setGameState({
+                ...gameState,
                 numGuessesLeft: remainingGuesses - 1,
                 guesses: newGuesses,
             });
@@ -161,7 +158,7 @@ function DailyHardGame() {
     return (
         <div className="daily-container">
             <strong className="message">
-                New Pokemon every day, once a day. Up to Gen 7.
+                New Pokemon every day, once a day. Only Gen 1.
             </strong>
             <p>Current streak: {currStreak}</p>
 
@@ -205,7 +202,7 @@ function DailyHardGame() {
                                           filterSuggestions(
                                               pokemon,
                                               guesses,
-                                              809
+                                              151
                                           )
                                       )
                                       .map((pokemon) => {
@@ -264,4 +261,4 @@ function DailyHardGame() {
     );
 }
 
-export default DailyHardGame;
+export default DailyGame;

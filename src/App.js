@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import DailyGame from './pages/DailyGame';
 import UnlimitedGame from './pages/UnlimitedGame';
 import PartyGame from './pages/PartyGame';
-import DailyHardGame from './pages/DailyHardGame';
+import DailyGame from './pages/DailyGame';
 import TimedGame from './pages/TimedGame';
 import { TimedLeaderboard } from './pages/TimedLeaderboard';
 import { Instructions } from './pages/Instructions';
@@ -14,7 +13,7 @@ function App() {
     const [viewState, setViewState] = useState(
         JSON.parse(localStorage.getItem('viewState'))
     );
-    const [view, setView] = useState(viewState?.view || 'daily');
+    const [view, setView] = useState(viewState?.view || 'Daily');
     const [showInstructions, setShowInstructions] = useState(
         viewState?.showInstructions || false
     );
@@ -36,7 +35,7 @@ function App() {
     useEffect(() => {
         if (!viewState) {
             const initalViewState = {
-                view: 'daily',
+                view: 'Daily',
                 showInstructions: true,
             };
             localStorage.setItem('viewState', JSON.stringify(initalViewState));
@@ -74,7 +73,7 @@ function App() {
                 alt="pokeordle, the pokemon guessing game"
             ></img>
 
-            {username === '' ? (
+            {/* {username === '' ? (
                 <form onSubmit={saveUsername} style={{ paddingBottom: '20px' }}>
                     <input
                         placeholder="enter username"
@@ -102,7 +101,7 @@ function App() {
                         <i class="bi bi-pen" />
                     </button>
                 </div>
-            )}
+            )} */}
 
             <button
                 className="instructions bi bi-question-circle-fill"
@@ -111,67 +110,32 @@ function App() {
 
             <div className="right-container">
                 <ul className="select-view">
-                    <li
-                        className={`select-view-item ${
-                            view === 'daily' ? 'active' : ''
-                        }`}
-                    >
-                        <button
-                            className={`select-view-item-button`}
-                            onClick={() => updateView('daily')}
-                        >
-                            Daily
-                        </button>
-                    </li>
-                    <li
-                        className={`select-view-item ${
-                            view === 'dailyhard' ? 'active' : ''
-                        }`}
-                    >
-                        <button
-                            className={`select-view-item-button`}
-                            onClick={() => updateView('dailyhard')}
-                        >
-                            Daily Hard
-                        </button>
-                    </li>
-                    <li
-                        className={`select-view-item ${
-                            view === 'unlimited' ? 'active' : ''
-                        }`}
-                    >
-                        <button
-                            className={'select-view-item-button'}
-                            onClick={() => updateView('unlimited')}
-                        >
-                            Unlimited
-                        </button>
-                    </li>
-
-                    <li
-                        className={`select-view-item ${
-                            view === 'timed' ? 'active' : ''
-                        }`}
-                    >
-                        <button
-                            className={`select-view-item-button`}
-                            onClick={() => updateView('timed')}
-                        >
-                            Timed
-                        </button>
-                    </li>
-                    <li
-                        className={`select-view-item ${
-                            view === 'leaderboard' ? 'active' : ''
-                        }`}
-                    >
-                        <button
-                            className={`select-view-item-button`}
-                            onClick={() => updateView('leaderboard')}
-                        >
-                            Leaderboard
-                        </button>
-                    </li>
+                    {/* <Button
+                        displayName="Daily"
+                        active={view === 'daily'}
+                        viewName="daily"
+                        updateView={updateView}
+                    /> */}
+                    <Button
+                        displayName="Daily"
+                        active={view === 'unlimited'}
+                        updateView={updateView}
+                    />
+                    <Button
+                        displayName="Unlimited"
+                        active={view === 'unlimited'}
+                        updateView={updateView}
+                    />
+                    {/* <Button
+                        displayName="Timed"
+                        active={view === 'timed'}
+                        updateView={updateView}
+                    />
+                    <Button
+                        displayName="Leaderboard"
+                        active={view === 'leaderboard'}
+                        updateView={updateView}
+                    /> */}
                     {/* <li
                         className={`select-view-item ${
                             view === 'party' ? 'active' : ''
@@ -185,15 +149,25 @@ function App() {
                         </button>
                     </li> */}
                 </ul>
-                {view === 'daily' && <DailyGame />}
-                {view === 'dailyhard' && <DailyHardGame />}
-                {view === 'unlimited' && <UnlimitedGame />}
-                {view === 'timed' && <TimedGame />}
-                {view === 'party' && <PartyGame />}
-                {view === 'leaderboard' && <TimedLeaderboard />}
+                {view === 'Daily' && <DailyGame />}
+                {view === 'Unlimited' && <UnlimitedGame />}
+                {view === 'Timed' && <TimedGame />}
+                {view === 'Party' && <PartyGame />}
+                {view === 'Leaderboard' && <TimedLeaderboard />}
             </div>
         </div>
     );
 }
 
 export default App;
+
+const Button = ({ displayName, active, updateView }) => (
+    <li className={`select-view-item ${active ? 'active' : ''}`}>
+        <button
+            className={`select-view-item-button`}
+            onClick={() => updateView(displayName)}
+        >
+            {displayName}
+        </button>
+    </li>
+);

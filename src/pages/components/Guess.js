@@ -1,6 +1,9 @@
 import TypeList from './TypeList';
 import './Guess.scss';
 
+import { getImgUrl } from './utils';
+import { useEffect, useState } from 'react';
+
 const generations = [
     {
         name: 'Gen 1',
@@ -32,19 +35,62 @@ const generations = [
     },
 ];
 
+export const determineProximity = (checkNum) => {
+    return checkNum < 20 ? 'correct' : checkNum < 100 ? 'almost' : 'absent';
+};
+
 export default function Guess(props) {
-    const { guess, pokemon, showArrows = false, showId = false } = props;
-    const { name, index, types, baseTotal } = guess;
-
-    const determineProximity = (checkNum) => {
-        return checkNum < 20 ? 'correct' : checkNum < 100 ? 'almost' : 'absent';
+    const {
+        guess,
+        pokemon,
+        showArrows = false,
+        showId = false,
+        empty = false,
+    } = props;
+    const { name, index, types, baseTotal } = guess ?? {
+        name: '?',
+        index: 0,
+        types: ['?', '?'],
+        baseTotal: 0,
     };
+    const [image, setImage] = useState('');
 
-    function Name() {
+    useEffect(() => {
+        async function updateImage() {
+            const img = await getImgUrl(index.id);
+            setImage(img);
+        }
+        if (index.id > 0) {
+            updateImage();
+        }
+    }, [index]);
+
+    if (empty) {
+        return (
+            <div className="guess" key="unknown">
+                <Name empty />
+                <Generation empty />
+                <Types empty />
+                <BaseTotal empty />
+            </div>
+        );
+    }
+
+    function Name({ empty }) {
+        if (empty) {
+            return <div className="name">?</div>;
+        }
+
         const absIndexDifference = Math.abs(index.difference);
         const baseIndexClass = determineProximity(absIndexDifference);
         return (
             <div className="name">
+                <div
+                    className="game-hint"
+                    style={{
+                        backgroundImage: `url(${image?.default})`,
+                    }}
+                />
                 {name}
                 {showId && (
                     <span className={baseIndexClass}>
@@ -62,26 +108,44 @@ export default function Guess(props) {
         );
     }
 
-    function Types() {
+    function Types({ empty }) {
         return (
-            <div className="types-container">
-                <div>Types:</div>
-                <TypeList
-                    types={types}
-                    useTypeColors={false}
-                    possibleTypes={pokemon.type.length}
-                />
+            <div className="types-container" aria-label="types">
+                {!empty ? (
+                    <TypeList
+                        types={types}
+                        useTypeColors={false}
+                        possibleTypes={pokemon.type.length}
+                    />
+                ) : (
+                    <ul className="type-list">
+                        <li
+                            key="unknown-1"
+                            className="type-list-item absent-type"
+                        >
+                            <i class="bi bi-question-lg"></i>
+                        </li>
+                        <li
+                            key="unknown-2"
+                            className="type-list-item absent-type"
+                        >
+                            <i class="bi bi-question-lg"></i>
+                        </li>
+                    </ul>
+                )}
             </div>
         );
     }
 
-    function BaseTotal() {
-        const absTotalDifference = Math.abs(baseTotal.difference);
+    function BaseTotal({ empty }) {
+        const absTotalDifference = Math.abs(
+            baseTotal ? baseTotal.difference : 9999
+        );
         const baseTotalClass = determineProximity(absTotalDifference);
         return (
             <div className={`base-total ${baseTotalClass}`}>
-                Base stat total: {baseTotal.total}{' '}
-                {showArrows && (
+                Base stat total: {empty ? '?' : baseTotal.total}{' '}
+                {showArrows && !empty && (
                     <i
                         className={`bi bi-arrow-${
                             baseTotal.difference > 0 ? 'up' : 'down'
@@ -92,7 +156,10 @@ export default function Guess(props) {
         );
     }
 
-    function Generation() {
+    function Generation({ empty }) {
+        if (empty) {
+            return <div className="generation absent">Gen ?</div>;
+        }
         const findGen = (gen, toFind) => {
             const foundIndex = toFind.index ? toFind.index : toFind;
             return foundIndex.id <= gen.range;
