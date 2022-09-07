@@ -21,12 +21,12 @@ export default function TypeList(props) {
     };
 
     if (possibleTypes && typeList.length < 2) {
-        typeList.push('X');
+        typeList.push(possibleTypes === 1 ? 'X' : '?');
     }
 
     return (
         <ul className="type-list">
-            {typeList.map((type, index) => {
+            {typeList.map((type) => {
                 const foundType = foundTypes.find(
                     (foundType) => foundType.name === type
                 );

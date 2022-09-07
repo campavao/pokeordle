@@ -39,6 +39,20 @@ export function useDailyGame(gameName = 'hardGameState') {
     }, [hasWon, guesses, pokemon]);
 
     useEffect(() => {
+        if (remainingGuesses < 0) {
+            setGameState({
+                dailyWon: false,
+                dailyDate: new Date().getDate(),
+                numGuessesLeft: 0,
+                streak: 0,
+                guesses: guesses,
+            });
+            setHasWon(false);
+            setRemainingGuesses(0);
+        }
+    }, [gameState, guesses, setGameState, remainingGuesses]);
+
+    useEffect(() => {
         if (!pokemon.name) {
             const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
             const index = Number(ID_LIST[todaysNumber]);
@@ -48,16 +62,7 @@ export function useDailyGame(gameName = 'hardGameState') {
             getImg(solution).then((updatedMon) => setPokemon(updatedMon));
 
             if (!gameState || gameState.dailyDate !== new Date().getDate()) {
-                const legacyStreak = localStorage.getItem('streak');
-                const streak = legacyStreak
-                    ? Number(legacyStreak)
-                    : !gameState
-                    ? 0
-                    : gameState.streak;
-
-                if (legacyStreak) {
-                    localStorage.removeItem('streak');
-                }
+                const streak = !gameState ? 0 : gameState.streak;
 
                 setCurrStreak(streak);
                 setGameState({
@@ -133,19 +138,20 @@ export function useDailyGame(gameName = 'hardGameState') {
             }
         }
 
-        setRemainingGuesses(remainingGuesses - 1);
-        if (remainingGuesses - 1 === 0 && !newHasWon) {
+        const totalGuessesLeft = remainingGuesses - 1;
+        setRemainingGuesses(totalGuessesLeft);
+        if (totalGuessesLeft === 0 && !newHasWon) {
             setGameState({
                 dailyWon: false,
                 dailyDate: new Date().getDate(),
-                numGuessesLeft: remainingGuesses,
+                numGuessesLeft: 0,
                 streak: 0,
-                guesses: [],
+                guesses: guesses,
             });
         } else {
             setGameState({
                 ...gameState,
-                numGuessesLeft: remainingGuesses - 1,
+                numGuessesLeft: totalGuessesLeft,
                 guesses: newGuesses,
             });
         }

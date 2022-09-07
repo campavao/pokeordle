@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import { determineProximity } from './components/Guess';
 
 import { START_DATE, TODAY_DATE } from './constants';
-import { useDailyGame } from './hooks/useDailyGame';
 import { copyToClipboard } from './copyToClipboard';
 
 import './components/Guess.scss';

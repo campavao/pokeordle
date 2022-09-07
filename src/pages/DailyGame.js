@@ -24,7 +24,9 @@ function DailyGame() {
     } = useDailyGame('hardGameState');
     const [showAnswer, setShowAnswer] = useState(hasWon);
 
-    const emptyGuesses = new Array(8 - guesses.length);
+    const emptyGuesses = ['?', '?', '?', '?', '?', '?', '?', '?'].slice(
+        guesses.length
+    );
 
     useEffect(() => {
         if (hasWon && !showAnswer) {
@@ -39,7 +41,7 @@ function DailyGame() {
                 <div>
                     Game is loading, may take a minute. Please wait/refresh.
                 </div>
-            ) : !hasWon && remainingGuesses === 0 ? (
+            ) : !hasWon && remainingGuesses >= 0 ? (
                 <h2>You lost. The Pokemon was {pokemon?.name?.english}.</h2>
             ) : (
                 <div>Remaining guesses: {remainingGuesses}</div>
@@ -80,17 +82,19 @@ function DailyGame() {
                             type="submit"
                             value="Guess"
                             className="game-button"
-                            disabled={hasWon}
+                            disabled={hasWon || remainingGuesses <= 0}
                         ></input>
-                        {!hasWon && remainingGuesses < 4 && (
-                            <button
-                                type="button"
-                                class="btn btn-outline-dark btn-sm game-hint-button"
-                                onClick={() => setViewHint(!viewHint)}
-                            >
-                                {viewHint ? 'Hide' : 'Show'} hint
-                            </button>
-                        )}
+                        {!hasWon &&
+                            remainingGuesses < 4 &&
+                            remainingGuesses > 0 && (
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-dark btn-sm game-hint-button"
+                                    onClick={() => setViewHint(!viewHint)}
+                                >
+                                    {viewHint ? 'Hide' : 'Show'} hint
+                                </button>
+                            )}
                         {(hasWon || remainingGuesses === 0) && (
                             <button
                                 type="button"
