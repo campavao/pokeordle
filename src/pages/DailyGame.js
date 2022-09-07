@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
@@ -25,9 +25,15 @@ function DailyGame() {
 
     const emptyGuesses = new Array(8 - guesses.length);
 
+    useEffect(() => {
+        if (hasWon && !showAnswer) {
+            setShowAnswer(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hasWon]);
+
     return (
         <div className="daily-container">
-            <GameAnswer show={showAnswer} close={() => setShowAnswer(false)} />
             {!pokemon.name ? (
                 <div>
                     Game is loading, may take a minute. Please wait/refresh.
@@ -112,6 +118,7 @@ function DailyGame() {
                     </div>
                 </div>
             )}
+            <GameAnswer show={showAnswer} close={() => setShowAnswer(false)} />
         </div>
     );
 }

@@ -17,11 +17,12 @@ function App() {
     const [showInstructions, setShowInstructions] = useState(
         viewState?.showInstructions || false
     );
-    const [username, setUsername] = useState(
-        localStorage.getItem('username') || ''
-    );
+    // const [username, setUsername] = useState(
+    //     localStorage.getItem('username') || ''
+    // );
 
     const updateView = (newView) => {
+        console.log(newView);
         setView(newView);
         localStorage.setItem(
             'viewState',
@@ -57,12 +58,12 @@ function App() {
         setShowInstructions(false);
     };
 
-    const saveUsername = (e) => {
-        e.preventDefault();
-        const username = e.target?.[0]?.value;
-        localStorage.setItem('username', username);
-        setUsername(username);
-    };
+    // const saveUsername = (e) => {
+    //     e.preventDefault();
+    //     const username = e.target?.[0]?.value;
+    //     localStorage.setItem('username', username);
+    //     setUsername(username);
+    // };
 
     return (
         <div className="container">
@@ -118,12 +119,12 @@ function App() {
                     /> */}
                     <Button
                         displayName="Daily"
-                        active={view === 'unlimited'}
+                        active={view === 'Daily'}
                         updateView={updateView}
                     />
                     <Button
                         displayName="Unlimited"
-                        active={view === 'unlimited'}
+                        active={view === 'Unlimited'}
                         updateView={updateView}
                     />
                     {/* <Button
@@ -149,7 +150,7 @@ function App() {
                         </button>
                     </li> */}
                 </ul>
-                {view === 'Daily' && <DailyGame />}
+                {(view === 'Daily' || view === 'dailyhard') && <DailyGame />}
                 {view === 'Unlimited' && <UnlimitedGame />}
                 {view === 'Timed' && <TimedGame />}
                 {view === 'Party' && <PartyGame />}
