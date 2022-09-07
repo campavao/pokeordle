@@ -91,18 +91,8 @@ export function Instructions({ show = false, close }) {
                     <br />
                     <br />
                     <div style={{ display: 'flex' }}>
-                        <li className="type-list-item absent-type">NORMAL</li>
-                        <li className="type-list-item mono-type">FAIRY</li>
-                    </div>
-                    <div>
-                        Here the guess has two types, but the Pokemon only has
-                        one.
-                    </div>
-                    <br />
-                    <br />
-                    <div style={{ display: 'flex' }}>
                         <li className="type-list-item absent-type">WATER</li>
-                        <li className="type-list-item mono-type">
+                        <li className="type-list-item correct-type">
                             <i class={`bi bi-x-lg`}></i>
                         </li>
                     </div>

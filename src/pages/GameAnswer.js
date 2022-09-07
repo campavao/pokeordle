@@ -10,9 +10,15 @@ import { copyToClipboard } from './copyToClipboard';
 
 import './components/Guess.scss';
 
-export function GameAnswer({ show, close }) {
-    const { pokemon, currStreak, remainingGuesses, guesses } =
-        useDailyGame('hardGameState');
+export function GameAnswer({
+    show,
+    close,
+    hasWon,
+    guesses,
+    pokemon,
+    currStreak,
+    remainingGuesses,
+}) {
     const [copyMessage, setCopyMessage] = useState('Share');
 
     const handleShare = async () => {
@@ -20,7 +26,7 @@ export function GameAnswer({ show, close }) {
         const emojiGrid = generateEmojiGrid();
 
         const textToShare = `Pokeordle ${todaysNumber} ${
-            8 - remainingGuesses
+            remainingGuesses === 0 ? 'X' : 8 - remainingGuesses
         }/8 \n\n${emojiGrid}`;
 
         setCopyMessage('Copied!');
@@ -77,7 +83,7 @@ export function GameAnswer({ show, close }) {
                         justifyContent: 'center',
                     }}
                 >
-                    <Modal.Title>You won!</Modal.Title>
+                    <Modal.Title>You {hasWon ? 'won!' : 'lost.'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="game-reveal">

@@ -86,7 +86,7 @@ export default function Guess(props) {
         return (
             <div className="name">
                 <div
-                    className="game-hint"
+                    className="game-answer"
                     style={{
                         backgroundImage: `url(${image?.default})`,
                     }}

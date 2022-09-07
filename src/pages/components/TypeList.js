@@ -21,7 +21,7 @@ export default function TypeList(props) {
     };
 
     if (possibleTypes && typeList.length < 2) {
-        typeList.push('');
+        typeList.push('X');
     }
 
     return (
@@ -36,8 +36,8 @@ export default function TypeList(props) {
                     ? 'correct-type'
                     : foundType?.isFound
                     ? 'almost-type'
-                    : index >= possibleTypes
-                    ? 'mono-type'
+                    : type === 'X'
+                    ? 'correct-type'
                     : 'absent-type';
 
                 return (
@@ -45,7 +45,7 @@ export default function TypeList(props) {
                         key={type}
                         className={`type-list-item ${typeClassName}`}
                     >
-                        {type !== '' ? (
+                        {type !== 'X' ? (
                             type.toUpperCase()
                         ) : (
                             <i

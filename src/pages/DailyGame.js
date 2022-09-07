@@ -16,6 +16,7 @@ function DailyGame() {
         remainingGuesses,
         viewHint,
         typeRef,
+        currStreak,
         handleClick,
         handleType,
         handleTypeAhead,
@@ -90,7 +91,7 @@ function DailyGame() {
                                 {viewHint ? 'Hide' : 'Show'} hint
                             </button>
                         )}
-                        {hasWon && (
+                        {(hasWon || remainingGuesses === 0) && (
                             <button
                                 type="button"
                                 class="btn btn-outline-dark btn-sm game-hint-button"
@@ -118,7 +119,15 @@ function DailyGame() {
                     </div>
                 </div>
             )}
-            <GameAnswer show={showAnswer} close={() => setShowAnswer(false)} />
+            <GameAnswer
+                show={showAnswer}
+                close={() => setShowAnswer(false)}
+                hasWon={hasWon}
+                guesses={guesses}
+                pokemon={pokemon}
+                currStreak={currStreak}
+                remainingGuesses={remainingGuesses}
+            />
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import UnlimitedGame from './pages/UnlimitedGame';
 import PartyGame from './pages/PartyGame';
 import DailyGame from './pages/DailyGame';
@@ -8,6 +8,8 @@ import { Instructions } from './pages/Instructions';
 import logo from './images/Pokeordle.png';
 
 import './App.scss';
+
+export const DailyContext = createContext({ remainingGuesses: 0, guesses: [] });
 
 function App() {
     const [viewState, setViewState] = useState(
@@ -22,7 +24,6 @@ function App() {
     // );
 
     const updateView = (newView) => {
-        console.log(newView);
         setView(newView);
         localStorage.setItem(
             'viewState',
@@ -150,7 +151,13 @@ function App() {
                         </button>
                     </li> */}
                 </ul>
-                {(view === 'Daily' || view === 'dailyhard') && <DailyGame />}
+                {(view === 'Daily' || view === 'dailyhard') && (
+                    <>
+                        <DailyContext.Provider>
+                            <DailyGame />
+                        </DailyContext.Provider>
+                    </>
+                )}
                 {view === 'Unlimited' && <UnlimitedGame />}
                 {view === 'Timed' && <TimedGame />}
                 {view === 'Party' && <PartyGame />}
