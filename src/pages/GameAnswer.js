@@ -38,8 +38,8 @@ export function GameAnswer({ show, close }) {
         isExact ? '🟩' : isClose ? '🟨' : '⬛';
 
     const generateEmojiGrid = useCallback(() => {
-        return guesses
-            .reverse()
+        const guessesCopy = [...guesses];
+        return guessesCopy
             .map((guess) => {
                 const { baseTotal, index } = guess;
                 const indexDifference = Math.abs(index.difference);
