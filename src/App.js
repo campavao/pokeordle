@@ -153,7 +153,9 @@ function App() {
                 </ul>
                 {(view === 'Daily' || view === 'dailyhard') && (
                     <>
-                        <DailyContext.Provider>
+                        <DailyContext.Provider
+                            value={{ remainingGuesses: 0, guesses: [] }}
+                        >
                             <DailyGame />
                         </DailyContext.Provider>
                     </>

@@ -25,7 +25,7 @@ export function GameAnswer({
         const emojiGrid = generateEmojiGrid();
 
         const textToShare = `Pokeordle ${todaysNumber} ${
-            remainingGuesses === 0 ? 'X' : 8 - remainingGuesses
+            remainingGuesses === 0 && !hasWon ? 'X' : 8 - remainingGuesses
         }/8 \n\n${emojiGrid}`;
 
         setCopyMessage('Copied!');

@@ -1,8 +1,11 @@
-import TypeList from './TypeList';
-import './Guess.scss';
+import { useEffect, useState, useRef } from 'react';
+import { Popover, OverlayTrigger, ProgressBar } from 'react-bootstrap';
 
 import { getImgUrl } from './utils';
-import { useEffect, useState } from 'react';
+
+import TypeList from './TypeList';
+
+import './Guess.scss';
 
 const generations = [
     {
@@ -51,9 +54,14 @@ export default function Guess(props) {
         name: '?',
         index: 0,
         types: ['?', '?'],
-        baseTotal: 0,
+        baseTotal: {
+            total: 0,
+            difference: 0,
+            stats: null,
+        },
     };
     const [image, setImage] = useState('');
+    const ref = useRef(null);
 
     useEffect(() => {
         async function updateImage() {
@@ -139,20 +147,53 @@ export default function Guess(props) {
 
     function BaseTotal({ empty }) {
         const absTotalDifference = Math.abs(
-            baseTotal ? baseTotal.difference : 9999
+            baseTotal.total ? baseTotal.difference : 9999
         );
         const baseTotalClass = determineProximity(absTotalDifference);
+        const stats = baseTotal.stats;
+
+        const popover = stats && (
+            <Popover id="popover-basic" {...props}>
+                <Popover.Body>
+                    <ul
+                        style={{
+                            listStyle: 'none',
+                            padding: '10px',
+                            margin: '0',
+                        }}
+                    >
+                        {Object.entries(stats).map(([name, value]) => (
+                            <li>
+                                <p>
+                                    {name}: {value}
+                                </p>
+                                <ProgressBar
+                                    now={Math.round((value / 255) * 100)}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                </Popover.Body>
+            </Popover>
+        );
         return (
-            <div className={`base-total ${baseTotalClass}`}>
-                Base stat total: {empty ? '?' : baseTotal.total}{' '}
-                {showArrows && !empty && (
-                    <i
-                        className={`bi bi-arrow-${
-                            baseTotal.difference > 0 ? 'up' : 'down'
-                        }`}
-                    ></i>
-                )}
-            </div>
+            <OverlayTrigger
+                trigger="click"
+                overlay={popover}
+                container={ref}
+                placement="bottom"
+            >
+                <div className={`base-total ${baseTotalClass}`}>
+                    Base stat total: {empty ? '?' : baseTotal.total}{' '}
+                    {showArrows && !empty && (
+                        <i
+                            className={`bi bi-arrow-${
+                                baseTotal.difference > 0 ? 'up' : 'down'
+                            }`}
+                        ></i>
+                    )}
+                </div>
+            </OverlayTrigger>
         );
     }
 
@@ -189,7 +230,7 @@ export default function Guess(props) {
     }
 
     return (
-        <div className="guess" key={name}>
+        <div className="guess" key={name} ref={ref}>
             <Name />
             <Generation />
             <Types />

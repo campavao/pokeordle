@@ -87,7 +87,7 @@ export function useDailyGame(gameName = 'hardGameState') {
         let newGuesses = [];
         let newHasWon = false;
 
-        if (guess) {
+        if (guess.length > 1) {
             const valid = Array.from(pokedex).find(
                 (pokemon) =>
                     pokemon.name.english.toLowerCase() === guess.toLowerCase()
@@ -112,11 +112,13 @@ export function useDailyGame(gameName = 'hardGameState') {
                     baseTotal: {
                         total: validBaseTotal,
                         difference: pokemonBaseTotal - validBaseTotal,
+                        stats: valid.base,
                     },
                 };
                 newGuesses = [...guesses, guess];
 
                 setGuesses(newGuesses);
+                setGuess('');
 
                 if (valid.id === pokemon.id) {
                     const previoushardGameState = JSON.parse(
@@ -136,24 +138,24 @@ export function useDailyGame(gameName = 'hardGameState') {
                     setHasWon(newHasWon);
                 }
             }
-        }
 
-        const totalGuessesLeft = remainingGuesses - 1;
-        setRemainingGuesses(totalGuessesLeft);
-        if (totalGuessesLeft === 0 && !newHasWon) {
-            setGameState({
-                dailyWon: false,
-                dailyDate: new Date().getDate(),
-                numGuessesLeft: 0,
-                streak: 0,
-                guesses: guesses,
-            });
-        } else {
-            setGameState({
-                ...gameState,
-                numGuessesLeft: totalGuessesLeft,
-                guesses: newGuesses,
-            });
+            const totalGuessesLeft = remainingGuesses - 1;
+            setRemainingGuesses(totalGuessesLeft);
+            if (totalGuessesLeft === 0 && !newHasWon) {
+                setGameState({
+                    dailyWon: false,
+                    dailyDate: new Date().getDate(),
+                    numGuessesLeft: 0,
+                    streak: 0,
+                    guesses: guesses,
+                });
+            } else {
+                setGameState({
+                    ...gameState,
+                    numGuessesLeft: totalGuessesLeft,
+                    guesses: newGuesses,
+                });
+            }
         }
     };
 

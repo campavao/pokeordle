@@ -35,6 +35,8 @@ function DailyGame() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasWon]);
 
+    const finished = hasWon || remainingGuesses === 0;
+
     return (
         <div className="daily-container">
             {!pokemon.name ? (
@@ -62,28 +64,36 @@ function DailyGame() {
                         types={guesses.map((guess) => guess.types).flat()}
                     />
                     <form className="game-form" onSubmit={handleClick}>
-                        <Typeahead
-                            id="input"
-                            role="input"
-                            className="game-input"
-                            onChange={handleTypeAhead}
-                            onInputChange={handleType}
-                            placeholder="who's that pokemon?"
-                            options={Array.from(pokedex)
-                                .filter((pokemon) =>
-                                    filterSuggestions(pokemon, guesses, 809)
-                                )
-                                .map((pokemon) => {
-                                    return pokemon.name.english;
-                                })}
-                            ref={typeRef}
-                        />
-                        <input
-                            type="submit"
-                            value="Guess"
-                            className="game-button"
-                            disabled={hasWon || remainingGuesses <= 0}
-                        ></input>
+                        {!finished && (
+                            <>
+                                <Typeahead
+                                    id="input"
+                                    role="input"
+                                    className="game-input"
+                                    onChange={handleTypeAhead}
+                                    onInputChange={handleType}
+                                    placeholder="who's that pokemon?"
+                                    options={Array.from(pokedex)
+                                        .filter((pokemon) =>
+                                            filterSuggestions(
+                                                pokemon,
+                                                guesses,
+                                                809
+                                            )
+                                        )
+                                        .map((pokemon) => {
+                                            return pokemon.name.english;
+                                        })}
+                                    ref={typeRef}
+                                />
+                                <input
+                                    type="submit"
+                                    value="Guess"
+                                    className="game-button"
+                                    disabled={hasWon || remainingGuesses <= 0}
+                                ></input>
+                            </>
+                        )}
                         {!hasWon &&
                             remainingGuesses < 4 &&
                             remainingGuesses > 0 && (
@@ -95,7 +105,7 @@ function DailyGame() {
                                     {viewHint ? 'Hide' : 'Show'} hint
                                 </button>
                             )}
-                        {(hasWon || remainingGuesses === 0) && (
+                        {finished && (
                             <button
                                 type="button"
                                 class="btn btn-outline-dark btn-sm game-hint-button"
