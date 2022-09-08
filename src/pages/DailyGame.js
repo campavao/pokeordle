@@ -41,7 +41,7 @@ function DailyGame() {
                 <div>
                     Game is loading, may take a minute. Please wait/refresh.
                 </div>
-            ) : !hasWon && remainingGuesses >= 0 ? (
+            ) : !hasWon && remainingGuesses <= 0 ? (
                 <h2>You lost. The Pokemon was {pokemon?.name?.english}.</h2>
             ) : (
                 <div>Remaining guesses: {remainingGuesses}</div>
