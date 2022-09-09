@@ -1,7 +1,18 @@
+import { GENERATIONS } from '../constants';
+
 export const getIntWithinRange = (input, min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(input * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+};
+
+const getGenerationRange = (generation) => {
+    const min = generation === 0 ? 0 : GENERATIONS[generation - 1].range;
+    const max = GENERATIONS[generation].range;
+    return {
+        min,
+        max,
+    };
 };
 
 export const filterSuggestions = (
@@ -9,10 +20,14 @@ export const filterSuggestions = (
     guesses,
     genCap,
     filter = [],
-    excludedFilter = []
+    excludedFilter = [],
+    genNumber
 ) => {
+    const genFilter = !genNumber ? false : getGenerationRange(genNumber);
     return (
         pokemon.id <= genCap &&
+        (!genFilter ||
+            (pokemon.id > genFilter.min && pokemon.id <= genFilter.max)) &&
         (filter.length === 0 ||
             filter.every((filterType) =>
                 pokemon.type

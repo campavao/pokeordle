@@ -107,6 +107,7 @@ h2 {
 .show-filter {
     max-height: fit-content;
     transition: max-height 0.25s ease-in;
+    overflow: inherit;
 }
 
 .filter-button {

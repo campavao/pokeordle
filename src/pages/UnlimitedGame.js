@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Guess from './components/Guess';
 import TypeFilter from './components/TypeFilter';
 import {
@@ -8,6 +9,7 @@ import {
     getBaseStats,
     getImg,
 } from './components/utils';
+import { GENERATIONS } from './constants';
 
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
@@ -21,6 +23,7 @@ function UnlimitedGame() {
     const [showFilters, setShowFilters] = useState(true);
     const [includedFilter, setIncludedFilter] = useState([]);
     const [excludedFilter, setExcludedFilter] = useState([]);
+    const [genFilter, setGenFilter] = useState(null);
     const typeRef = React.createRef();
 
     useEffect(() => {
@@ -48,6 +51,7 @@ function UnlimitedGame() {
             );
 
             if (valid) {
+                setGuess('');
                 const pokemonBaseTotal = getBaseStats(pokemon);
                 const validBaseTotal = getBaseStats(valid);
                 const guess = {
@@ -66,6 +70,7 @@ function UnlimitedGame() {
                     baseTotal: {
                         total: validBaseTotal,
                         difference: pokemonBaseTotal - validBaseTotal,
+                        stats: valid.base,
                     },
                 };
                 setGuesses([guess, ...guesses]);
@@ -87,6 +92,7 @@ function UnlimitedGame() {
                     setHasWon(true);
                     setExcludedFilter([]);
                     setIncludedFilter([]);
+                    setGenFilter(null);
                 }
             }
         }
@@ -148,6 +154,10 @@ function UnlimitedGame() {
                                 showFilters && 'show-filter'
                             }`}
                         >
+                            <GenFilterDropdown
+                                onClick={setGenFilter}
+                                currentGenFilter={genFilter}
+                            />
                             <TypeFilter
                                 includedFilter={includedFilter}
                                 excludedFilter={excludedFilter}
@@ -180,7 +190,8 @@ function UnlimitedGame() {
                                             guesses,
                                             809,
                                             includedFilter,
-                                            excludedFilter
+                                            excludedFilter,
+                                            genFilter
                                         )
                                     )
                                     .map((pokemon) => {
@@ -240,6 +251,32 @@ function UnlimitedGame() {
                 </div>
             )}
         </div>
+    );
+}
+
+function GenFilterDropdown({ onClick, currentGenFilter }) {
+    return (
+        <Dropdown>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Filter Generation
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+                {GENERATIONS.map(({ name }, index) => (
+                    <Dropdown.Item
+                        active={index === currentGenFilter}
+                        onClick={() =>
+                            onClick(index !== currentGenFilter ? index : null)
+                        }
+                    >
+                        {name}
+                    </Dropdown.Item>
+                ))}
+                <Dropdown.Item onClick={() => onClick(null)}>
+                    Reset
+                </Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
     );
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { determineProximity } from './components/Guess';
+import { determineProximity, determineGeneration } from './components/Guess';
 
 import { START_DATE, TODAY_DATE } from './constants';
 import { copyToClipboard } from './copyToClipboard';
@@ -32,12 +32,18 @@ export function GameAnswer({
         copyToClipboard(textToShare);
     };
 
-    const getTypeEmoji = useCallback((types) => {
-        const typeEmojis = types.map(({ isFound, isSameIndex }) =>
-            generateEmoji(isFound && isSameIndex, isFound)
-        );
-        return typeEmojis.length > 1 ? typeEmojis.join('') : `${typeEmojis}🟩`;
-    }, []);
+    const getTypeEmoji = useCallback(
+        (types) => {
+            const possibleTypes = pokemon.type.length;
+            const typeEmojis = types.map(({ isFound, isSameIndex }) =>
+                generateEmoji(isFound && isSameIndex, isFound)
+            );
+            return typeEmojis.length > 1
+                ? typeEmojis.join('')
+                : `${typeEmojis}${possibleTypes === 1 ? '🟩' : '⬛'}`;
+        },
+        [pokemon?.type?.length]
+    );
 
     const generateEmoji = (isExact, isClose) =>
         isExact ? '🟩' : isClose ? '🟨' : '⬛';
@@ -48,15 +54,21 @@ export function GameAnswer({
             .map((guess) => {
                 const { baseTotal, index } = guess;
                 const indexDifference = Math.abs(index.difference);
+                const { proximity: genProximity } = determineGeneration(
+                    guess,
+                    pokemon
+                );
                 const baseTotalDifference = Math.abs(baseTotal.difference);
+                const baseTotalProximity =
+                    determineProximity(baseTotalDifference);
 
                 // Set Name, dumb I know but good enough for now
                 let guessText = generateEmoji(indexDifference === 0, false);
 
                 // Set Gen
                 guessText += generateEmoji(
-                    determineProximity(indexDifference) === 'correct',
-                    determineProximity(indexDifference) === 'almost'
+                    genProximity === 'correct',
+                    genProximity === 'almost'
                 );
 
                 // Set Types
@@ -64,14 +76,14 @@ export function GameAnswer({
 
                 // Set Base Total
                 guessText += generateEmoji(
-                    determineProximity(baseTotalDifference) === 'correct',
-                    determineProximity(baseTotalDifference) === 'almost'
+                    baseTotalProximity === 'correct',
+                    baseTotalProximity === 'almost'
                 );
 
                 return guessText;
             })
             .join('\n');
-    }, [guesses, getTypeEmoji]);
+    }, [guesses, getTypeEmoji, pokemon]);
     return (
         <>
             <Modal show={show} onHide={close} scrollable={true}>
