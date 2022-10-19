@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { filterSuggestions } from './components/utils';
+import { filterSuggestions, getFilters } from './components/utils';
 import { useDailyGame } from './hooks/useDailyGame';
 import { GameAnswer } from './GameAnswer';
 import * as pokedex from './pokedex.json';
@@ -16,7 +16,6 @@ function DailyGame() {
         remainingGuesses,
         viewHint,
         typeRef,
-        currStreak,
         handleClick,
         handleType,
         handleTypeAhead,
@@ -32,10 +31,14 @@ function DailyGame() {
         if (hasWon && !showAnswer) {
             setShowAnswer(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasWon]);
 
     const finished = hasWon || remainingGuesses === 0;
+
+    const { guessedGen, includeFilter, excludedFilter } = getFilters(
+        guesses,
+        pokemon
+    );
 
     return (
         <div className="daily-container">
@@ -78,7 +81,10 @@ function DailyGame() {
                                             filterSuggestions(
                                                 pokemon,
                                                 guesses,
-                                                809
+                                                809,
+                                                includeFilter,
+                                                excludedFilter,
+                                                guessedGen
                                             )
                                         )
                                         .map((pokemon) => {
@@ -133,15 +139,16 @@ function DailyGame() {
                     </div>
                 </div>
             )}
-            <GameAnswer
-                show={showAnswer}
-                close={() => setShowAnswer(false)}
-                hasWon={hasWon}
-                guesses={guesses}
-                pokemon={pokemon}
-                currStreak={currStreak}
-                remainingGuesses={remainingGuesses}
-            />
+            {showAnswer && (
+                <GameAnswer
+                    show
+                    close={() => setShowAnswer(false)}
+                    hasWon={hasWon}
+                    guesses={guesses}
+                    pokemon={pokemon}
+                    remainingGuesses={remainingGuesses}
+                />
+            )}
         </div>
     );
 }

@@ -2,22 +2,19 @@ import React, { useState, useCallback } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { determineProximity, determineGeneration } from './components/Guess';
+import { determineProximity } from './components/Guess';
+import { determineGeneration } from './components/utils';
+
+import { useDailyGame } from './hooks/useDailyGame';
 
 import { START_DATE, TODAY_DATE } from './constants';
 import { copyToClipboard } from './copyToClipboard';
 
 import './components/Guess.scss';
 
-export function GameAnswer({
-    show,
-    close,
-    hasWon,
-    guesses,
-    pokemon,
-    currStreak,
-    remainingGuesses,
-}) {
+export function GameAnswer({ show, close }) {
+    const { pokemon, guesses, hasWon, remainingGuesses, streak } =
+        useDailyGame('hardGameState');
     const [copyMessage, setCopyMessage] = useState('Share');
 
     const handleShare = async () => {
@@ -105,7 +102,7 @@ export function GameAnswer({
                         >
                             The Pokemon was {pokemon?.name?.english}!
                         </h2>
-                        Current Streak: {currStreak}
+                        Current Streak: {streak}
                         {pokemon.img && (
                             <div
                                 className="game-answer"

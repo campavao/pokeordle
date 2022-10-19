@@ -1,5 +1,25 @@
 import { GENERATIONS } from '../constants';
 
+export const determineGeneration = (guess, pokemon) => {
+    const findGen = (gen, toFind) => {
+        const foundIndex = toFind.index ? toFind.index : toFind;
+        return foundIndex.id <= gen.range;
+    };
+    const guessGeneration = GENERATIONS.find((gen) => findGen(gen, guess));
+    const pokemonGeneration = GENERATIONS.find((gen) => findGen(gen, pokemon));
+    const difference = Math.abs(
+        Number(guessGeneration.name.replace('Gen ', '')) -
+            Number(pokemonGeneration.name.replace('Gen ', ''))
+    );
+    const proximity =
+        difference === 0 ? 'correct' : difference === 1 ? 'almost' : 'absent';
+    return {
+        proximity,
+        guessGeneration,
+        pokemonGeneration,
+    };
+};
+
 export const getIntWithinRange = (input, min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -23,7 +43,7 @@ export const filterSuggestions = (
     excludedFilter = [],
     genNumber
 ) => {
-    const genFilter = !genNumber ? false : getGenerationRange(genNumber);
+    const genFilter = isNaN(genNumber) ? false : getGenerationRange(genNumber);
     return (
         pokemon.id <= genCap &&
         (!genFilter ||
@@ -94,4 +114,42 @@ export function shuffle(array) {
     }
 
     return array;
+}
+
+export function getFilters(guesses, pokemon) {
+    const types = Array.from(
+        new Set(
+            guesses.map(({ types }) => types.map((type) => type).flat()).flat()
+        )
+    );
+    const guessedTypes = {
+        ...types.reduce(
+            (r, type) => ({
+                ...r,
+                [type.name]: type.isFound,
+            }),
+            {}
+        ),
+    };
+
+    const guessedGen = guesses
+        .filter((guess) => {
+            if (!guess || !pokemon?.name) return false;
+            const generation = determineGeneration(guess, pokemon);
+            return generation.proximity === 'correct';
+        })
+        .map((guess) => {
+            const generation = determineGeneration(guess, pokemon);
+            return Number(generation.guessGeneration.name.split(' ')[1]) - 1;
+        })[0];
+
+    const includeFilter = Object.entries(guessedTypes)
+        .filter(([, isFound]) => isFound)
+        .map(([name]) => name.toLowerCase());
+
+    const excludedFilter = Object.entries(guessedTypes)
+        .filter(([, isFound]) => !isFound)
+        .map(([name]) => name.toLowerCase());
+
+    return { guessedGen, includeFilter, excludedFilter };
 }

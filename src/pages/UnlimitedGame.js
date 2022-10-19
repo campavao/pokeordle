@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Guess from './components/Guess';
 import TypeFilter from './components/TypeFilter';
 import {
+    getFilters,
     getIntWithinRange,
     filterSuggestions,
     getBaseStats,
@@ -74,18 +75,20 @@ function UnlimitedGame() {
                     },
                 };
                 setGuesses([guess, ...guesses]);
+
                 const excludedTypes = guess.types
                     .filter((type) => !type.isFound)
                     .map((type) => {
                         return type.name.toLowerCase();
                     });
-                const newExcludedFilter = [...excludedFilter, ...excludedTypes];
-                setExcludedFilter(newExcludedFilter);
-                setIncludedFilter(
-                    includedFilter.filter(
-                        (filter) => !newExcludedFilter.includes(filter)
-                    )
-                );
+                setExcludedFilter([...excludedFilter, ...excludedTypes]);
+
+                const includedTypes = guess.types
+                    .filter((type) => type.isFound)
+                    .map((type) => {
+                        return type.name.toLowerCase();
+                    });
+                setIncludedFilter([...includedFilter, ...includedTypes]);
 
                 if (valid.id === pokemon.id) {
                     setViewHint(false);
@@ -126,6 +129,8 @@ function UnlimitedGame() {
     const formatGuess = (rawGuess) => {
         return rawGuess.replace(/#[0-9]* /g, '');
     };
+
+    const { guessedGen } = getFilters(guesses, pokemon);
 
     return (
         <div className="unlimited-container">
@@ -191,7 +196,7 @@ function UnlimitedGame() {
                                             809,
                                             includedFilter,
                                             excludedFilter,
-                                            genFilter
+                                            genFilter ?? guessedGen
                                         )
                                     )
                                     .map((pokemon) => {

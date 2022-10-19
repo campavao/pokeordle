@@ -1,32 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { Popover, OverlayTrigger, ProgressBar } from 'react-bootstrap';
 
-import { getImgUrl } from './utils';
-import { GENERATIONS } from '../constants';
+import { getImgUrl, determineGeneration } from './utils';
 
 import TypeList from './TypeList';
 
 import './Guess.scss';
-
-export const determineGeneration = (guess, pokemon) => {
-    const findGen = (gen, toFind) => {
-        const foundIndex = toFind.index ? toFind.index : toFind;
-        return foundIndex.id <= gen.range;
-    };
-    const guessGeneration = GENERATIONS.find((gen) => findGen(gen, guess));
-    const pokemonGeneration = GENERATIONS.find((gen) => findGen(gen, pokemon));
-    const difference = Math.abs(
-        Number(guessGeneration.name.replace('Gen ', '')) -
-            Number(pokemonGeneration.name.replace('Gen ', ''))
-    );
-    const proximity =
-        difference === 0 ? 'correct' : difference === 1 ? 'almost' : 'absent';
-    return {
-        proximity,
-        guessGeneration,
-        pokemonGeneration,
-    };
-};
 
 export const determineProximity = (checkNum) => {
     return checkNum < 20 ? 'correct' : checkNum < 100 ? 'almost' : 'absent';
@@ -195,7 +174,11 @@ export default function Guess(props) {
                     {showArrows && !empty && (
                         <i
                             className={`bi bi-arrow-${
-                                baseTotal.difference > 0 ? 'up' : 'down'
+                                baseTotal.difference === 0
+                                    ? ''
+                                    : baseTotal.difference > 0
+                                    ? 'up'
+                                    : 'down'
                             }`}
                         ></i>
                     )}
