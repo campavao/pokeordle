@@ -79,7 +79,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                 });
             }
         }
-    }, []);
+    }, [gameState, pokemon.name, setGameState]);
 
     /** returns Guess object compared against the current answer. */
     const getGuessFromPokemon = (guessPokemon) => {

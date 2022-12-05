@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from 'react';
 import UnlimitedGame from './pages/UnlimitedGame';
+import Pokedex from './pages/Pokedex';
 import PartyGame from './pages/PartyGame';
 import DailyGame from './pages/DailyGame';
 import TimedGame from './pages/TimedGame';
@@ -119,6 +120,11 @@ function App() {
                         updateView={updateView}
                     /> */}
                     <Button
+                        displayName="Pokedex"
+                        active={view === 'Pokedex'}
+                        updateView={updateView}
+                    />
+                    <Button
                         displayName="Daily"
                         active={view === 'Daily'}
                         updateView={updateView}
@@ -151,6 +157,7 @@ function App() {
                         </button>
                     </li> */}
                 </ul>
+                {view === 'Pokedex' && <Pokedex />}
                 {(view === 'Daily' || view === 'dailyhard') && (
                     <>
                         <DailyContext.Provider
