@@ -4,6 +4,7 @@ import Pokedex from './pages/Pokedex';
 import PartyGame from './pages/PartyGame';
 import DailyGame from './pages/DailyGame';
 import TimedGame from './pages/TimedGame';
+import TeraRaidBattle from './pages/TeraRaidBattle';
 import { TimedLeaderboard } from './pages/TimedLeaderboard';
 import { Instructions } from './pages/Instructions';
 import logo from './images/Pokeordle.png';
@@ -134,6 +135,11 @@ function App() {
                         active={view === 'Unlimited'}
                         updateView={updateView}
                     />
+                    <Button
+                        displayName="TeraRaidBattle"
+                        active={view === 'TeraRaidBattle'}
+                        updateView={updateView}
+                    />
                     {/* <Button
                         displayName="Timed"
                         active={view === 'timed'}
@@ -171,6 +177,7 @@ function App() {
                 {view === 'Timed' && <TimedGame />}
                 {view === 'Party' && <PartyGame />}
                 {view === 'Leaderboard' && <TimedLeaderboard />}
+                {view === 'TeraRaidBattle' && <TeraRaidBattle />}
             </div>
         </div>
     );

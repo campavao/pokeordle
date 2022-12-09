@@ -36,3 +36,40 @@
     align-items: center;
     min-height: 150px;
 }
+
+.tera-raid-container {
+    .pokemon-input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .type-list {
+        overflow: visible;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+
+            .type-name {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                margin-bottom: 10px;
+                height: 30px;
+
+                ul {
+                    margin-bottom: 0;
+                }
+
+
+            }
+        }
+
+    }
+}

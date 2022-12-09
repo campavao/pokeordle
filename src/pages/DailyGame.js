@@ -31,6 +31,7 @@ function DailyGame() {
         if (hasWon && !showAnswer) {
             setShowAnswer(true);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasWon]);
 
     const finished = hasWon || remainingGuesses === 0;
