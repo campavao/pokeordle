@@ -19,7 +19,7 @@ export default function Guess(props) {
         showId = false,
         empty = false,
     } = props;
-    const { name, index, types, baseTotal } = guess ?? {
+    const { name, index, types, baseTotal, imgUrl } = guess ?? {
         name: '?',
         index: 0,
         types: ['?', '?'],
@@ -37,10 +37,10 @@ export default function Guess(props) {
             const img = await getImgUrl(index.id);
             setImage(img);
         }
-        if (index.id > 0) {
+        if (index.id > 0 && !imgUrl) {
             updateImage();
         }
-    }, [index]);
+    }, [index, imgUrl]);
 
     if (empty) {
         return (
@@ -65,7 +65,7 @@ export default function Guess(props) {
                 <div
                     className="game-answer"
                     style={{
-                        backgroundImage: `url(${image?.default})`,
+                        backgroundImage: `url(${imgUrl ?? image?.default})`,
                     }}
                 />
                 {name}

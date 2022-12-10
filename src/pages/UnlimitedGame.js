@@ -37,9 +37,13 @@ function UnlimitedGame() {
         setGuess('');
         setGuesses([]);
         setViewHint(false);
-        const index = getIntWithinRange(Math.random(), 1, 810);
+        const index = getIntWithinRange(Math.random(), 1, 906);
         const pokemon = pokedex[index];
-        getImg(pokemon).then((updatedMon) => setPokemon(updatedMon));
+        if (pokemon.imgUrl) {
+            setPokemon(pokemon);
+        } else {
+            getImg(pokemon).then((updatedMon) => setPokemon(updatedMon));
+        }
     };
 
     const handleClick = (e) => {
@@ -73,6 +77,7 @@ function UnlimitedGame() {
                         difference: pokemonBaseTotal - validBaseTotal,
                         stats: valid.base,
                     },
+                    imgUrl: valid.imgUrl,
                 };
                 setGuesses([guess, ...guesses]);
 
@@ -135,7 +140,7 @@ function UnlimitedGame() {
     return (
         <div className="unlimited-container">
             <strong className="message">
-                Unlimited guesses, all Generations up to Gen 7.
+                Unlimited guesses, all Generations up to Gen 8.
             </strong>
             {!pokemon.name && (
                 <div>
@@ -145,12 +150,14 @@ function UnlimitedGame() {
             {!hasWon ? (
                 pokemon.name && (
                     <div className="game-container">
-                        {viewHint && pokemon.img && (
+                        {viewHint && (
                             <div
                                 className="game-hint"
                                 alt="game hint"
                                 style={{
-                                    backgroundImage: `url(${pokemon.img?.default})`,
+                                    backgroundImage: `url(${
+                                        pokemon.imgUrl ?? pokemon.img?.default
+                                    })`,
                                 }}
                             />
                         )}
@@ -193,7 +200,7 @@ function UnlimitedGame() {
                                         filterSuggestions(
                                             pokemon,
                                             guesses,
-                                            809,
+                                            9999,
                                             includedFilter,
                                             excludedFilter,
                                             genFilter ?? guessedGen

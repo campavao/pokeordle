@@ -127,7 +127,7 @@ function TeraRaidBattle() {
     const pokemonOptions = useMemo(
         () =>
             Array.from(pokedex)
-                .filter((pokemon) => filterSuggestions(pokemon, guesses, 809))
+                .filter((pokemon) => filterSuggestions(pokemon, guesses, 9999))
                 .map((pokemon) => {
                     return pokemon.name.english;
                 }),

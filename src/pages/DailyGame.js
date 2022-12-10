@@ -55,12 +55,13 @@ function DailyGame() {
 
             {pokemon.name && (
                 <div className="game-container">
-                    {viewHint && pokemon.img && (
+                    {viewHint && (
                         <div
                             className="game-hint"
-                            aria-label={pokemon?.name?.english}
                             style={{
-                                backgroundImage: `url(${pokemon.img?.default})`,
+                                backgroundImage: `url(${
+                                    pokemon.imgUrl ?? pokemon.img?.default
+                                })`,
                             }}
                         />
                     )}
@@ -82,7 +83,7 @@ function DailyGame() {
                                             filterSuggestions(
                                                 pokemon,
                                                 guesses,
-                                                809,
+                                                9999,
                                                 includeFilter,
                                                 excludedFilter,
                                                 guessedGen

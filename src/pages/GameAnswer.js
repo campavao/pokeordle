@@ -103,15 +103,15 @@ export function GameAnswer({ show, close }) {
                             The Pokemon was {pokemon?.name?.english}!
                         </h2>
                         Current Streak: {streak}
-                        {pokemon.img && (
-                            <div
-                                className="game-answer"
-                                aria-label={pokemon?.name?.english}
-                                style={{
-                                    backgroundImage: `url(${pokemon.img?.default})`,
-                                }}
-                            />
-                        )}
+                        <div
+                            className="game-answer"
+                            aria-label={pokemon?.name?.english}
+                            style={{
+                                backgroundImage: `url(${
+                                    pokemon.imgUrl ?? pokemon.img?.default
+                                })`,
+                            }}
+                        />
                         <button
                             className="type-list-item correct-type"
                             onClick={handleShare}

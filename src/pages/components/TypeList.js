@@ -7,7 +7,7 @@ export default function TypeList(props) {
         types = [],
         useTypeColors = true,
         possibleTypes,
-        justShow = true,
+        justShow = false,
         enableSuperEffective = false,
         strong = false,
     } = props;

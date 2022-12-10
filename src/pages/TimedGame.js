@@ -152,7 +152,7 @@ function TimedGame() {
         <div className="unlimited-container">
             <strong className="message">
                 Guess as many as you can before the time runs out! All
-                Generations up to Gen 7.
+                Generations up to Gen 8.
             </strong>
             {solutionList.length === 0 && (
                 <div>

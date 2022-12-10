@@ -14,13 +14,18 @@ function Pokedex() {
     const [pokemon, setPokemon] = useState(undefined);
 
     const updateImages = useCallback(async ({ start, limit }) => {
-        const arr = await Promise.all(
-            Array.from(pokedexJson)
-                .filter((_, index) => start <= index && index < limit)
-                .map(({ id }) => {
-                    return getImgUrl(id);
-                })
-        );
+        const arr =
+            limit === 905
+                ? Array.from(pokedexJson)
+                      .filter((_, index) => start <= index && index < limit)
+                      .map((poke) => ({ default: poke.imgUrl }))
+                : await Promise.all(
+                      Array.from(pokedexJson)
+                          .filter((_, index) => start <= index && index < limit)
+                          .map(({ id }) => {
+                              return getImgUrl(id);
+                          })
+                  );
         setImages(arr);
     }, []);
 
@@ -76,7 +81,7 @@ function Pokedex() {
                 Current Gen {page.gen}
                 <button
                     onClick={() => changeGeneration(1)}
-                    disabled={page.gen === 7}
+                    disabled={page.gen === 8}
                 >
                     Next
                 </button>
@@ -90,16 +95,18 @@ function Pokedex() {
                     </div>
                 </Modal>
             )}
-            {images.map((img, index) => (
-                <button
-                    key={index}
-                    className="entry"
-                    style={{
-                        backgroundImage: `url(${img.default})`,
-                    }}
-                    onClick={() => showPokemon(index)}
-                />
-            ))}
+            {images.map((img, index) => {
+                return (
+                    <button
+                        key={index}
+                        className="entry"
+                        style={{
+                            backgroundImage: `url("${img.default}")`,
+                        }}
+                        onClick={() => showPokemon(index)}
+                    />
+                );
+            })}
         </div>
     );
 }

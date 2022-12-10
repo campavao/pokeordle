@@ -58,7 +58,11 @@ export function useDailyGame(gameName = 'hardGameState') {
             const solution = Array.from(pokedex).find(
                 (poke) => poke.id === index
             );
-            getImg(solution).then((updatedMon) => setPokemon(updatedMon));
+            if (solution.imgUrl) {
+                setPokemon(solution);
+            } else {
+                getImg(solution).then((updateMon) => setPokemon(updateMon));
+            }
 
             if (!gameState || gameState.dailyDate !== new Date().getDate()) {
                 const streak = !gameState ? 0 : gameState.streak;
@@ -111,6 +115,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                 difference: pokemonBaseTotal - guessPokemonBaseTotal,
                 stats: base,
             },
+            imgUrl: guessPokemon.imgUrl,
         };
     };
 
