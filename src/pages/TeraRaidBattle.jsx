@@ -62,8 +62,10 @@ function TeraRaidBattle() {
 
     const [currentPokemon, setCurrentPokemon] = useState(null);
     const [currentTypes, setCurrentTypes] = useState([]);
+    const [teraTypes, setTeraTypes] = useState([]);
     const type1Ref = React.createRef();
     const type2Ref = React.createRef();
+    const teraRef = React.createRef();
 
     const updateCurrentTypes = useCallback(
         async (type, index) => {
@@ -76,9 +78,11 @@ function TeraRaidBattle() {
 
             if (data) {
                 setCurrentTypes(newTypes);
+                type1Ref.current.clear();
+                type2Ref.current.clear();
             }
         },
-        [currentTypes]
+        [currentTypes, type1Ref, type2Ref]
     );
 
     const updateTypesFromPokemon = useCallback(async (types) => {
@@ -96,9 +100,27 @@ function TeraRaidBattle() {
         }
     }, []);
 
-    const handleTypeUpdate = async (e, index) => {
+    const updateTeraType = useCallback(
+        async (type) => {
+            const data = await fetch(
+                `https://pokeapi.co/api/v2/type/${type}`
+            ).then((res) => res.json());
+
+            if (data) {
+                setTeraTypes([data]);
+                teraRef.current.clear();
+            }
+        },
+        [teraRef]
+    );
+
+    const handleTypeUpdate = async (e, index, tera = false) => {
         if (e.length) {
-            await updateCurrentTypes(e[0], index);
+            if (tera) {
+                await updateTeraType(e[0]);
+            } else {
+                await updateCurrentTypes(e[0], index);
+            }
         }
     };
 
@@ -120,6 +142,7 @@ function TeraRaidBattle() {
             if (found) {
                 setCurrentTypes([]);
                 setCurrentPokemon(found);
+                typeRef.current.clear();
             }
         }
     };
@@ -146,64 +169,18 @@ function TeraRaidBattle() {
     const reset = () => {
         setCurrentPokemon(null);
         setCurrentTypes([]);
+        setTeraTypes([]);
         type1Ref.current.clear();
         type2Ref.current.clear();
         typeRef.current.clear();
+        teraRef.current.clear();
     };
-
-    // const fullWeakness = useMemo(() => {
-    //     return currentTypes
-    //         .map((type) => type.damage_relations.no_damage_to)
-    //         .flat();
-    // }, [currentTypes]);
-
-    const weaknesses = useMemo(() => {
-        const strongAgainst = [
-            ...currentTypes.map((type) =>
-                type.damage_relations.half_damage_from.map((hdf) => hdf.name)
-            ),
-        ].flat();
-
-        const weakAgainst = currentTypes
-            .map((type) => type.damage_relations.double_damage_from)
-            .flat()
-            .filter((type) => !strongAgainst.includes(type.name));
-        return weakAgainst;
-    }, [currentTypes]);
-
-    const strengths = useMemo(() => {
-        const weakAgainst = currentTypes
-            .map((type) =>
-                type.damage_relations.double_damage_from.map((hdf) => hdf.name)
-            )
-            .flat();
-
-        const noDamage = currentTypes
-            .map((type) =>
-                type.damage_relations.no_damage_from.map((hdf) => hdf.name)
-            )
-            .flat();
-
-        const strongAgainst = currentTypes
-            .map((type) => type.damage_relations.half_damage_from)
-            .flat()
-            .filter((type) => !weakAgainst.includes(type.name))
-            .filter((type) => !noDamage.includes(type.name));
-
-        return strongAgainst;
-    }, [currentTypes]);
-
-    const fullResistance = useMemo(() => {
-        return currentTypes
-            .map((type) => type.damage_relations.no_damage_from)
-            .flat();
-    }, [currentTypes]);
 
     return (
         <div className="tera-raid-container">
             <div>
                 <div className="pokemon-input">
-                    Pokemon:
+                    Pokemon: {currentPokemon?.name.english}
                     <Typeahead
                         id="input"
                         className="game-input"
@@ -259,9 +236,9 @@ function TeraRaidBattle() {
                     <div>
                         <div className="type-name">
                             Tera Type:
-                            {currentTypes[2] && (
+                            {teraTypes[0] && (
                                 <TypeList
-                                    types={[currentTypes[2]]}
+                                    types={[teraTypes[0]]}
                                     useTypeColors
                                     justShow
                                 />
@@ -270,13 +247,13 @@ function TeraRaidBattle() {
                         <Typeahead
                             id="input"
                             className="game-input"
-                            onChange={(e) => handleTypeUpdate(e, 2)}
+                            onChange={(e) => handleTypeUpdate(e, 2, true)}
                             placeholder="Tera Type"
                             options={TYPES}
-                            ref={typeRef}
+                            ref={teraRef}
                             selected={
-                                currentPokemon && currentTypes[2]
-                                    ? [currentTypes[2].name]
+                                currentPokemon && teraTypes[0]
+                                    ? [teraTypes[0].name]
                                     : undefined
                             }
                         />
@@ -284,54 +261,105 @@ function TeraRaidBattle() {
                 </div>
             </div>
             {currentTypes.length > 0 && (
-                <div className="stats">
-                    {/* {fullWeakness.length > 0 && (
-                        <div>
-                            No Damage To:{' '}
-                            <TypeList
-                                types={fullWeakness}
-                                useTypeColors
-                                justShow
-                            />
-                        </div>
-                    )} */}
-                    {weaknesses.length > 0 && (
-                        <div>
-                            Weaknesses:{' '}
-                            <TypeList
-                                types={weaknesses}
-                                useTypeColors
-                                justShow
-                                enableSuperEffective
-                            />
-                        </div>
-                    )}
-                    {strengths.length > 0 && (
-                        <div>
-                            Strengths:{' '}
-                            <TypeList
-                                types={strengths}
-                                useTypeColors
-                                justShow
-                                enableSuperEffective
-                                strong
-                            />
-                        </div>
-                    )}
-                    {fullResistance.length > 0 && (
-                        <div>
-                            No Damage From:{' '}
-                            <TypeList
-                                types={fullResistance}
-                                useTypeColors
-                                justShow
-                            />
-                        </div>
-                    )}
-                </div>
+                <Stats currentTypes={currentTypes} teraTypes={teraTypes} />
             )}
         </div>
     );
 }
+
+const Stats = ({ currentTypes = [], teraTypes = [] }) => {
+    const isTera = teraTypes.length > 0;
+    const types = isTera ? teraTypes : currentTypes;
+    const strongTowards = useMemo(() => {
+        return [...currentTypes, ...teraTypes]
+            .map((type) => type.damage_relations.double_damage_to)
+            .flat();
+    }, [currentTypes, teraTypes]);
+
+    const weaknesses = useMemo(() => {
+        const strongAgainst = [
+            ...types.map((type) =>
+                type.damage_relations.half_damage_from.map((hdf) => hdf.name)
+            ),
+        ].flat();
+
+        const weakAgainst = types
+            .map((type) => type.damage_relations.double_damage_from)
+            .flat()
+            .filter((type) => !strongAgainst.includes(type.name));
+        return weakAgainst;
+    }, [types]);
+
+    const strengths = useMemo(() => {
+        const weakAgainst = types
+            .map((type) =>
+                type.damage_relations.double_damage_from.map((hdf) => hdf.name)
+            )
+            .flat();
+
+        const noDamage = types
+            .map((type) =>
+                type.damage_relations.no_damage_from.map((hdf) => hdf.name)
+            )
+            .flat();
+
+        const strongAgainst = types
+            .map((type) => type.damage_relations.half_damage_from)
+            .flat()
+            .filter((type) => !weakAgainst.includes(type.name))
+            .filter((type) => !noDamage.includes(type.name));
+
+        return strongAgainst;
+    }, [types]);
+
+    const fullResistance = useMemo(() => {
+        return types.map((type) => type.damage_relations.no_damage_from).flat();
+    }, [types]);
+
+    return (
+        <div className="stats">
+            {weaknesses.length > 0 && (
+                <div>
+                    Weaknesses:{' '}
+                    <TypeList
+                        types={weaknesses}
+                        useTypeColors
+                        justShow
+                        enableSuperEffective
+                    />
+                </div>
+            )}
+            {strongTowards.length > 0 && (
+                <div>
+                    Strong against:{' '}
+                    <TypeList
+                        types={strongTowards}
+                        useTypeColors
+                        justShow
+                        enableSuperEffective
+                    />
+                </div>
+            )}
+            {strengths.length > 0 && (
+                <div>
+                    Resistance:{' '}
+                    <TypeList
+                        types={strengths}
+                        useTypeColors
+                        justShow
+                        enableSuperEffective
+                        strong
+                    />
+                </div>
+            )}
+            {fullResistance.length > 0 && (
+                <div>
+                    No Damage From:{' '}
+                    <TypeList types={fullResistance} useTypeColors justShow />
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default TeraRaidBattle;
