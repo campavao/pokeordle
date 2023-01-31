@@ -34,7 +34,7 @@ export const GENERATIONS = [
         range: 905,
     },
     {
-        name: 'Gen 8',
+        name: 'Gen 9',
         range: 1008,
     },
 ];
