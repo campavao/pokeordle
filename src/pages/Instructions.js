@@ -9,7 +9,7 @@ export function Instructions({ show = false, close }) {
             <Modal.Header closeButton style={{ flexDirection: 'column' }}>
                 <Modal.Title>Welcome to Pokéordle!</Modal.Title>
                 <i style={{ flexDirection: 'column' }}>
-                    New Pokemon every day, once a day. up to Gen 8.
+                    New Pokemon every day, once a day.
                 </i>
             </Modal.Header>
             <Modal.Body>

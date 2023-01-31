@@ -136,7 +136,7 @@ function App() {
                         updateView={updateView}
                     />
                     <Button
-                        displayName="TeraRaidBattle"
+                        displayName="Tera"
                         active={view === 'TeraRaidBattle'}
                         updateView={updateView}
                     />

@@ -33,4 +33,8 @@ export const GENERATIONS = [
         name: 'Gen 8',
         range: 905,
     },
+    {
+        name: 'Gen 8',
+        range: 1008,
+    },
 ];

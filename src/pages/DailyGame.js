@@ -103,7 +103,7 @@ function DailyGame() {
                             </>
                         )}
                         {!hasWon &&
-                            remainingGuesses < 4 &&
+                            remainingGuesses < 2 &&
                             remainingGuesses > 0 && (
                                 <button
                                     type="button"

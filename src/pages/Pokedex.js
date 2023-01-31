@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 import { getImgUrl, getBaseStats } from './components/utils';
 
@@ -12,10 +12,11 @@ function Pokedex() {
     const [page, setPage] = useState({ start: 0, limit: 151, gen: 1 });
     const [images, setImages] = useState([]);
     const [pokemon, setPokemon] = useState(undefined);
+    const [show, setShow] = useState(false);
 
     const updateImages = useCallback(async ({ start, limit }) => {
         const arr =
-            limit === 905
+            limit >= 905
                 ? Array.from(pokedexJson)
                       .filter((_, index) => start <= index && index < limit)
                       .map((poke) => ({ default: poke.imgUrl }))
@@ -30,12 +31,13 @@ function Pokedex() {
     }, []);
 
     useEffect(() => {
-        if (!images.length) {
-            updateImages({ start: 0, limit: 151 });
+        if (!images.length && show) {
+            updateImages(page);
         }
-    }, [images, page, updateImages]);
+    }, [images, page, show, updateImages]);
 
     const changeGeneration = async (amount) => {
+        setShow(false);
         const currentIndex = page.gen - 1;
         let updatePage = {};
 
@@ -60,8 +62,7 @@ function Pokedex() {
                 gen: page.gen - 1,
             };
         }
-
-        await updateImages(updatePage);
+        setImages([]);
         setPage(updatePage);
     };
 
@@ -81,11 +82,18 @@ function Pokedex() {
                 Current Gen {page.gen}
                 <button
                     onClick={() => changeGeneration(1)}
-                    disabled={page.gen === 8}
+                    disabled={page.gen === GENERATIONS.length}
                 >
                     Next
                 </button>
             </div>
+            <Button
+                onClick={() => setShow(!show)}
+                style={{ width: '100%' }}
+                className="select-view-item "
+            >
+                Show
+            </Button>
             {pokemon && (
                 <Modal show backdrop onHide={() => setPokemon(undefined)}>
                     <div className="pokemodal">

@@ -16096,5 +16096,1653 @@
             "speed": 106
         },
         "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/905.png"
+    },
+    {
+        "id": 906,
+        "name": {
+            "english": "Sprigatito"
+        },
+        "type": ["Grass"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/906.png",
+        "base": {
+            "hp": 40,
+            "attack": 61,
+            "defense": 54,
+            "spAttack": 45,
+            "spDefense": 45,
+            "speed": 65
+        }
+    },
+    {
+        "id": 907,
+        "name": {
+            "english": "Floragato"
+        },
+        "type": ["Grass"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/907.png",
+        "base": {
+            "hp": 61,
+            "attack": 80,
+            "defense": 63,
+            "spAttack": 60,
+            "spDefense": 63,
+            "speed": 83
+        }
+    },
+    {
+        "id": 908,
+        "name": {
+            "english": "Meowscarada"
+        },
+        "type": ["Grass", "Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/908.png",
+        "base": {
+            "hp": 76,
+            "attack": 110,
+            "defense": 70,
+            "spAttack": 81,
+            "spDefense": 70,
+            "speed": 123
+        }
+    },
+    {
+        "id": 909,
+        "name": {
+            "english": "Fuecoco"
+        },
+        "type": ["Fire"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/909.png",
+        "base": {
+            "hp": 67,
+            "attack": 45,
+            "defense": 59,
+            "spAttack": 63,
+            "spDefense": 40,
+            "speed": 36
+        }
+    },
+    {
+        "id": 910,
+        "name": {
+            "english": "Crocalor"
+        },
+        "type": ["Fire"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/910.png",
+        "base": {
+            "hp": 81,
+            "attack": 55,
+            "defense": 78,
+            "spAttack": 90,
+            "spDefense": 58,
+            "speed": 49
+        }
+    },
+    {
+        "id": 911,
+        "name": {
+            "english": "Skeledirge"
+        },
+        "type": ["Fire", "Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/911.png",
+        "base": {
+            "hp": 104,
+            "attack": 75,
+            "defense": 100,
+            "spAttack": 110,
+            "spDefense": 75,
+            "speed": 66
+        }
+    },
+    {
+        "id": 912,
+        "name": {
+            "english": "Quaxly"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/912.png",
+        "base": {
+            "hp": 55,
+            "attack": 65,
+            "defense": 45,
+            "spAttack": 50,
+            "spDefense": 45,
+            "speed": 50
+        }
+    },
+    {
+        "id": 913,
+        "name": {
+            "english": "Quaxwell"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/913.png",
+        "base": {
+            "hp": 70,
+            "attack": 85,
+            "defense": 65,
+            "spAttack": 65,
+            "spDefense": 60,
+            "speed": 65
+        }
+    },
+    {
+        "id": 914,
+        "name": {
+            "english": "Quaquaval"
+        },
+        "type": ["Water", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/914.png",
+        "base": {
+            "hp": 85,
+            "attack": 120,
+            "defense": 80,
+            "spAttack": 85,
+            "spDefense": 75,
+            "speed": 85
+        }
+    },
+    {
+        "id": 915,
+        "name": {
+            "english": "Lechonk"
+        },
+        "type": ["Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/915.png",
+        "base": {
+            "hp": 54,
+            "attack": 45,
+            "defense": 40,
+            "spAttack": 35,
+            "spDefense": 45,
+            "speed": 35
+        }
+    },
+    {
+        "id": 916,
+        "name": {
+            "english": "Oinkologne"
+        },
+        "type": ["Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/916.png",
+        "base": {
+            "hp": 115,
+            "attack": 90,
+            "defense": 70,
+            "spAttack": 59,
+            "spDefense": 90,
+            "speed": 65
+        }
+    },
+    {
+        "id": 917,
+        "name": {
+            "english": "Tarountula"
+        },
+        "type": ["Bug"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/917.png",
+        "base": {
+            "hp": 35,
+            "attack": 41,
+            "defense": 45,
+            "spAttack": 29,
+            "spDefense": 40,
+            "speed": 20
+        }
+    },
+    {
+        "id": 918,
+        "name": {
+            "english": "Spidops"
+        },
+        "type": ["Bug"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/918.png",
+        "base": {
+            "hp": 60,
+            "attack": 79,
+            "defense": 92,
+            "spAttack": 52,
+            "spDefense": 86,
+            "speed": 35
+        }
+    },
+    {
+        "id": 919,
+        "name": {
+            "english": "Nymble"
+        },
+        "type": ["Bug"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/919.png",
+        "base": {
+            "hp": 33,
+            "attack": 46,
+            "defense": 40,
+            "spAttack": 21,
+            "spDefense": 25,
+            "speed": 45
+        }
+    },
+    {
+        "id": 920,
+        "name": {
+            "english": "Lokix"
+        },
+        "type": ["Bug", "Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/920.png",
+        "base": {
+            "hp": 71,
+            "attack": 102,
+            "defense": 78,
+            "spAttack": 52,
+            "spDefense": 55,
+            "speed": 92
+        }
+    },
+    {
+        "id": 921,
+        "name": {
+            "english": "Pawmi"
+        },
+        "type": ["Electric"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/921.png",
+        "base": {
+            "hp": 45,
+            "attack": 50,
+            "defense": 20,
+            "spAttack": 40,
+            "spDefense": 25,
+            "speed": 60
+        }
+    },
+    {
+        "id": 922,
+        "name": {
+            "english": "Pawmo"
+        },
+        "type": ["Electric", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/922.png",
+        "base": {
+            "hp": 60,
+            "attack": 75,
+            "defense": 40,
+            "spAttack": 50,
+            "spDefense": 40,
+            "speed": 85
+        }
+    },
+    {
+        "id": 923,
+        "name": {
+            "english": "Pawmot"
+        },
+        "type": ["Electric", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/923.png",
+        "base": {
+            "hp": 70,
+            "attack": 115,
+            "defense": 70,
+            "spAttack": 70,
+            "spDefense": 60,
+            "speed": 105
+        }
+    },
+    {
+        "id": 924,
+        "name": {
+            "english": "Tandemaus"
+        },
+        "type": ["Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/924.png",
+        "base": {
+            "hp": 50,
+            "attack": 50,
+            "defense": 45,
+            "spAttack": 40,
+            "spDefense": 45,
+            "speed": 75
+        }
+    },
+    {
+        "id": 925,
+        "name": {
+            "english": "Maushold"
+        },
+        "type": ["Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/925.png",
+        "base": {
+            "hp": 74,
+            "attack": 75,
+            "defense": 70,
+            "spAttack": 65,
+            "spDefense": 75,
+            "speed": 111
+        }
+    },
+    {
+        "id": 926,
+        "name": {
+            "english": "Fidough"
+        },
+        "type": ["Fairy"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/926.png",
+        "base": {
+            "hp": 37,
+            "attack": 55,
+            "defense": 70,
+            "spAttack": 30,
+            "spDefense": 55,
+            "speed": 65
+        }
+    },
+    {
+        "id": 927,
+        "name": {
+            "english": "Dachsbun"
+        },
+        "type": ["Fairy"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/927.png",
+        "base": {
+            "hp": 57,
+            "attack": 80,
+            "defense": 115,
+            "spAttack": 50,
+            "spDefense": 80,
+            "speed": 95
+        }
+    },
+    {
+        "id": 928,
+        "name": {
+            "english": "Smoliv"
+        },
+        "type": ["Grass", "Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/928.png",
+        "base": {
+            "hp": 41,
+            "attack": 35,
+            "defense": 45,
+            "spAttack": 58,
+            "spDefense": 51,
+            "speed": 30
+        }
+    },
+    {
+        "id": 929,
+        "name": {
+            "english": "Dolliv"
+        },
+        "type": ["Grass", "Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/929.png",
+        "base": {
+            "hp": 52,
+            "attack": 53,
+            "defense": 60,
+            "spAttack": 78,
+            "spDefense": 78,
+            "speed": 33
+        }
+    },
+    {
+        "id": 930,
+        "name": {
+            "english": "Arboliva"
+        },
+        "type": ["Grass", "Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/930.png",
+        "base": {
+            "hp": 78,
+            "attack": 69,
+            "defense": 90,
+            "spAttack": 125,
+            "spDefense": 109,
+            "speed": 39
+        }
+    },
+    {
+        "id": 931,
+        "name": {
+            "english": "Squawkabilly"
+        },
+        "type": ["Normal", "Flying"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/931.png",
+        "base": {
+            "hp": 82,
+            "attack": 96,
+            "defense": 51,
+            "spAttack": 45,
+            "spDefense": 51,
+            "speed": 92
+        }
+    },
+    {
+        "id": 932,
+        "name": {
+            "english": "Nacli"
+        },
+        "type": ["Rock"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/932.png",
+        "base": {
+            "hp": 55,
+            "attack": 55,
+            "defense": 75,
+            "spAttack": 35,
+            "spDefense": 35,
+            "speed": 25
+        }
+    },
+    {
+        "id": 933,
+        "name": {
+            "english": "Naclstack"
+        },
+        "type": ["Rock"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/933.png",
+        "base": {
+            "hp": 60,
+            "attack": 60,
+            "defense": 100,
+            "spAttack": 35,
+            "spDefense": 65,
+            "speed": 35
+        }
+    },
+    {
+        "id": 934,
+        "name": {
+            "english": "Garganacl"
+        },
+        "type": ["Rock"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/934.png",
+        "base": {
+            "hp": 100,
+            "attack": 100,
+            "defense": 130,
+            "spAttack": 45,
+            "spDefense": 90,
+            "speed": 35
+        }
+    },
+    {
+        "id": 935,
+        "name": {
+            "english": "Charcadet"
+        },
+        "type": ["Fire"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/935.png",
+        "base": {
+            "hp": 40,
+            "attack": 50,
+            "defense": 40,
+            "spAttack": 50,
+            "spDefense": 40,
+            "speed": 35
+        }
+    },
+    {
+        "id": 936,
+        "name": {
+            "english": "Armarouge"
+        },
+        "type": ["Fire", "Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/936.png",
+        "base": {
+            "hp": 85,
+            "attack": 60,
+            "defense": 100,
+            "spAttack": 125,
+            "spDefense": 80,
+            "speed": 75
+        }
+    },
+    {
+        "id": 937,
+        "name": {
+            "english": "Ceruledge"
+        },
+        "type": ["Fire", "Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/937.png",
+        "base": {
+            "hp": 75,
+            "attack": 125,
+            "defense": 80,
+            "spAttack": 60,
+            "spDefense": 100,
+            "speed": 85
+        }
+    },
+    {
+        "id": 938,
+        "name": {
+            "english": "Tadbulb"
+        },
+        "type": ["Electric"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/938.png",
+        "base": {
+            "hp": 61,
+            "attack": 31,
+            "defense": 41,
+            "spAttack": 59,
+            "spDefense": 35,
+            "speed": 45
+        }
+    },
+    {
+        "id": 939,
+        "name": {
+            "english": "Bellibolt"
+        },
+        "type": ["Electric"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/939.png",
+        "base": {
+            "hp": 109,
+            "attack": 64,
+            "defense": 91,
+            "spAttack": 103,
+            "spDefense": 83,
+            "speed": 45
+        }
+    },
+    {
+        "id": 940,
+        "name": {
+            "english": "Wattrel"
+        },
+        "type": ["Electric", "Flying"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/940.png",
+        "base": {
+            "hp": 40,
+            "attack": 40,
+            "defense": 35,
+            "spAttack": 55,
+            "spDefense": 40,
+            "speed": 70
+        }
+    },
+    {
+        "id": 941,
+        "name": {
+            "english": "Kilowattrel"
+        },
+        "type": ["Electric", "Flying"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/941.png",
+        "base": {
+            "hp": 70,
+            "attack": 70,
+            "defense": 60,
+            "spAttack": 105,
+            "spDefense": 60,
+            "speed": 125
+        }
+    },
+    {
+        "id": 942,
+        "name": {
+            "english": "Maschiff"
+        },
+        "type": ["Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/942.png",
+        "base": {
+            "hp": 60,
+            "attack": 78,
+            "defense": 60,
+            "spAttack": 40,
+            "spDefense": 51,
+            "speed": 51
+        }
+    },
+    {
+        "id": 943,
+        "name": {
+            "english": "Mabosstiff"
+        },
+        "type": ["Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/943.png",
+        "base": {
+            "hp": 80,
+            "attack": 120,
+            "defense": 90,
+            "spAttack": 60,
+            "spDefense": 70,
+            "speed": 85
+        }
+    },
+    {
+        "id": 944,
+        "name": {
+            "english": "Shroodle"
+        },
+        "type": ["Poison", "Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/944.png",
+        "base": {
+            "hp": 40,
+            "attack": 65,
+            "defense": 35,
+            "spAttack": 40,
+            "spDefense": 35,
+            "speed": 75
+        }
+    },
+    {
+        "id": 945,
+        "name": {
+            "english": "Grafaiai"
+        },
+        "type": ["Poison", "Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/945.png",
+        "base": {
+            "hp": 63,
+            "attack": 95,
+            "defense": 65,
+            "spAttack": 80,
+            "spDefense": 72,
+            "speed": 110
+        }
+    },
+    {
+        "id": 946,
+        "name": {
+            "english": "Bramblin"
+        },
+        "type": ["Grass", "Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/946.png",
+        "base": {
+            "hp": 40,
+            "attack": 65,
+            "defense": 30,
+            "spAttack": 45,
+            "spDefense": 35,
+            "speed": 60
+        }
+    },
+    {
+        "id": 947,
+        "name": {
+            "english": "Brambleghast"
+        },
+        "type": ["Grass", "Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/947.png",
+        "base": {
+            "hp": 55,
+            "attack": 115,
+            "defense": 70,
+            "spAttack": 80,
+            "spDefense": 70,
+            "speed": 90
+        }
+    },
+    {
+        "id": 948,
+        "name": {
+            "english": "Toedscool"
+        },
+        "type": ["Ground", "Grass"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/948.png",
+        "base": {
+            "hp": 40,
+            "attack": 40,
+            "defense": 35,
+            "spAttack": 50,
+            "spDefense": 100,
+            "speed": 70
+        }
+    },
+    {
+        "id": 949,
+        "name": {
+            "english": "Toedscruel"
+        },
+        "type": ["Ground", "Grass"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/949.png",
+        "base": {
+            "hp": 80,
+            "attack": 70,
+            "defense": 65,
+            "spAttack": 80,
+            "spDefense": 120,
+            "speed": 100
+        }
+    },
+    {
+        "id": 950,
+        "name": {
+            "english": "Klawf"
+        },
+        "type": ["Rock"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/950.png",
+        "base": {
+            "hp": 70,
+            "attack": 100,
+            "defense": 115,
+            "spAttack": 35,
+            "spDefense": 55,
+            "speed": 75
+        }
+    },
+    {
+        "id": 951,
+        "name": {
+            "english": "Capsakid"
+        },
+        "type": ["Grass"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/951.png",
+        "base": {
+            "hp": 50,
+            "attack": 62,
+            "defense": 40,
+            "spAttack": 62,
+            "spDefense": 40,
+            "speed": 50
+        }
+    },
+    {
+        "id": 952,
+        "name": {
+            "english": "Scovillain"
+        },
+        "type": ["Grass", "Fire"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/952.png",
+        "base": {
+            "hp": 65,
+            "attack": 108,
+            "defense": 65,
+            "spAttack": 108,
+            "spDefense": 65,
+            "speed": 75
+        }
+    },
+    {
+        "id": 953,
+        "name": {
+            "english": "Rellor"
+        },
+        "type": ["Bug"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/953.png",
+        "base": {
+            "hp": 41,
+            "attack": 50,
+            "defense": 60,
+            "spAttack": 31,
+            "spDefense": 58,
+            "speed": 30
+        }
+    },
+    {
+        "id": 954,
+        "name": {
+            "english": "Rabsca"
+        },
+        "type": ["Bug", "Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/954.png",
+        "base": {
+            "hp": 75,
+            "attack": 50,
+            "defense": 85,
+            "spAttack": 115,
+            "spDefense": 100,
+            "speed": 45
+        }
+    },
+    {
+        "id": 955,
+        "name": {
+            "english": "Flittle"
+        },
+        "type": ["Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/955.png",
+        "base": {
+            "hp": 30,
+            "attack": 35,
+            "defense": 30,
+            "spAttack": 55,
+            "spDefense": 30,
+            "speed": 75
+        }
+    },
+    {
+        "id": 956,
+        "name": {
+            "english": "Espathra"
+        },
+        "type": ["Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/956.png",
+        "base": {
+            "hp": 95,
+            "attack": 60,
+            "defense": 60,
+            "spAttack": 101,
+            "spDefense": 60,
+            "speed": 105
+        }
+    },
+    {
+        "id": 957,
+        "name": {
+            "english": "Tinkatink"
+        },
+        "type": ["Fairy", "Steel"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/957.png",
+        "base": {
+            "hp": 50,
+            "attack": 45,
+            "defense": 45,
+            "spAttack": 35,
+            "spDefense": 64,
+            "speed": 58
+        }
+    },
+    {
+        "id": 958,
+        "name": {
+            "english": "Tinkatuff"
+        },
+        "type": ["Fairy", "Steel"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/958.png",
+        "base": {
+            "hp": 65,
+            "attack": 55,
+            "defense": 55,
+            "spAttack": 45,
+            "spDefense": 82,
+            "speed": 78
+        }
+    },
+    {
+        "id": 959,
+        "name": {
+            "english": "Tinkaton"
+        },
+        "type": ["Fairy", "Steel"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/959.png",
+        "base": {
+            "hp": 85,
+            "attack": 75,
+            "defense": 77,
+            "spAttack": 70,
+            "spDefense": 105,
+            "speed": 94
+        }
+    },
+    {
+        "id": 960,
+        "name": {
+            "english": "Wiglett"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/960.png",
+        "base": {
+            "hp": 10,
+            "attack": 55,
+            "defense": 25,
+            "spAttack": 35,
+            "spDefense": 25,
+            "speed": 95
+        }
+    },
+    {
+        "id": 961,
+        "name": {
+            "english": "Wugtrio"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/961.png",
+        "base": {
+            "hp": 35,
+            "attack": 100,
+            "defense": 50,
+            "spAttack": 50,
+            "spDefense": 70,
+            "speed": 120
+        }
+    },
+    {
+        "id": 962,
+        "name": {
+            "english": "Bombirdier"
+        },
+        "type": ["Flying", "Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/962.png",
+        "base": {
+            "hp": 70,
+            "attack": 103,
+            "defense": 85,
+            "spAttack": 60,
+            "spDefense": 85,
+            "speed": 82
+        }
+    },
+    {
+        "id": 963,
+        "name": {
+            "english": "Finizen"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/963.png",
+        "base": {
+            "hp": 70,
+            "attack": 45,
+            "defense": 40,
+            "spAttack": 45,
+            "spDefense": 40,
+            "speed": 75
+        }
+    },
+    {
+        "id": 964,
+        "name": {
+            "english": "Palafin"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/964.png",
+        "base": {
+            "hp": 100,
+            "attack": 160,
+            "defense": 97,
+            "spAttack": 106,
+            "spDefense": 87,
+            "speed": 100
+        }
+    },
+    {
+        "id": 965,
+        "name": {
+            "english": "Varoom"
+        },
+        "type": ["Steel", "Poison"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/965.png",
+        "base": {
+            "hp": 45,
+            "attack": 70,
+            "defense": 63,
+            "spAttack": 30,
+            "spDefense": 45,
+            "speed": 47
+        }
+    },
+    {
+        "id": 966,
+        "name": {
+            "english": "Revavroom"
+        },
+        "type": ["Steel", "Poison"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/966.png",
+        "base": {
+            "hp": 80,
+            "attack": 119,
+            "defense": 90,
+            "spAttack": 54,
+            "spDefense": 67,
+            "speed": 90
+        }
+    },
+    {
+        "id": 967,
+        "name": {
+            "english": "Cyclizar"
+        },
+        "type": ["Dragon", "Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/967.png",
+        "base": {
+            "hp": 70,
+            "attack": 95,
+            "defense": 65,
+            "spAttack": 85,
+            "spDefense": 65,
+            "speed": 121
+        }
+    },
+    {
+        "id": 968,
+        "name": {
+            "english": "Orthworm"
+        },
+        "type": ["Steel"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/968.png",
+        "base": {
+            "hp": 70,
+            "attack": 85,
+            "defense": 145,
+            "spAttack": 60,
+            "spDefense": 55,
+            "speed": 65
+        }
+    },
+    {
+        "id": 969,
+        "name": {
+            "english": "Glimmet"
+        },
+        "type": ["Rock", "Poison"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/969.png",
+        "base": {
+            "hp": 48,
+            "attack": 35,
+            "defense": 42,
+            "spAttack": 105,
+            "spDefense": 60,
+            "speed": 60
+        }
+    },
+    {
+        "id": 970,
+        "name": {
+            "english": "Glimmora"
+        },
+        "type": ["Rock", "Poison"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/970.png",
+        "base": {
+            "hp": 83,
+            "attack": 55,
+            "defense": 90,
+            "spAttack": 130,
+            "spDefense": 81,
+            "speed": 86
+        }
+    },
+    {
+        "id": 971,
+        "name": {
+            "english": "Greavard"
+        },
+        "type": ["Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/971.png",
+        "base": {
+            "hp": 50,
+            "attack": 61,
+            "defense": 60,
+            "spAttack": 30,
+            "spDefense": 55,
+            "speed": 34
+        }
+    },
+    {
+        "id": 972,
+        "name": {
+            "english": "Houndstone"
+        },
+        "type": ["Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/972.png",
+        "base": {
+            "hp": 72,
+            "attack": 101,
+            "defense": 100,
+            "spAttack": 50,
+            "spDefense": 97,
+            "speed": 68
+        }
+    },
+    {
+        "id": 973,
+        "name": {
+            "english": "Flamigo"
+        },
+        "type": ["Flying", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/973.png",
+        "base": {
+            "hp": 82,
+            "attack": 115,
+            "defense": 74,
+            "spAttack": 75,
+            "spDefense": 64,
+            "speed": 90
+        }
+    },
+    {
+        "id": 974,
+        "name": {
+            "english": "Cetoddle"
+        },
+        "type": ["Ice"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/974.png",
+        "base": {
+            "hp": 108,
+            "attack": 68,
+            "defense": 45,
+            "spAttack": 30,
+            "spDefense": 40,
+            "speed": 43
+        }
+    },
+    {
+        "id": 975,
+        "name": {
+            "english": "Cetitan"
+        },
+        "type": ["Ice"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/975.png",
+        "base": {
+            "hp": 170,
+            "attack": 113,
+            "defense": 65,
+            "spAttack": 45,
+            "spDefense": 55,
+            "speed": 73
+        }
+    },
+    {
+        "id": 976,
+        "name": {
+            "english": "Veluza"
+        },
+        "type": ["Water", "Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/976.png",
+        "base": {
+            "hp": 90,
+            "attack": 102,
+            "defense": 73,
+            "spAttack": 78,
+            "spDefense": 65,
+            "speed": 70
+        }
+    },
+    {
+        "id": 977,
+        "name": {
+            "english": "Dondozo"
+        },
+        "type": ["Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/977.png",
+        "base": {
+            "hp": 150,
+            "attack": 100,
+            "defense": 115,
+            "spAttack": 65,
+            "spDefense": 65,
+            "speed": 35
+        }
+    },
+    {
+        "id": 978,
+        "name": {
+            "english": "Tatsugiri"
+        },
+        "type": ["Dragon", "Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/978.png",
+        "base": {
+            "hp": 68,
+            "attack": 50,
+            "defense": 60,
+            "spAttack": 120,
+            "spDefense": 95,
+            "speed": 82
+        }
+    },
+    {
+        "id": 979,
+        "name": {
+            "english": "Annihilape"
+        },
+        "type": ["Fighting", "Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/979.png",
+        "base": {
+            "hp": 110,
+            "attack": 115,
+            "defense": 80,
+            "spAttack": 50,
+            "spDefense": 90,
+            "speed": 90
+        }
+    },
+    {
+        "id": 980,
+        "name": {
+            "english": "Clodsire"
+        },
+        "type": ["Poison", "Ground"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/980.png",
+        "base": {
+            "hp": 130,
+            "attack": 75,
+            "defense": 60,
+            "spAttack": 45,
+            "spDefense": 100,
+            "speed": 20
+        }
+    },
+    {
+        "id": 981,
+        "name": {
+            "english": "Farigiraf"
+        },
+        "type": ["Normal", "Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/981.png",
+        "base": {
+            "hp": 120,
+            "attack": 90,
+            "defense": 70,
+            "spAttack": 110,
+            "spDefense": 70,
+            "speed": 60
+        }
+    },
+    {
+        "id": 982,
+        "name": {
+            "english": "Dudunsparce"
+        },
+        "type": ["Normal"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/982.png",
+        "base": {
+            "hp": 125,
+            "attack": 100,
+            "defense": 80,
+            "spAttack": 85,
+            "spDefense": 75,
+            "speed": 55
+        }
+    },
+    {
+        "id": 983,
+        "name": {
+            "english": "Kingambit"
+        },
+        "type": ["Dark", "Steel"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/983.png",
+        "base": {
+            "hp": 100,
+            "attack": 135,
+            "defense": 120,
+            "spAttack": 60,
+            "spDefense": 85,
+            "speed": 50
+        }
+    },
+    {
+        "id": 984,
+        "name": {
+            "english": "Great Tusk"
+        },
+        "type": ["Ground", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/984.png",
+        "base": {
+            "hp": 115,
+            "attack": 131,
+            "defense": 131,
+            "spAttack": 53,
+            "spDefense": 53,
+            "speed": 87
+        }
+    },
+    {
+        "id": 985,
+        "name": {
+            "english": "Scream Tail"
+        },
+        "type": ["Fairy", "Psychic"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/985.png",
+        "base": {
+            "hp": 115,
+            "attack": 65,
+            "defense": 99,
+            "spAttack": 65,
+            "spDefense": 115,
+            "speed": 111
+        }
+    },
+    {
+        "id": 986,
+        "name": {
+            "english": "Brute Bonnet"
+        },
+        "type": ["Grass", "Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/986.png",
+        "base": {
+            "hp": 111,
+            "attack": 127,
+            "defense": 99,
+            "spAttack": 79,
+            "spDefense": 99,
+            "speed": 55
+        }
+    },
+    {
+        "id": 987,
+        "name": {
+            "english": "Flutter Mane"
+        },
+        "type": ["Ghost", "Fairy"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/987.png",
+        "base": {
+            "hp": 55,
+            "attack": 55,
+            "defense": 55,
+            "spAttack": 135,
+            "spDefense": 135,
+            "speed": 135
+        }
+    },
+    {
+        "id": 988,
+        "name": {
+            "english": "Slither Wing"
+        },
+        "type": ["Bug", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/988.png",
+        "base": {
+            "hp": 85,
+            "attack": 135,
+            "defense": 79,
+            "spAttack": 85,
+            "spDefense": 105,
+            "speed": 81
+        }
+    },
+    {
+        "id": 989,
+        "name": {
+            "english": "Sandy Shocks"
+        },
+        "type": ["Electric", "Ground"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/989.png",
+        "base": {
+            "hp": 85,
+            "attack": 81,
+            "defense": 97,
+            "spAttack": 121,
+            "spDefense": 85,
+            "speed": 101
+        }
+    },
+    {
+        "id": 990,
+        "name": {
+            "english": "Iron Treads"
+        },
+        "type": ["Ground", "Steel"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/990.png",
+        "base": {
+            "hp": 90,
+            "attack": 112,
+            "defense": 120,
+            "spAttack": 72,
+            "spDefense": 70,
+            "speed": 106
+        }
+    },
+    {
+        "id": 991,
+        "name": {
+            "english": "Iron Bundle"
+        },
+        "type": ["Ice", "Water"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/991.png",
+        "base": {
+            "hp": 56,
+            "attack": 80,
+            "defense": 114,
+            "spAttack": 124,
+            "spDefense": 60,
+            "speed": 136
+        }
+    },
+    {
+        "id": 992,
+        "name": {
+            "english": "Iron Hands"
+        },
+        "type": ["Fighting", "Electric"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/992.png",
+        "base": {
+            "hp": 154,
+            "attack": 140,
+            "defense": 108,
+            "spAttack": 50,
+            "spDefense": 68,
+            "speed": 50
+        }
+    },
+    {
+        "id": 993,
+        "name": {
+            "english": "Iron Jugulis"
+        },
+        "type": ["Dark", "Flying"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/993.png",
+        "base": {
+            "hp": 94,
+            "attack": 80,
+            "defense": 86,
+            "spAttack": 122,
+            "spDefense": 80,
+            "speed": 108
+        }
+    },
+    {
+        "id": 994,
+        "name": {
+            "english": "Iron Moth"
+        },
+        "type": ["Fire", "Poison"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/994.png",
+        "base": {
+            "hp": 80,
+            "attack": 70,
+            "defense": 60,
+            "spAttack": 140,
+            "spDefense": 110,
+            "speed": 110
+        }
+    },
+    {
+        "id": 995,
+        "name": {
+            "english": "Iron Thorns"
+        },
+        "type": ["Rock", "Electric"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/995.png",
+        "base": {
+            "hp": 100,
+            "attack": 134,
+            "defense": 110,
+            "spAttack": 70,
+            "spDefense": 84,
+            "speed": 72
+        }
+    },
+    {
+        "id": 996,
+        "name": {
+            "english": "Frigibax"
+        },
+        "type": ["Dragon", "Ice"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/996.png",
+        "base": {
+            "hp": 65,
+            "attack": 75,
+            "defense": 45,
+            "spAttack": 35,
+            "spDefense": 45,
+            "speed": 55
+        }
+    },
+    {
+        "id": 997,
+        "name": {
+            "english": "Arctibax"
+        },
+        "type": ["Dragon", "Ice"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/997.png",
+        "base": {
+            "hp": 90,
+            "attack": 95,
+            "defense": 66,
+            "spAttack": 45,
+            "spDefense": 65,
+            "speed": 62
+        }
+    },
+    {
+        "id": 998,
+        "name": {
+            "english": "Baxcalibur"
+        },
+        "type": ["Dragon", "Ice"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/998.png",
+        "base": {
+            "hp": 115,
+            "attack": 145,
+            "defense": 92,
+            "spAttack": 75,
+            "spDefense": 86,
+            "speed": 87
+        }
+    },
+    {
+        "id": 999,
+        "name": {
+            "english": "Gimmighoul"
+        },
+        "type": ["Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/999.png",
+        "base": {
+            "hp": 45,
+            "attack": 30,
+            "defense": 25,
+            "spAttack": 75,
+            "spDefense": 45,
+            "speed": 80
+        }
+    },
+    {
+        "id": 1000,
+        "name": {
+            "english": "Gholdengo"
+        },
+        "type": ["Steel", "Ghost"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1000.png",
+        "base": {
+            "hp": 87,
+            "attack": 60,
+            "defense": 95,
+            "spAttack": 133,
+            "spDefense": 91,
+            "speed": 84
+        }
+    },
+    {
+        "id": 1001,
+        "name": {
+            "english": "Wo-Chien"
+        },
+        "type": ["Dark", "Grass"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1001.png",
+        "base": {
+            "hp": 85,
+            "attack": 85,
+            "defense": 100,
+            "spAttack": 95,
+            "spDefense": 135,
+            "speed": 70
+        }
+    },
+    {
+        "id": 1002,
+        "name": {
+            "english": "Chien-Pao"
+        },
+        "type": ["Dark", "Ice"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1002.png",
+        "base": {
+            "hp": 80,
+            "attack": 120,
+            "defense": 80,
+            "spAttack": 90,
+            "spDefense": 65,
+            "speed": 135
+        }
+    },
+    {
+        "id": 1003,
+        "name": {
+            "english": "Ting-Lu"
+        },
+        "type": ["Dark", "Ground"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1003.png",
+        "base": {
+            "hp": 155,
+            "attack": 110,
+            "defense": 125,
+            "spAttack": 55,
+            "spDefense": 80,
+            "speed": 45
+        }
+    },
+    {
+        "id": 1004,
+        "name": {
+            "english": "Chi-Yu"
+        },
+        "type": ["Dark", "Fire"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1004.png",
+        "base": {
+            "hp": 55,
+            "attack": 80,
+            "defense": 80,
+            "spAttack": 135,
+            "spDefense": 120,
+            "speed": 100
+        }
+    },
+    {
+        "id": 1005,
+        "name": {
+            "english": "Roaring Moon"
+        },
+        "type": ["Dragon", "Dark"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1005.png",
+        "base": {
+            "hp": 105,
+            "attack": 139,
+            "defense": 71,
+            "spAttack": 55,
+            "spDefense": 101,
+            "speed": 119
+        }
+    },
+    {
+        "id": 1006,
+        "name": {
+            "english": "Iron Valiant"
+        },
+        "type": ["Fairy", "Fighting"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1006.png",
+        "base": {
+            "hp": 74,
+            "attack": 130,
+            "defense": 90,
+            "spAttack": 120,
+            "spDefense": 60,
+            "speed": 116
+        }
+    },
+    {
+        "id": 1007,
+        "name": {
+            "english": "Koraidon"
+        },
+        "type": ["Fighting", "Dragon"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1007.png",
+        "base": {
+            "hp": 100,
+            "attack": 135,
+            "defense": 115,
+            "spAttack": 85,
+            "spDefense": 100,
+            "speed": 135
+        }
+    },
+    {
+        "id": 1008,
+        "name": {
+            "english": "Miraidon"
+        },
+        "type": ["Electric", "Dragon"],
+        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1008.png",
+        "base": {
+            "hp": 100,
+            "attack": 85,
+            "defense": 100,
+            "spAttack": 135,
+            "spDefense": 115,
+            "speed": 135
+        }
     }
 ]

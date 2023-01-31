@@ -25,6 +25,7 @@ function UnlimitedGame() {
     const [includedFilter, setIncludedFilter] = useState([]);
     const [excludedFilter, setExcludedFilter] = useState([]);
     const [genFilter, setGenFilter] = useState(null);
+    const [streak, setStreak] = useState(1);
     const typeRef = React.createRef();
 
     useEffect(() => {
@@ -140,8 +141,9 @@ function UnlimitedGame() {
     return (
         <div className="unlimited-container">
             <strong className="message">
-                Unlimited guesses, all Generations up to Gen 8.
+                Unlimited guesses, all Generations.
             </strong>
+            {streak > 1 && <div>Current streak: {streak}</div>}
             {!pokemon.name && (
                 <div>
                     Game is loading, may take a minute. Please wait/refresh.
@@ -255,6 +257,7 @@ function UnlimitedGame() {
                         class="btn btn-outline-dark btn-sm game-reset"
                         onClick={() => {
                             setHasWon(false);
+                            setStreak(streak + 1);
                             initialize();
                         }}
                     >
