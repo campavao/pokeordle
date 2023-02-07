@@ -98,7 +98,7 @@ function Pokedex() {
                 <Modal show backdrop onHide={() => setPokemon(undefined)}>
                     <div className="pokemodal">
                         {pokemon.name.english}
-                        <div>Types: {pokemon.type.join(', ')}</div>
+                        <div>Types: {pokemon.types.join(', ')}</div>
                         <div>Base Stat Total: {getBaseStats(pokemon)}</div>
                     </div>
                 </Modal>

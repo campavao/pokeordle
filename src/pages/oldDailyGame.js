@@ -92,11 +92,12 @@ function DailyGame() {
                         id: valid.id,
                         difference: pokemon.id - valid.id,
                     },
-                    types: valid.type.map((typing, index) => {
+                    types: valid.types.map((typing, index) => {
                         return {
                             name: typing,
-                            isFound: pokemon.type.includes(typing),
-                            isSameIndex: pokemon.type.indexOf(typing) === index,
+                            isFound: pokemon.types.includes(typing),
+                            isSameIndex:
+                                pokemon.types.indexOf(typing) === index,
                         };
                     }),
                     baseTotal: {

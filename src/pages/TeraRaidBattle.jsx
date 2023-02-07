@@ -149,7 +149,7 @@ function TeraRaidBattle() {
 
     useEffect(() => {
         if (currentPokemon && !currentTypes.length) {
-            const newTypes = currentPokemon.type.map((name) =>
+            const newTypes = currentPokemon.types.map((name) =>
                 name.toLowerCase()
             );
 

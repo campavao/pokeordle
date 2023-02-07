@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
+import React, { useState, useEffect, useMemo } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Guess from './components/Guess';
 import TypeFilter from './components/TypeFilter';
+import SearchBar from './components/SearchBar';
 import {
-    getFilters,
     getIntWithinRange,
-    filterSuggestions,
     getBaseStats,
     getImg,
+    getFilter,
 } from './components/utils';
 import { GENERATIONS } from './constants';
 
@@ -47,96 +46,68 @@ function UnlimitedGame() {
         }
     };
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        typeRef.current.clear();
-        if (guess) {
-            const valid = Array.from(pokedex).find(
-                (pokemon) =>
-                    pokemon.name.english.toLowerCase() === guess.toLowerCase()
-            );
+    const handleClick = (search) => {
+        if (search) {
+            setGuess('');
+            const pokemonBaseTotal = getBaseStats(pokemon);
+            const validBaseTotal = getBaseStats(search);
+            const guess = {
+                name: search.name.english,
+                index: {
+                    id: search.id,
+                    difference: pokemon.id - search.id,
+                },
+                types: search.types.map((typing, index) => {
+                    return {
+                        name: typing,
+                        isFound: pokemon.types.includes(typing),
+                        isSameIndex: pokemon.types.indexOf(typing) === index,
+                    };
+                }),
+                baseTotal: {
+                    total: validBaseTotal,
+                    difference: pokemonBaseTotal - validBaseTotal,
+                    stats: search.base,
+                },
+                imgUrl: search.imgUrl,
+            };
+            setGuesses([guess, ...guesses]);
 
-            if (valid) {
-                setGuess('');
-                const pokemonBaseTotal = getBaseStats(pokemon);
-                const validBaseTotal = getBaseStats(valid);
-                const guess = {
-                    name: valid.name.english,
-                    index: {
-                        id: valid.id,
-                        difference: pokemon.id - valid.id,
-                    },
-                    types: valid.type.map((typing, index) => {
-                        return {
-                            name: typing,
-                            isFound: pokemon.type.includes(typing),
-                            isSameIndex: pokemon.type.indexOf(typing) === index,
-                        };
-                    }),
-                    baseTotal: {
-                        total: validBaseTotal,
-                        difference: pokemonBaseTotal - validBaseTotal,
-                        stats: valid.base,
-                    },
-                    imgUrl: valid.imgUrl,
-                };
-                setGuesses([guess, ...guesses]);
+            const excludedTypes = guess.types
+                .filter((type) => !type.isFound)
+                .map((type) => type.name);
+            setExcludedFilter([...excludedFilter, ...excludedTypes]);
 
-                const excludedTypes = guess.types
-                    .filter((type) => !type.isFound)
-                    .map((type) => {
-                        return type.name.toLowerCase();
-                    });
-                setExcludedFilter([...excludedFilter, ...excludedTypes]);
+            const includedTypes = guess.types
+                .filter((type) => type.isFound)
+                .map((type) => type.name);
+            setIncludedFilter([...includedFilter, ...includedTypes]);
 
-                const includedTypes = guess.types
-                    .filter((type) => type.isFound)
-                    .map((type) => {
-                        return type.name.toLowerCase();
-                    });
-                setIncludedFilter([...includedFilter, ...includedTypes]);
-
-                if (valid.id === pokemon.id) {
-                    setViewHint(false);
-                    setHasWon(true);
-                    setExcludedFilter([]);
-                    setIncludedFilter([]);
-                    setGenFilter(null);
-                }
+            if (search.id === pokemon.id) {
+                setViewHint(false);
+                setHasWon(true);
+                setExcludedFilter([]);
+                setIncludedFilter([]);
+                setGenFilter(null);
             }
         }
     };
 
     const handleFilterChange = (e) => {
-        const type = e.target.outerText.toLowerCase();
+        const type = e.target.outerText;
         if (includedFilter.includes(type)) {
             setIncludedFilter(
                 includedFilter.filter((filter) => filter !== type)
             );
         } else {
-            setIncludedFilter([
-                ...includedFilter,
-                e.target.outerText.toLowerCase(),
-            ]);
+            setIncludedFilter([...includedFilter, e.target.outerText]);
         }
     };
 
-    const handleType = (e) => {
-        const guess = formatGuess(e);
-        if (guess) setGuess(guess);
-    };
-
-    const handleTypeAhead = (e) => {
-        if (e.length > 0) {
-            setGuess(formatGuess(e[0]));
-        }
-    };
-
-    const formatGuess = (rawGuess) => {
-        return rawGuess.replace(/#[0-9]* /g, '');
-    };
-
-    const { guessedGen } = getFilters(guesses, pokemon);
+    const filter = useMemo(
+        () => getFilter(guesses, pokemon),
+        [guesses, pokemon]
+    );
 
     return (
         <div className="unlimited-container">
@@ -189,43 +160,19 @@ function UnlimitedGame() {
                                 }`}
                             ></i>
                         </button>
-                        <form className="game-form" onSubmit={handleClick}>
-                            <Typeahead
-                                id="input"
-                                role="input"
-                                className="game-input"
-                                onChange={handleTypeAhead}
-                                onInputChange={handleType}
-                                placeholder="who's that pokemon?"
-                                options={Array.from(pokedex)
-                                    .filter((pokemon) =>
-                                        filterSuggestions(
-                                            pokemon,
-                                            guesses,
-                                            9999,
-                                            includedFilter,
-                                            excludedFilter,
-                                            genFilter ?? guessedGen
-                                        )
-                                    )
-                                    .map((pokemon) => {
-                                        return `#${pokemon.id} ${pokemon.name.english}`;
-                                    })}
-                                ref={typeRef}
-                            />
-                            <input
-                                type="submit"
-                                value="Guess"
-                                class="btn btn-light game-button"
-                            ></input>
-                            <button
-                                type="button"
-                                class="btn btn-outline-dark btn-sm game-hint-button"
-                                onClick={() => setViewHint(!viewHint)}
-                            >
-                                {viewHint ? 'Hide' : 'Show'} hint
-                            </button>
-                        </form>
+                        <SearchBar
+                            className="game-form"
+                            onSubmit={handleClick}
+                            filter={filter}
+                            disabled={hasWon}
+                        />
+                        <button
+                            type="button"
+                            class="btn btn-outline-dark btn-sm game-hint-button"
+                            onClick={() => setViewHint(!viewHint)}
+                        >
+                            {viewHint ? 'Hide' : 'Show'} hint
+                        </button>
                         <div className="guesses">
                             {guesses &&
                                 guesses.map((guess) => {

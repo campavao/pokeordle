@@ -92,7 +92,7 @@ export default function Guess(props) {
                     <TypeList
                         types={types}
                         useTypeColors={false}
-                        possibleTypes={pokemon.type.length}
+                        possibleTypes={pokemon.types.length}
                     />
                 ) : (
                     <ul className="type-list">
@@ -199,7 +199,7 @@ export default function Guess(props) {
 
         return (
             <div className={`generation ${proximity}`}>
-                {guessGeneration.name}
+                Gen {guessGeneration}
             </div>
         );
     }

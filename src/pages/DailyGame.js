@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
+import React, { useEffect, useMemo, useState } from 'react';
 import Guess from './components/Guess';
-import TypeList from './components/TypeList';
-import { filterSuggestions, getFilters } from './components/utils';
+import SearchBar from './components/SearchBar';
 import { useDailyGame } from './hooks/useDailyGame';
 import { GameAnswer } from './GameAnswer';
-import * as pokedex from './pokedex.json';
+import { getFilter } from './components/utils';
+
 import './Pages.scss';
+import TypeFilter from './components/TypeFilter';
 
 function DailyGame() {
     const {
@@ -15,10 +15,7 @@ function DailyGame() {
         hasWon,
         remainingGuesses,
         viewHint,
-        typeRef,
         handleClick,
-        handleType,
-        handleTypeAhead,
         setViewHint,
     } = useDailyGame('hardGameState');
     const [showAnswer, setShowAnswer] = useState(hasWon);
@@ -31,14 +28,14 @@ function DailyGame() {
         if (hasWon && !showAnswer) {
             setShowAnswer(true);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasWon]);
 
     const finished = hasWon || remainingGuesses === 0;
 
-    const { guessedGen, includeFilter, excludedFilter } = getFilters(
-        guesses,
-        pokemon
+    const filter = useMemo(
+        () => getFilter(guesses, pokemon),
+        [guesses, pokemon]
     );
 
     return (
@@ -65,64 +62,38 @@ function DailyGame() {
                             }}
                         />
                     )}
-                    <TypeList
-                        types={guesses.map((guess) => guess.types).flat()}
+                    <TypeFilter
+                        disabled
+                        excludedFilter={filter.exclude.types}
+                        includedFilter={filter.include.types}
                     />
-                    <form className="game-form" onSubmit={handleClick}>
-                        {!finished && (
-                            <>
-                                <Typeahead
-                                    id="input"
-                                    role="input"
-                                    className="game-input"
-                                    onChange={handleTypeAhead}
-                                    onInputChange={handleType}
-                                    placeholder="who's that pokemon?"
-                                    options={Array.from(pokedex)
-                                        .filter((pokemon) =>
-                                            filterSuggestions(
-                                                pokemon,
-                                                guesses,
-                                                9999,
-                                                includeFilter,
-                                                excludedFilter,
-                                                guessedGen
-                                            )
-                                        )
-                                        .map((pokemon) => {
-                                            return pokemon.name.english;
-                                        })}
-                                    ref={typeRef}
-                                />
-                                <input
-                                    type="submit"
-                                    value="Guess"
-                                    className="game-button"
-                                    disabled={hasWon || remainingGuesses <= 0}
-                                ></input>
-                            </>
-                        )}
-                        {!hasWon &&
-                            remainingGuesses < 2 &&
-                            remainingGuesses > 0 && (
-                                <button
-                                    type="button"
-                                    class="btn btn-outline-dark btn-sm game-hint-button"
-                                    onClick={() => setViewHint(!viewHint)}
-                                >
-                                    {viewHint ? 'Hide' : 'Show'} hint
-                                </button>
-                            )}
-                        {finished && (
+                    <SearchBar
+                        className="game-form"
+                        onSubmit={handleClick}
+                        filter={filter}
+                        disabled={hasWon || remainingGuesses <= 0}
+                    />
+
+                    {!hasWon &&
+                        remainingGuesses < 2 &&
+                        remainingGuesses > 0 && (
                             <button
                                 type="button"
                                 class="btn btn-outline-dark btn-sm game-hint-button"
-                                onClick={() => setShowAnswer(!showAnswer)}
+                                onClick={() => setViewHint(!viewHint)}
                             >
-                                {showAnswer ? 'Hide' : 'Show'} answer
+                                {viewHint ? 'Hide' : 'Show'} hint
                             </button>
                         )}
-                    </form>
+                    {finished && (
+                        <button
+                            type="button"
+                            class="btn btn-outline-dark btn-sm game-hint-button"
+                            onClick={() => setShowAnswer(!showAnswer)}
+                        >
+                            {showAnswer ? 'Hide' : 'Show'} answer
+                        </button>
+                    )}
                     <div className="guesses">
                         {guesses &&
                             guesses.map((guess) => {

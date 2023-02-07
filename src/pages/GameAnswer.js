@@ -31,7 +31,7 @@ export function GameAnswer({ show, close }) {
 
     const getTypeEmoji = useCallback(
         (types) => {
-            const possibleTypes = pokemon.type.length;
+            const possibleTypes = pokemon.types.length;
             const typeEmojis = types.map(({ isFound, isSameIndex }) =>
                 generateEmoji(isFound && isSameIndex, isFound)
             );
