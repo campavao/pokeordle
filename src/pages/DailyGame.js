@@ -25,10 +25,9 @@ function DailyGame() {
     );
 
     useEffect(() => {
-        if (hasWon && !showAnswer) {
+        if (hasWon) {
             setShowAnswer(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasWon]);
 
     const finished = hasWon || remainingGuesses === 0;
@@ -63,7 +62,6 @@ function DailyGame() {
                         />
                     )}
                     <TypeFilter
-                        disabled
                         excludedFilter={filter.exclude.types}
                         includedFilter={filter.include.types}
                     />

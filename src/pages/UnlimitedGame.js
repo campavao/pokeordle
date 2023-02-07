@@ -16,7 +16,6 @@ import './Pages.scss';
 
 function UnlimitedGame() {
     const [pokemon, setPokemon] = useState({});
-    const [guess, setGuess] = useState('');
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
     const [viewHint, setViewHint] = useState(false);
@@ -25,7 +24,6 @@ function UnlimitedGame() {
     const [excludedFilter, setExcludedFilter] = useState([]);
     const [genFilter, setGenFilter] = useState(null);
     const [streak, setStreak] = useState(1);
-    const typeRef = React.createRef();
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -34,7 +32,6 @@ function UnlimitedGame() {
     }, [pokemon.name]);
 
     const initialize = () => {
-        setGuess('');
         setGuesses([]);
         setViewHint(false);
         const index = getIntWithinRange(Math.random(), 1, 906);
@@ -48,7 +45,6 @@ function UnlimitedGame() {
 
     const handleClick = (search) => {
         if (search) {
-            setGuess('');
             const pokemonBaseTotal = getBaseStats(pokemon);
             const validBaseTotal = getBaseStats(search);
             const guess = {
