@@ -48,54 +48,50 @@ export default function TypeList(props) {
 
     return (
         <ul className="type-list">
-            {typeList
-                .sort((a, b) =>
-                    superEffective[a] > superEffective[b] ? -1 : 1
-                )
-                .map((type) => {
-                    const foundType = foundTypes.find(
-                        (foundType) => foundType.name === type
-                    );
-                    const typeClassName = useTypeColors
-                        ? `${type?.toLowerCase()} ${isTypeMissed(type)}`
-                        : foundType?.isSameIndex
-                        ? 'correct-type'
-                        : foundType?.isFound
-                        ? 'almost-type'
-                        : type === 'X'
-                        ? 'correct-type'
-                        : 'absent-type';
+            {typeList.map((type) => {
+                const foundType = foundTypes.find(
+                    (foundType) => foundType.name === type
+                );
+                const typeClassName = useTypeColors
+                    ? `${type?.toLowerCase()} ${isTypeMissed(type)}`
+                    : foundType?.isSameIndex
+                    ? 'correct-type'
+                    : foundType?.isFound
+                    ? 'almost-type'
+                    : type === 'X'
+                    ? 'correct-type'
+                    : 'absent-type';
 
-                    return (
-                        <div>
-                            {!enableSuperEffective
-                                ? null
-                                : superEffective[type] > 1
-                                ? strong
-                                    ? '1/4x'
-                                    : '4x'
-                                : strong
-                                ? '1/2x'
-                                : '2x'}
-                            <li
-                                key={type}
-                                className={`type-list-item ${typeClassName}`}
-                            >
-                                {type !== 'X' ? (
-                                    type?.toUpperCase()
-                                ) : (
-                                    <i
-                                        class={`bi bi-${
-                                            possibleTypes > 1
-                                                ? 'question-lg'
-                                                : 'x-lg'
-                                        }`}
-                                    ></i>
-                                )}
-                            </li>
-                        </div>
-                    );
-                })}
+                return (
+                    <div>
+                        {!enableSuperEffective
+                            ? null
+                            : superEffective[type] > 1
+                            ? strong
+                                ? '1/4x'
+                                : '4x'
+                            : strong
+                            ? '1/2x'
+                            : '2x'}
+                        <li
+                            key={type}
+                            className={`type-list-item ${typeClassName}`}
+                        >
+                            {type !== 'X' ? (
+                                type?.toUpperCase()
+                            ) : (
+                                <i
+                                    class={`bi bi-${
+                                        possibleTypes > 1
+                                            ? 'question-lg'
+                                            : 'x-lg'
+                                    }`}
+                                ></i>
+                            )}
+                        </li>
+                    </div>
+                );
+            })}
         </ul>
     );
 }

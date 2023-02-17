@@ -3,16 +3,18 @@ import { Button, Modal } from 'react-bootstrap';
 
 import { getImgUrl, getBaseStats } from './components/utils';
 
-import { GENERATIONS } from './constants';
+import { DEFAULT_FILTER_STATE, GENERATIONS } from './constants';
 
 import * as pokedexJson from './pokedex.json';
 import './Pokedex.scss';
+import { SearchWithFilter } from './components/SearchWithFilter';
 
 function Pokedex() {
     const [page, setPage] = useState({ start: 0, limit: 151, gen: 1 });
     const [images, setImages] = useState([]);
     const [pokemon, setPokemon] = useState(undefined);
     const [show, setShow] = useState(false);
+    const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
 
     const updateImages = useCallback(async ({ start, limit }) => {
         const arr =
@@ -70,8 +72,36 @@ function Pokedex() {
         setPokemon(pokedexJson[page.start + index]);
     };
 
+    const handleFilterChange = (filterChange, key) => {
+        setFilterState({
+            ...filterState,
+            ...filterChange,
+            include: {
+                ...filterState.include,
+                [key]: filterChange.include[key],
+            },
+            exclude: {
+                ...filterState.exclude,
+                [key]: filterChange.exclude[key],
+            },
+        });
+    };
+
+    const handleClick = async (poke) => {
+        const img = !poke.imgUrl && (await getImgUrl(poke.id));
+        setPokemon({
+            ...poke,
+            img,
+        });
+    };
+
     return (
         <div className="pokedex-container">
+            <SearchWithFilter
+                filterState={filterState}
+                handleFilterChange={handleFilterChange}
+                handleClick={handleClick}
+            />
             <div className="nav">
                 <button
                     onClick={() => changeGeneration(-1)}
@@ -97,8 +127,17 @@ function Pokedex() {
             {pokemon && (
                 <Modal show backdrop onHide={() => setPokemon(undefined)}>
                     <div className="pokemodal">
+                        <div
+                            className="game-answer"
+                            aria-label={pokemon?.name?.english}
+                            style={{
+                                backgroundImage: `url(${
+                                    pokemon.imgUrl ?? pokemon.img?.default
+                                })`,
+                            }}
+                        />
                         {pokemon.name.english}
-                        <div>Types: {pokemon.type.join(', ')}</div>
+                        <div>Types: {pokemon.types.join(', ')}</div>
                         <div>Base Stat Total: {getBaseStats(pokemon)}</div>
                     </div>
                 </Modal>

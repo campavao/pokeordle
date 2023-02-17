@@ -143,3 +143,28 @@ h2 {
 .info {
     background-color: gray;
 }
+
+.filter {
+    padding-bottom: 20px;
+}
+
+.top-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.filter-row {
+    display: flex;
+    align-items: baseline;
+
+    > p {
+        width: 33%;
+    }
+
+    > div {
+        width: 100%;
+    }
+}

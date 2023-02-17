@@ -1,16 +1,17 @@
 import { GENERATIONS } from '../constants';
 
-export const determineGeneration = (guess, pokemon) => {
+export const getGeneration = (pokemon) => {
     const findGen = (gen, toFind) => {
         const foundIndex = toFind.index ? toFind.index : toFind;
         return foundIndex.id <= gen.range;
     };
-    const guessGeneration = GENERATIONS.find((gen) => findGen(gen, guess));
-    const pokemonGeneration = GENERATIONS.find((gen) => findGen(gen, pokemon));
-    const difference = Math.abs(
-        Number(guessGeneration.name.replace('Gen ', '')) -
-            Number(pokemonGeneration.name.replace('Gen ', ''))
-    );
+    return GENERATIONS.find((gen) => findGen(gen, pokemon))?.gen;
+};
+
+export const determineGeneration = (guess, pokemon) => {
+    const guessGeneration = getGeneration(guess);
+    const pokemonGeneration = getGeneration(pokemon);
+    const difference = Math.abs(guessGeneration - pokemonGeneration);
     const proximity =
         difference === 0 ? 'correct' : difference === 1 ? 'almost' : 'absent';
     return {
@@ -63,6 +64,185 @@ export const filterSuggestions = (
         !guesses.find((guess) => guess.index.id === pokemon.id)
     );
 };
+
+export const getFilter = (guesses, pokemon, additionalFilter) => {
+    const hasIncludeSingle = additionalFilter.types.include.includes('X');
+    const hasExcludeSingle = additionalFilter.types.exclude.includes('X');
+
+    if (hasIncludeSingle) {
+        additionalFilter.types.include = additionalFilter.types.include.filter(
+            (type) => type !== 'X'
+        );
+    }
+
+    if (hasExcludeSingle) {
+        additionalFilter.types.exclude = additionalFilter.types.exclude.filter(
+            (type) => type !== 'X'
+        );
+    }
+
+    const filter = getFilterFromGuesses(guesses, pokemon);
+
+    if (additionalFilter) {
+        if (additionalFilter.types) {
+            filter.include.types = [
+                ...filter.include.types.filter(
+                    (type) => !additionalFilter.types.exclude.includes(type)
+                ),
+                ...additionalFilter.types.include,
+            ];
+
+            filter.exclude.types = [
+                ...filter.exclude.types.filter(
+                    (type) => !additionalFilter.types.include.includes(type)
+                ),
+                ...additionalFilter.types.exclude,
+            ];
+        }
+    }
+
+    const amountOfTypes = hasIncludeSingle
+        ? 1
+        : hasExcludeSingle
+        ? 2
+        : filter.amountOfTypes;
+
+    return {
+        ...filter,
+        amountOfTypes,
+    };
+};
+
+export const getFilterFromGuesses = (guesses, pokemon) => {
+    const generations = guesses.reduce(
+        (getFilter, guess) => {
+            const { proximity } = determineGeneration(guess, pokemon);
+            return {
+                include: [
+                    ...getFilter.include,
+                    ...(proximity === 'correct' ? [getGeneration(guess)] : []),
+                ],
+                exclude: [
+                    ...getFilter.exclude,
+                    ...(proximity !== 'correct' ? [getGeneration(guess)] : []),
+                ],
+            };
+        },
+        { include: [], exclude: [] }
+    );
+
+    const types = guesses.reduce(
+        (typeFilter, guess) => {
+            return {
+                include: [
+                    ...typeFilter.include,
+                    ...guess.types
+                        .filter((type) => type.isFound)
+                        .map((type) => type.name),
+                ],
+                exclude: [
+                    ...typeFilter.exclude,
+                    ...guess.types
+                        .filter((type) => !type.isFound)
+                        .map((type) => type.name),
+                ],
+            };
+        },
+        { include: [], exclude: [] }
+    );
+
+    const amountOfTypes =
+        pokemon &&
+        guesses.some((guess) => guess.types.length === 1) &&
+        pokemon.types?.length;
+
+    return {
+        include: {
+            generations: generations.include,
+            types: types.include,
+            pokemon: [],
+        },
+        exclude: {
+            generations: generations.exclude,
+            types: types.exclude,
+            pokemon: guesses.map((guess) => guess?.name?.english),
+        },
+        amountOfTypes,
+    };
+};
+
+export const getFilterFromGuess = (guess, pokemon) => {
+    const { proximity } = determineGeneration(guess, pokemon);
+    const generations = {
+        include: proximity === 'correct' ? [getGeneration(guess)] : [],
+        exclude: proximity !== 'correct' ? [getGeneration(guess)] : [],
+    };
+    const types = {
+        include: guess.types
+            .filter((type) => type.isFound)
+            .map((type) => type.name),
+        exclude: guess.types
+            .filter((type) => !type.isFound)
+            .map((type) => type.name),
+    };
+
+    const amountOfTypes =
+        pokemon && guess.types.length === 1 && pokemon.types?.length;
+
+    const includeMonoType = amountOfTypes ? ['X'] : [];
+
+    return {
+        include: {
+            generations: generations.include,
+            types: [...types.include, ...includeMonoType],
+            pokemon: [],
+        },
+        exclude: {
+            generations: generations.exclude,
+            types: types.exclude,
+            pokemon: [guess.name ?? guess],
+        },
+        amountOfTypes,
+    };
+};
+
+const convertToSet = (arr) => Array.from(new Set(arr));
+
+export function mergeFilterStates(prevFilterState, nextFilterState) {
+    return {
+        include: {
+            generations: convertToSet([
+                ...prevFilterState.include.generations,
+                ...nextFilterState.include.generations,
+            ]),
+            types: convertToSet([
+                ...prevFilterState.include.types,
+                ...nextFilterState.include.types,
+            ]),
+            pokemon: convertToSet([
+                ...prevFilterState.include.pokemon,
+                ...nextFilterState.include.pokemon,
+            ]),
+        },
+        exclude: {
+            generations: convertToSet([
+                ...prevFilterState.exclude.generations,
+                ...nextFilterState.exclude.generations,
+            ]),
+            types: convertToSet([
+                ...prevFilterState.exclude.types,
+                ...nextFilterState.exclude.types,
+            ]),
+            pokemon: convertToSet([
+                ...prevFilterState.exclude.pokemon,
+                ...nextFilterState.exclude.pokemon,
+            ]),
+        },
+        amountOfTypes:
+            nextFilterState?.amountOfTypes ?? prevFilterState?.amountOfTypes,
+    };
+}
+
 
 export const getBaseStats = (guessPokemon) => {
     const { hp, attack, defense, spAttack, spDefense, speed } =
@@ -126,7 +306,7 @@ export function getFilters(guesses, pokemon) {
         ...types.reduce(
             (r, type) => ({
                 ...r,
-                [type.name]: type.isFound,
+                [types.name]: type.isFound,
             }),
             {}
         ),

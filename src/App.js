@@ -137,14 +137,15 @@ function App() {
                     />
                     <Button
                         displayName="Tera"
-                        active={view === 'TeraRaidBattle'}
+                        active={view === 'Tera'}
                         updateView={updateView}
                     />
                     {/* <Button
                         displayName="Timed"
                         active={view === 'timed'}
                         updateView={updateView}
-                    />
+                    /> */}
+                    {/*
                     <Button
                         displayName="Leaderboard"
                         active={view === 'leaderboard'}
@@ -177,7 +178,7 @@ function App() {
                 {view === 'Timed' && <TimedGame />}
                 {view === 'Party' && <PartyGame />}
                 {view === 'Leaderboard' && <TimedLeaderboard />}
-                {view === 'TeraRaidBattle' && <TeraRaidBattle />}
+                {view === 'Tera' && <TeraRaidBattle />}
             </div>
         </div>
     );

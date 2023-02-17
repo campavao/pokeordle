@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { getBaseStats, getImg } from '../components/utils';
+import {
+    getBaseStats,
+    getFilterFromGuess,
+    getImg,
+    mergeFilterStates,
+} from '../components/utils';
 import { useLocalStorage } from './useLocalStorage';
 import { determineProximity } from '../components/Guess';
 
 import * as pokedex from '../pokedex.json';
+import { DEFAULT_FILTER_STATE } from '../constants';
 
 const ID_LIST = process.env.REACT_APP_POKEMON_DAILY_HARD_LIST.split(',');
 
@@ -12,7 +18,6 @@ const TODAY_DATE = new Date().setHours(0, 0, 0, 0);
 
 export function useDailyGame(gameName = 'hardGameState') {
     const [pokemon, setPokemon] = useState({});
-    const [guess, setGuess] = useState('');
     const [hasWon, setHasWon] = useState(false);
     const [remainingGuesses, setRemainingGuesses] = useState(8);
     const [viewHint, setViewHint] = useState(false);
@@ -22,7 +27,11 @@ export function useDailyGame(gameName = 'hardGameState') {
         numGuessesLeft: remainingGuesses ?? 8,
         streak: 0,
         guesses: [],
+        savedFilterState: DEFAULT_FILTER_STATE,
     });
+    const [filterState, setFilterState] = useState(
+        gameState.savedFilterState ?? DEFAULT_FILTER_STATE
+    );
     const { streak, guesses } = gameState;
     const typeRef = React.createRef();
 
@@ -45,6 +54,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                 numGuessesLeft: 0,
                 streak: 0,
                 guesses: guesses,
+                savedFilterState: DEFAULT_FILTER_STATE,
             });
             setHasWon(false);
             setRemainingGuesses(0);
@@ -73,6 +83,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                     numGuessesLeft: 8,
                     streak: streak,
                     guesses: [],
+                    savedFilterState: DEFAULT_FILTER_STATE,
                 });
             } else {
                 setHasWon(gameState.dailyWon);
@@ -80,79 +91,77 @@ export function useDailyGame(gameName = 'hardGameState') {
                 setGameState({
                     ...gameState,
                     guesses: gameState.guesses,
+                    savedFilterState: filterState,
                 });
             }
         }
-    }, [gameState, pokemon.name, setGameState]);
+    }, [filterState, gameState, pokemon.name, setGameState]);
 
     /** returns Guess object compared against the current answer. */
-    const getGuessFromPokemon = (guessPokemon) => {
-        if (!guessPokemon) {
-            return new Error(`${guessPokemon} is not present`);
-        }
-        const { base, name, id, type } = guessPokemon;
-        const { id: correctId = 0, type: correctType = [] } = pokemon;
+    const getGuessFromPokemon = useCallback(
+        (guessPokemon) => {
+            if (!guessPokemon) {
+                return new Error(`${guessPokemon} is not present`);
+            }
+            const { base, name, id, types } = guessPokemon;
+            const { id: correctId = 0, types: correctType = [] } = pokemon;
 
-        const guessPokemonBaseTotal = getBaseStats(guessPokemon);
-        const pokemonBaseTotal = getBaseStats(pokemon);
+            const guessPokemonBaseTotal = getBaseStats(guessPokemon);
+            const pokemonBaseTotal = getBaseStats(pokemon);
 
-        return {
-            name,
-            index: {
-                id,
-                difference: correctId - id,
-            },
-            types: type.map((typing, index) => {
-                const guessFoundIndex = correctType.indexOf(typing);
-                return {
-                    name: typing,
-                    isFound: guessFoundIndex > -1,
-                    isSameIndex: guessFoundIndex === index,
-                };
-            }),
-            baseTotal: {
-                total: guessPokemonBaseTotal,
-                difference: pokemonBaseTotal - guessPokemonBaseTotal,
-                stats: base,
-            },
-            imgUrl: guessPokemon.imgUrl,
-        };
-    };
+            return {
+                name,
+                index: {
+                    id,
+                    difference: correctId - id,
+                },
+                types: types.map((typing, index) => {
+                    const guessFoundIndex = correctType.indexOf(typing);
+                    return {
+                        name: typing,
+                        isFound: guessFoundIndex > -1,
+                        isSameIndex: guessFoundIndex === index,
+                    };
+                }),
+                baseTotal: {
+                    total: guessPokemonBaseTotal,
+                    difference: pokemonBaseTotal - guessPokemonBaseTotal,
+                    stats: base,
+                },
+                imgUrl: guessPokemon.imgUrl,
+            };
+        },
+        [pokemon]
+    );
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        typeRef.current.clear();
-        const currentGuesses = gameState.guesses;
-
-        if (guess.length > 1) {
-            const valid = Array.from(pokedex)
-                .map(({ name, ...stats }) => ({
-                    ...stats,
-                    name: name.english,
-                }))
-                .find(({ name }) => name.toLowerCase() === guess.toLowerCase());
-
+    const handleClick = (search) => {
+        if (search) {
+            const currentGuesses = [...gameState.guesses];
             const totalGuessesLeft = remainingGuesses - 1;
             setRemainingGuesses(totalGuessesLeft);
+            const guess = getGuessFromPokemon(search);
+            currentGuesses.push(guess);
 
-            if (valid) {
-                const guess = getGuessFromPokemon(valid);
-                currentGuesses.push(guess);
+            const updatedFilterState = getFilterFromGuess(guess, pokemon);
+            const newFilterState = mergeFilterStates(
+                filterState,
+                updatedFilterState
+            );
 
-                setGuess('');
+            setFilterState(newFilterState);
 
-                if (valid.id === pokemon.id) {
-                    const streak = (Number(gameState.streak) || 0) + 1;
-                    setGameState({
-                        dailyWon: true,
-                        dailyDate: new Date().getDate(),
-                        numGuessesLeft: totalGuessesLeft,
-                        streak: streak,
-                        guesses: guesses,
-                    });
-                    setHasWon(true);
-                    return;
-                }
+            if (search.id === pokemon.id) {
+                const streak = (Number(gameState.streak) || 0) + 1;
+                setGameState({
+                    dailyWon: true,
+                    dailyDate: new Date().getDate(),
+                    numGuessesLeft: totalGuessesLeft,
+                    streak: streak,
+                    guesses: currentGuesses,
+                    savedFilterState: newFilterState,
+                });
+                setHasWon(true);
+                return;
             }
 
             if (totalGuessesLeft === 0) {
@@ -162,25 +171,37 @@ export function useDailyGame(gameName = 'hardGameState') {
                     numGuessesLeft: 0,
                     streak: 0,
                     guesses: guesses,
+                    savedFilterState: DEFAULT_FILTER_STATE,
                 });
             } else {
                 setGameState({
                     ...gameState,
                     numGuessesLeft: totalGuessesLeft,
                     guesses: currentGuesses,
+                    savedFilterState: newFilterState,
                 });
             }
         }
     };
 
-    const handleType = (e) => {
-        if (e) setGuess(e);
-    };
-
-    const handleTypeAhead = (e) => {
-        if (e.length > 0) {
-            setGuess(e[0]);
-        }
+    const handleFilterChange = (filterChange, key) => {
+        const newFilterState = {
+            ...filterState,
+            ...filterChange,
+            include: {
+                ...filterState.include,
+                [key]: filterChange.include[key],
+            },
+            exclude: {
+                ...filterState.exclude,
+                [key]: filterChange.exclude[key],
+            },
+        };
+        setFilterState(newFilterState);
+        setGameState({
+            ...gameState,
+            savedFilterState: newFilterState,
+        });
     };
 
     const handleShare = async () => {
@@ -236,16 +257,15 @@ export function useDailyGame(gameName = 'hardGameState') {
 
     return {
         pokemon,
-        guess,
         guesses,
         hasWon,
         remainingGuesses,
         streak,
         viewHint,
         typeRef,
+        filterState,
+        handleFilterChange,
         handleClick,
-        handleType,
-        handleTypeAhead,
         setViewHint,
         handleShare,
     };

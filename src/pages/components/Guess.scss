@@ -108,6 +108,54 @@
 
 .type-list {
     display: flex;
+    width: 100%;
+
+    tr {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    td, th {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        width: 75%;
+
+
+        &:nth-child(2) {
+            min-width: 45%;
+        }
+    }
+
+    &-item {
+        color: white;
+        font-weight: 500;
+        height: 30px;
+        width: 85px;
+        min-width: 85px;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 6px;
+        margin: 5px;
+        box-shadow: 0px 2px 0px black, inset 0px 1px 0px white;
+        text-shadow: 1px 2px gray;
+
+    }
+
+    & .excluded {
+        color: white;
+        background-color: black;
+        display: flex;
+    }
+}
+
+.type-row {
+    display: flex;
     overflow-x: scroll;
     flex-direction: row;
     padding: 0;
@@ -134,17 +182,15 @@
         box-shadow: 0px 2px 0px black, inset 0px 1px 0px white;
         text-shadow: 1px 2px gray;
 
-        &:disabled {
-            color: white;
-            background-color: black;
-            display: none;
+    }
 
-            @media (min-width: 500px) {
-                display: flex;
-            }
-        }
+    & .excluded {
+        color: white;
+        background-color: black;
+        display: flex;
     }
 }
+
 
 .base-total {
     min-width: 190px;
@@ -224,4 +270,8 @@
 
 .fairy {
     background-color: #ff64d6;
+}
+
+.x {
+    background-color: darkslategrey;
 }
