@@ -161,10 +161,17 @@ h2 {
     align-items: baseline;
 
     > p {
+        text-align: center;
         width: 33%;
+        margin: 0;
     }
 
     > div {
         width: 100%;
+    }
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+        align-items: center;
     }
 }

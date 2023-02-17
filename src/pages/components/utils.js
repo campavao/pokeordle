@@ -189,7 +189,8 @@ export const getFilterFromGuess = (guess, pokemon) => {
     const amountOfTypes =
         pokemon && guess.types.length === 1 && pokemon.types?.length;
 
-    const includeMonoType = amountOfTypes ? ['X'] : [];
+    const includeMonoType = amountOfTypes && pokemon.types?.length === guess.types.length ? ['X'] : [];
+    const excludeMonoType = amountOfTypes && pokemon.types?.length !== guess.types.length ? ['X'] : [];
 
     return {
         include: {
@@ -199,7 +200,7 @@ export const getFilterFromGuess = (guess, pokemon) => {
         },
         exclude: {
             generations: generations.exclude,
-            types: types.exclude,
+            types: [...types.exclude, ...excludeMonoType],
             pokemon: [guess.name ?? guess],
         },
         amountOfTypes,
@@ -212,11 +213,11 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
     return {
         include: {
             generations: convertToSet([
-                ...prevFilterState.include.generations,
+                ...prevFilterState.include.generations.filter(gen => !nextFilterState.exclude.generations.includes(gen)),
                 ...nextFilterState.include.generations,
             ]),
             types: convertToSet([
-                ...prevFilterState.include.types,
+                ...prevFilterState.include.types.filter(type => !nextFilterState.exclude.types.includes(type)),
                 ...nextFilterState.include.types,
             ]),
             pokemon: convertToSet([
@@ -226,11 +227,11 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
         },
         exclude: {
             generations: convertToSet([
-                ...prevFilterState.exclude.generations,
+                ...prevFilterState.exclude.generations.filter(gen => !nextFilterState.include.generations.includes(gen)),
                 ...nextFilterState.exclude.generations,
             ]),
             types: convertToSet([
-                ...prevFilterState.exclude.types,
+                ...prevFilterState.exclude.types.filter(type => !nextFilterState.include.types.includes(type)),
                 ...nextFilterState.exclude.types,
             ]),
             pokemon: convertToSet([
@@ -239,7 +240,7 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
             ]),
         },
         amountOfTypes:
-            nextFilterState?.amountOfTypes ?? prevFilterState?.amountOfTypes,
+            nextFilterState?.amountOfTypes || prevFilterState?.amountOfTypes,
     };
 }
 

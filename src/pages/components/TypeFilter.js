@@ -53,7 +53,6 @@ export function Filter(props) {
         const previousFilter = filterState[key][filterType];
         const newFilterState = {
             ...filterState,
-            amountOfTypes: false,
             [key]: {
                 [filterType]: previousFilter.includes(value)
                     ? previousFilter.filter(
@@ -63,8 +62,12 @@ export function Filter(props) {
             },
         };
 
-        if (value === 'X' && !previousFilter.includes(value)) {
-            newFilterState.amountOfTypes = key === 'include' ? 1 : 2;
+        if (value === 'X') {
+            if (!previousFilter.includes(value)) {
+                newFilterState.amountOfTypes = key === 'include' ? 1 : 2;
+            } else {
+                newFilterState.amountOfTypes = false;
+            }
         }
 
         updateFilterState(newFilterState, filterType);
