@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Guess from './components/Guess';
-import { FilterContainer } from './components/TypeFilter';
-import SearchBar from './components/SearchBar';
 import {
     getIntWithinRange,
     getBaseStats,
@@ -13,6 +11,7 @@ import { DEFAULT_FILTER_STATE } from './constants';
 
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
+import { SearchWithFilter } from './components/SearchWithFilter';
 
 function UnlimitedGame() {
     const [pokemon, setPokemon] = useState({});
@@ -118,25 +117,15 @@ function UnlimitedGame() {
                                 }}
                             />
                         )}
-                        <div className="top-row">
-                            <FilterContainer
-                                filterState={filterState}
-                                updateFilterState={handleFilterChange}
-                            />
-                            <SearchBar
-                                className="game-form"
-                                onSubmit={handleClick}
-                                filter={filterState}
-                                disabled={hasWon}
-                            />
-                            <button
-                                type="button"
-                                class="btn btn-outline-dark btn-sm game-hint-button"
-                                onClick={() => setViewHint(!viewHint)}
-                            >
-                                {viewHint ? 'Hide' : 'Show'} hint
-                            </button>
-                        </div>
+                        <SearchWithFilter
+                            filterState={filterState}
+                            handleFilterChange={handleFilterChange}
+                            handleClick={handleClick}
+                            disabled={hasWon}
+                            viewHint={viewHint}
+                            setViewHint={setViewHint}
+                            showHintButton
+                        />
                         {streak > 1 && <div>Current streak: {streak}</div>}
 
                         <div className="guesses">

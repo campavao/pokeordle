@@ -4,10 +4,11 @@ import { FilterContainer } from './TypeFilter';
 export function SearchWithFilter({
     filterState,
     handleFilterChange,
-    hasWon = false,
+    showHintButton = false,
     viewHint = false,
     setViewHint,
     handleClick,
+    disabled,
 }) {
     return (
         <div className="top-row">
@@ -19,9 +20,9 @@ export function SearchWithFilter({
                 className="game-form"
                 onSubmit={handleClick}
                 filter={filterState}
-                disabled={hasWon}
+                disabled={disabled}
             />
-            {viewHint && (
+            {showHintButton && (
                 <button
                     type="button"
                     class="btn btn-outline-dark btn-sm game-hint-button"

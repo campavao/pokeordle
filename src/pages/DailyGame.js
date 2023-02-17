@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Guess from './components/Guess';
-import SearchBar from './components/SearchBar';
 import { useDailyGame } from './hooks/useDailyGame';
 import { GameAnswer } from './GameAnswer';
 
 import './Pages.scss';
-import { FilterContainer } from './components/TypeFilter';
+import { SearchWithFilter } from './components/SearchWithFilter';
 
 function DailyGame() {
     const {
@@ -58,25 +57,12 @@ function DailyGame() {
                             }}
                         />
                     )}
-                    <div className="top-row">
-                        <FilterContainer
-                            filterState={filterState}
-                            updateFilterState={handleFilterChange}
-                        />
-                        <SearchBar
-                            className="game-form"
-                            onSubmit={handleClick}
-                            filter={filterState}
-                            disabled={hasWon || remainingGuesses <= 0}
-                        />
-                        <button
-                            type="button"
-                            class="btn btn-outline-dark btn-sm game-hint-button"
-                            onClick={() => setViewHint(!viewHint)}
-                        >
-                            {viewHint ? 'Hide' : 'Show'} hint
-                        </button>
-                    </div>
+                    <SearchWithFilter
+                        filterState={filterState}
+                        handleFilterChange={handleFilterChange}
+                        handleClick={handleClick}
+                        disabled={hasWon || remainingGuesses <= 0}
+                    />
                     <div>Remaining guesses: {remainingGuesses}</div>
                     {!hasWon &&
                         remainingGuesses < 2 &&
