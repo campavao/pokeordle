@@ -109,7 +109,7 @@ export function Filter(props) {
                     />
                 )}
             </div>
-            <Modal show={filterKey} onHide={() => setFilterKey(undefined)}>
+            <Modal show={filterKey} onHide={() => setFilterKey(undefined)} closeButton>
                 <ListComponent
                     {...props}
                     onClick={onUpdate}

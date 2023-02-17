@@ -98,7 +98,7 @@ function DailyGame() {
                                 );
                             })}
                         {guesses.length < 8 &&
-                            [...emptyGuesses].map(() => <Guess empty />)}
+                            [...emptyGuesses].map((_, index) => <Guess empty id={index} />)}
                     </div>
                 </div>
             )}

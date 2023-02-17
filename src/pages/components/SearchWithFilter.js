@@ -4,9 +4,6 @@ import { FilterContainer } from './TypeFilter';
 export function SearchWithFilter({
     filterState,
     handleFilterChange,
-    showHintButton = false,
-    viewHint = false,
-    setViewHint,
     handleClick,
     disabled,
 }) {
@@ -22,15 +19,6 @@ export function SearchWithFilter({
                 filter={filterState}
                 disabled={disabled}
             />
-            {showHintButton && (
-                <button
-                    type="button"
-                    class="btn btn-outline-dark btn-sm game-hint-button"
-                    onClick={() => setViewHint(!viewHint)}
-                >
-                    {viewHint ? 'Hide' : 'Show'} hint
-                </button>
-            )}
         </div>
     );
 }

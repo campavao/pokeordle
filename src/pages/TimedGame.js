@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
 import { getQuickImg, shuffle } from './components/utils';
 import {
     collection,
@@ -13,17 +12,19 @@ import {
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
 import { db } from '../firebase';
+import { PokemonImage } from './components/PokemonImage';
+import SearchBar from './components/SearchBar';
+import { DEFAULT_FILTER_STATE } from './constants';
 
 function TimedGame() {
     const [currentSolution, setCurrentSolution] = useState({});
     const [solutionList, setSolutionList] = useState([]);
     const [correctList, setCorrectList] = useState([]);
-    const [guess, setGuess] = useState('');
+    const [useGen1, setGen1] = useState(false);
     const [start, setStart] = useState(false);
     const [finished, setFinished] = useState(false);
     const [time, setTime] = useState(0);
     const [displayTime, setDisplayTime] = useState(0);
-    const typeRef = React.createRef();
 
     useEffect(() => {
         if (solutionList.length === 0) {
@@ -60,6 +61,7 @@ function TimedGame() {
                 user: username,
                 score: correctList.length,
                 time: displayTime,
+                gen: useGen1 ? '1' : 'all'
             };
             const rawEntries = await getDocs(
                 collection(db, 'timed_leaderboard')
@@ -89,14 +91,20 @@ function TimedGame() {
                     score: leaderboardEntry.score,
                 });
             }
+            setGen1(false)
         }
         if (finished && start) {
             addToLeaderboard();
         }
-    }, [finished, start, correctList.length, displayTime]);
+    }, [finished, start, correctList.length, displayTime, useGen1]);
 
-    const initialize = async () => {
-        const newSolutionList = shuffle(Array.from(pokedex));
+    const initialize = async (useGen1) => {
+        let list = Array.from(pokedex);
+        if (useGen1) {
+            setGen1(true);
+            list = list.splice(0, 151);
+        }
+        const newSolutionList = shuffle(list);
         setSolutionList(newSolutionList);
         updateCurrentSolution(newSolutionList);
     };
@@ -115,37 +123,13 @@ function TimedGame() {
         setTime(startTime);
     };
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        typeRef.current.clear();
-        if (guess) {
-            const valid = Array.from(pokedex).find(
-                (pokemon) =>
-                    pokemon.name.english.toLowerCase() === guess.toLowerCase()
-            );
-
-            if (valid?.id === solutionList?.[0]?.id) {
-                setCorrectList([valid, ...correctList]);
-                solutionList.shift();
-                setSolutionList(solutionList);
-                updateCurrentSolution();
-            }
+    const handleClick = (pokemon) => {
+        if (pokemon.id === solutionList?.[0]?.id) {
+            setCorrectList([pokemon, ...correctList]);
+            solutionList.shift();
+            setSolutionList(solutionList);
+            updateCurrentSolution();
         }
-    };
-
-    const handleType = (e) => {
-        const guess = formatGuess(e);
-        if (guess) setGuess(guess);
-    };
-
-    const handleTypeAhead = (e) => {
-        if (e.length > 0) {
-            setGuess(formatGuess(e[0]));
-        }
-    };
-
-    const formatGuess = (rawGuess) => {
-        return rawGuess.replace(/#[0-9]* /g, '');
     };
 
     return (
@@ -160,25 +144,62 @@ function TimedGame() {
             )}
 
             {!start && solutionList.length > 0 && (
-                <div className="start-buttons btn-group">
-                    <button
-                        className="btn btn-outline-dark"
-                        onClick={() => handleStart(15000)}
-                    >
-                        15 seconds
-                    </button>
-                    <button
-                        className="btn btn-outline-dark"
-                        onClick={() => handleStart(30000)}
-                    >
-                        30 seconds
-                    </button>
-                    <button
-                        className="btn btn-outline-dark"
-                        onClick={() => handleStart(60000)}
-                    >
-                        60 seconds
-                    </button>
+                <div>
+                    <div>
+                        <p>Only Gen 1:</p>
+                        <div className="start-buttons btn-group">
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => {
+                                    initialize(true)
+                                    handleStart(15000)
+                                }}
+                            >
+                                15 seconds
+                            </button>
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => {                                    
+                                    initialize(true)
+                                    handleStart(30000)
+                                }}
+                            >
+                                30 seconds
+                            </button>
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => {
+                                    initialize(true)
+                                    handleStart(60000)
+                                }}
+                            >
+                                60 seconds
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <p>All Pokemon:</p>
+                        <div className="start-buttons btn-group">
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => handleStart(15000)}
+                            >
+                                15 seconds
+                            </button>
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => handleStart(30000)}
+                            >
+                                30 seconds
+                            </button>
+                            <button
+                                className="btn btn-outline-dark"
+                                onClick={() => handleStart(60000)}
+                            >
+                                60 seconds
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
 
@@ -186,65 +207,38 @@ function TimedGame() {
                 ? solutionList.length > 0 && (
                       <div className="game-container">
                           <div>Time remaining: {time / 1000}</div>
-                          <div
-                              className="game-hint"
-                              alt="game hint"
-                              style={{
-                                  backgroundImage: `url(${currentSolution?.img?.default})`,
-                              }}
-                          />
+                          <PokemonImage pokemon={currentSolution} isHint />
 
-                          <form className="game-form" onSubmit={handleClick}>
-                              <Typeahead
-                                  id="input"
-                                  role="input"
-                                  className="game-input"
-                                  onChange={handleTypeAhead}
-                                  onInputChange={handleType}
-                                  placeholder="who's that pokemon?"
-                                  options={Array.from(pokedex).map(
-                                      (pokemon) => {
-                                          return `#${pokemon.id} ${pokemon.name.english}`;
-                                      }
-                                  )}
-                                  ref={typeRef}
-                                  selectHint={true}
-                              />
-                              <input
-                                  type="submit"
-                                  value="Guess"
-                                  class="btn btn-light game-button"
-                              ></input>
-                          </form>
+                          <SearchBar onSubmit={handleClick} filter={{
+                            ...DEFAULT_FILTER_STATE,
+                            ...(useGen1 && {include: {
+                                ...DEFAULT_FILTER_STATE.include,
+                                generations: [1]
+                            }})
+                          }}/>
                       </div>
                   )
                 : start && (
                       <div className="game-reveal">
-                          <div
-                              className="game-answer"
-                              aria-label={currentSolution?.name?.english}
-                              style={{
-                                  backgroundImage: `url(${currentSolution?.img?.default})`,
-                              }}
-                          />
-                          <q>{currentSolution?.name?.english}</q>
-                          <h2>Amount guessed correct: {correctList.length}!</h2>
-                          {localStorage.getItem('username') === '' && (
-                              <p>
-                                  Set a username above to keep track of your
-                                  score!
-                              </p>
-                          )}
-                          <button
-                              class="btn btn-outline-dark btn-sm game-reset"
-                              onClick={() => {
-                                  initialize();
-                                  setFinished(false);
-                                  setStart(false);
-                              }}
-                          >
-                              New game
-                          </button>
+                        <PokemonImage pokemon={currentSolution} />
+                        <q>{currentSolution?.name?.english}</q>
+                        <h2>Amount guessed correct: {correctList.length}!</h2>
+                        {localStorage.getItem('username') === '' && (
+                            <p>
+                                Set a username above to keep track of your
+                                score!
+                            </p>
+                        )}
+                        <button
+                            class="btn btn-outline-dark btn-sm game-reset"
+                            onClick={() => {
+                                initialize();
+                                setFinished(false);
+                                setStart(false);
+                            }}
+                        >
+                            New game
+                        </button>
                       </div>
                   )}
         </div>

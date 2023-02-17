@@ -119,7 +119,7 @@ function Pokedex() {
             </div>
             <Button
                 onClick={() => setShow(!show)}
-                style={{ width: '100%' }}
+                style={{ width: '100%', maxWidth:'unset' }}
                 className="select-view-item "
             >
                 Show

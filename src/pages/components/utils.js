@@ -269,6 +269,9 @@ export const getImg = async (pokemon) => {
 export const getQuickImg = async (pokemon) => {
     const index = pokemon.id;
     if (!index) return;
+    if (pokemon.imgUrl) {
+        return pokemon;
+    }
     return await getImgUrl(index).then((imgSrc) => {
         return {
             ...pokemon,

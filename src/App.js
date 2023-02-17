@@ -21,9 +21,9 @@ function App() {
     const [showInstructions, setShowInstructions] = useState(
         viewState?.showInstructions || false
     );
-    // const [username, setUsername] = useState(
-    //     localStorage.getItem('username') || ''
-    // );
+    const [username, setUsername] = useState(
+        localStorage.getItem('username') || ''
+    );
 
     const updateView = (newView) => {
         setView(newView);
@@ -61,12 +61,14 @@ function App() {
         setShowInstructions(false);
     };
 
-    // const saveUsername = (e) => {
-    //     e.preventDefault();
-    //     const username = e.target?.[0]?.value;
-    //     localStorage.setItem('username', username);
-    //     setUsername(username);
-    // };
+    const saveUsername = (e) => {
+        e.preventDefault();
+        const username = e.target?.[0]?.value;
+        localStorage.setItem('username', username);
+        setUsername(username);
+    };
+
+    const isDesktop = window.innerWidth > 500;
 
     return (
         <div className="container">
@@ -77,7 +79,7 @@ function App() {
                 alt="pokeordle, the pokemon guessing game"
             ></img>
 
-            {/* {username === '' ? (
+            {isDesktop && (username === '' ? (
                 <form onSubmit={saveUsername} style={{ paddingBottom: '20px' }}>
                     <input
                         placeholder="enter username"
@@ -105,7 +107,7 @@ function App() {
                         <i class="bi bi-pen" />
                     </button>
                 </div>
-            )} */}
+            ))}
 
             <button
                 className="instructions bi bi-question-circle-fill"
@@ -121,6 +123,11 @@ function App() {
                         updateView={updateView}
                     /> */}
                     <Button
+                        displayName="Tera"
+                        active={view === 'Tera'}
+                        updateView={updateView}
+                    />
+                    <Button
                         displayName="Pokedex"
                         active={view === 'Pokedex'}
                         updateView={updateView}
@@ -135,22 +142,18 @@ function App() {
                         active={view === 'Unlimited'}
                         updateView={updateView}
                     />
-                    <Button
-                        displayName="Tera"
-                        active={view === 'Tera'}
-                        updateView={updateView}
-                    />
-                    {/* <Button
+                    
+                    {isDesktop && <><Button
                         displayName="Timed"
                         active={view === 'timed'}
                         updateView={updateView}
-                    /> */}
-                    {/*
+                    />
+                    
                     <Button
                         displayName="Leaderboard"
                         active={view === 'leaderboard'}
                         updateView={updateView}
-                    /> */}
+                    /></>}
                     {/* <li
                         className={`select-view-item ${
                             view === 'party' ? 'active' : ''

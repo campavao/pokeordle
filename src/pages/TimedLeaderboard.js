@@ -5,6 +5,7 @@ import { db } from '../firebase.js';
 export function TimedLeaderboard() {
     const [entries, setEntries] = useState([]);
     const [view, setView] = useState(15);
+    const [useGen1, setGen1] = useState(false);
 
     useEffect(() => {
         async function getEntries() {
@@ -19,33 +20,62 @@ export function TimedLeaderboard() {
         }
     }, [entries.length]);
 
+    const handleViewChange = (view, gen1 = false) => {
+        setView(view);
+        setGen1(gen1)
+    }
+
     return (
         <div className="leaderboard">
             <h1>Timed Leaderboard</h1>
             <div className="start-buttons btn-group">
                 <button
                     className={`btn ${
-                        view === 15 ? 'btn-dark' : 'btn-outline-dark'
+                        view === 15 && useGen1 ? 'btn-dark' : 'btn-outline-dark'
                     }`}
-                    onClick={() => setView(15)}
+                    onClick={() => handleViewChange(15, true)}
                 >
-                    15 seconds
+                    15 sec <p>(Gen 1)</p>
                 </button>
                 <button
                     className={`btn ${
-                        view === 30 ? 'btn-dark' : 'btn-outline-dark'
+                        view === 30 && useGen1 ? 'btn-dark' : 'btn-outline-dark'
                     }`}
-                    onClick={() => setView(30)}
+                    onClick={() => handleViewChange(30, true)}
                 >
-                    30 seconds
+                    30 sec <p>(Gen 1)</p>
                 </button>
                 <button
                     className={`btn ${
-                        view === 60 ? 'btn-dark' : 'btn-outline-dark'
+                        view === 60 && useGen1 ? 'btn-dark' : 'btn-outline-dark'
                     }`}
-                    onClick={() => setView(60)}
+                    onClick={() => handleViewChange(60, true)}
                 >
-                    60 seconds
+                    60 sec <p>(Gen 1)</p>
+                </button>
+                <button
+                    className={`btn ${
+                        view === 15 && !useGen1 ? 'btn-dark' : 'btn-outline-dark'
+                    }`}
+                    onClick={() => handleViewChange(15)}
+                >
+                    15 sec <p>(All)</p>
+                </button>
+                <button
+                    className={`btn ${
+                        view === 30 && !useGen1 ? 'btn-dark' : 'btn-outline-dark'
+                    }`}
+                    onClick={() => handleViewChange(30)}
+                >
+                    30 sec <p>(All)</p>
+                </button>
+                <button
+                    className={`btn ${
+                        view === 60 && !useGen1 ? 'btn-dark' : 'btn-outline-dark'
+                    }`}
+                    onClick={() => handleViewChange(60)}
+                >
+                    60 sec <p>(All)</p>
                 </button>
             </div>
             <table className="table leaderboard-table">
@@ -61,6 +91,7 @@ export function TimedLeaderboard() {
                     {entries.length > 0 &&
                         entries
                             .filter((entry) => entry.time === view)
+                            .filter((entry) => !useGen1 || entry.gen === '1')
                             .sort(
                                 (entry1, entry2) => entry2.score - entry1.score
                             )

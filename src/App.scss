@@ -39,14 +39,16 @@
         align-items: center;
         list-style: none;
         height: 40px;
-        width: 140px;
+        max-width: 140px;
+        min-width: 60px;
         border: 1px solid black;
         border-radius: 4px;
         margin: 2px;
         background-color: #3e8bd1;
 
         @media (min-width: 500px) {
-            width: 200px;
+            min-width: 120px;
+            max-width: 200px;
         }
 
         &-button {

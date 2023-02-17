@@ -18,6 +18,7 @@ export default function Guess(props) {
         showArrows = false,
         showId = false,
         empty = false,
+        id
     } = props;
     const { name, index, types, baseTotal, imgUrl } = guess ?? {
         name: '?',
@@ -44,7 +45,7 @@ export default function Guess(props) {
 
     if (empty) {
         return (
-            <div className="guess" key="unknown">
+            <div className="guess" key={id}>
                 <Name empty />
                 <Generation empty />
                 <Types empty />
