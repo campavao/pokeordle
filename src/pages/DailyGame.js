@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Guess from './components/Guess';
 import SearchBar from './components/SearchBar';
 import { useDailyGame } from './hooks/useDailyGame';
 import { GameAnswer } from './GameAnswer';
-import { getFilter } from './components/utils';
 
 import './Pages.scss';
-import TypeFilter from './components/TypeFilter';
+import { FilterContainer } from './components/TypeFilter';
 
 function DailyGame() {
     const {
@@ -15,6 +14,8 @@ function DailyGame() {
         hasWon,
         remainingGuesses,
         viewHint,
+        filterState,
+        handleFilterChange,
         handleClick,
         setViewHint,
     } = useDailyGame('hardGameState');
@@ -32,21 +33,17 @@ function DailyGame() {
 
     const finished = hasWon || remainingGuesses === 0;
 
-    const filter = useMemo(
-        () => getFilter(guesses, pokemon),
-        [guesses, pokemon]
-    );
-
     return (
         <div className="daily-container">
             {!pokemon.name ? (
                 <div>
                     Game is loading, may take a minute. Please wait/refresh.
                 </div>
-            ) : !hasWon && remainingGuesses <= 0 ? (
-                <h2>You lost. The Pokemon was {pokemon?.name?.english}.</h2>
             ) : (
-                <div>Remaining guesses: {remainingGuesses}</div>
+                !hasWon &&
+                remainingGuesses <= 0 && (
+                    <h2>You lost. The Pokemon was {pokemon?.name?.english}.</h2>
+                )
             )}
 
             {pokemon.name && (
@@ -61,17 +58,26 @@ function DailyGame() {
                             }}
                         />
                     )}
-                    <TypeFilter
-                        excludedFilter={filter.exclude.types}
-                        includedFilter={filter.include.types}
-                    />
-                    <SearchBar
-                        className="game-form"
-                        onSubmit={handleClick}
-                        filter={filter}
-                        disabled={hasWon || remainingGuesses <= 0}
-                    />
-
+                    <div className="top-row">
+                        <FilterContainer
+                            filterState={filterState}
+                            updateFilterState={handleFilterChange}
+                        />
+                        <SearchBar
+                            className="game-form"
+                            onSubmit={handleClick}
+                            filter={filterState}
+                            disabled={hasWon || remainingGuesses <= 0}
+                        />
+                        <button
+                            type="button"
+                            class="btn btn-outline-dark btn-sm game-hint-button"
+                            onClick={() => setViewHint(!viewHint)}
+                        >
+                            {viewHint ? 'Hide' : 'Show'} hint
+                        </button>
+                    </div>
+                    <div>Remaining guesses: {remainingGuesses}</div>
                     {!hasWon &&
                         remainingGuesses < 2 &&
                         remainingGuesses > 0 && (

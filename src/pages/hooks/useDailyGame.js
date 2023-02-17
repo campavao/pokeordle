@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { getBaseStats, getImg } from '../components/utils';
+import {
+    getBaseStats,
+    getFilterFromGuess,
+    getImg,
+    mergeFilterStates,
+} from '../components/utils';
 import { useLocalStorage } from './useLocalStorage';
 import { determineProximity } from '../components/Guess';
 
 import * as pokedex from '../pokedex.json';
+import { DEFAULT_FILTER_STATE } from '../constants';
 
 const ID_LIST = process.env.REACT_APP_POKEMON_DAILY_HARD_LIST.split(',');
 
@@ -21,7 +27,11 @@ export function useDailyGame(gameName = 'hardGameState') {
         numGuessesLeft: remainingGuesses ?? 8,
         streak: 0,
         guesses: [],
+        savedFilterState: DEFAULT_FILTER_STATE,
     });
+    const [filterState, setFilterState] = useState(
+        gameState.savedFilterState ?? DEFAULT_FILTER_STATE
+    );
     const { streak, guesses } = gameState;
     const typeRef = React.createRef();
 
@@ -44,6 +54,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                 numGuessesLeft: 0,
                 streak: 0,
                 guesses: guesses,
+                savedFilterState: DEFAULT_FILTER_STATE,
             });
             setHasWon(false);
             setRemainingGuesses(0);
@@ -72,6 +83,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                     numGuessesLeft: 8,
                     streak: streak,
                     guesses: [],
+                    savedFilterState: DEFAULT_FILTER_STATE,
                 });
             } else {
                 setHasWon(gameState.dailyWon);
@@ -79,10 +91,11 @@ export function useDailyGame(gameName = 'hardGameState') {
                 setGameState({
                     ...gameState,
                     guesses: gameState.guesses,
+                    savedFilterState: filterState,
                 });
             }
         }
-    }, [gameState, pokemon.name, setGameState]);
+    }, [filterState, gameState, pokemon.name, setGameState]);
 
     /** returns Guess object compared against the current answer. */
     const getGuessFromPokemon = useCallback(
@@ -129,6 +142,14 @@ export function useDailyGame(gameName = 'hardGameState') {
             const guess = getGuessFromPokemon(search);
             currentGuesses.push(guess);
 
+            const updatedFilterState = getFilterFromGuess(guess, pokemon);
+            const newFilterState = mergeFilterStates(
+                filterState,
+                updatedFilterState
+            );
+
+            setFilterState(newFilterState);
+
             if (search.id === pokemon.id) {
                 const streak = (Number(gameState.streak) || 0) + 1;
                 setGameState({
@@ -136,7 +157,8 @@ export function useDailyGame(gameName = 'hardGameState') {
                     dailyDate: new Date().getDate(),
                     numGuessesLeft: totalGuessesLeft,
                     streak: streak,
-                    guesses: guesses,
+                    guesses: currentGuesses,
+                    savedFilterState: newFilterState,
                 });
                 setHasWon(true);
                 return;
@@ -149,15 +171,37 @@ export function useDailyGame(gameName = 'hardGameState') {
                     numGuessesLeft: 0,
                     streak: 0,
                     guesses: guesses,
+                    savedFilterState: DEFAULT_FILTER_STATE,
                 });
             } else {
                 setGameState({
                     ...gameState,
                     numGuessesLeft: totalGuessesLeft,
                     guesses: currentGuesses,
+                    savedFilterState: newFilterState,
                 });
             }
         }
+    };
+
+    const handleFilterChange = (filterChange, key) => {
+        const newFilterState = {
+            ...filterState,
+            ...filterChange,
+            include: {
+                ...filterState.include,
+                [key]: filterChange.include[key],
+            },
+            exclude: {
+                ...filterState.exclude,
+                [key]: filterChange.exclude[key],
+            },
+        };
+        setFilterState(newFilterState);
+        setGameState({
+            ...gameState,
+            savedFilterState: newFilterState,
+        });
     };
 
     const handleShare = async () => {
@@ -219,6 +263,8 @@ export function useDailyGame(gameName = 'hardGameState') {
         streak,
         viewHint,
         typeRef,
+        filterState,
+        handleFilterChange,
         handleClick,
         setViewHint,
         handleShare,

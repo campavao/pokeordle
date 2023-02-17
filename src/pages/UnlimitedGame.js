@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
+import React, { useState, useEffect } from 'react';
 import Guess from './components/Guess';
-import TypeFilter from './components/TypeFilter';
+import { FilterContainer } from './components/TypeFilter';
 import SearchBar from './components/SearchBar';
 import {
     getIntWithinRange,
     getBaseStats,
     getImg,
-    getFilter,
+    getFilterFromGuess,
+    mergeFilterStates,
 } from './components/utils';
-import { GENERATIONS } from './constants';
+import { DEFAULT_FILTER_STATE } from './constants';
 
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
@@ -19,11 +19,8 @@ function UnlimitedGame() {
     const [guesses, setGuesses] = useState([]);
     const [hasWon, setHasWon] = useState(false);
     const [viewHint, setViewHint] = useState(false);
-    const [showFilters, setShowFilters] = useState(true);
-    const [includedFilter, setIncludedFilter] = useState([]);
-    const [excludedFilter, setExcludedFilter] = useState([]);
-    const [genFilter, setGenFilter] = useState(null);
     const [streak, setStreak] = useState(1);
+    const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
 
     useEffect(() => {
         if (!pokemon.name) {
@@ -48,7 +45,7 @@ function UnlimitedGame() {
             const pokemonBaseTotal = getBaseStats(pokemon);
             const validBaseTotal = getBaseStats(search);
             const guess = {
-                name: search.name.english,
+                name: search.name,
                 index: {
                     id: search.id,
                     difference: pokemon.id - search.id,
@@ -69,48 +66,39 @@ function UnlimitedGame() {
             };
             setGuesses([guess, ...guesses]);
 
-            const excludedTypes = guess.types
-                .filter((type) => !type.isFound)
-                .map((type) => type.name);
-            setExcludedFilter([...excludedFilter, ...excludedTypes]);
+            const updatedFilterState = getFilterFromGuess(guess, pokemon);
+            const newFilterState = mergeFilterStates(
+                filterState,
+                updatedFilterState
+            );
 
-            const includedTypes = guess.types
-                .filter((type) => type.isFound)
-                .map((type) => type.name);
-            setIncludedFilter([...includedFilter, ...includedTypes]);
+            setFilterState(newFilterState);
 
             if (search.id === pokemon.id) {
                 setViewHint(false);
                 setHasWon(true);
-                setExcludedFilter([]);
-                setIncludedFilter([]);
-                setGenFilter(null);
+                setFilterState(DEFAULT_FILTER_STATE);
             }
         }
     };
 
-    const handleFilterChange = (e) => {
-        const type = e.target.outerText;
-        if (includedFilter.includes(type)) {
-            setIncludedFilter(
-                includedFilter.filter((filter) => filter !== type)
-            );
-        } else {
-            setIncludedFilter([...includedFilter, e.target.outerText]);
-        }
+    const handleFilterChange = (filterChange, key) => {
+        setFilterState({
+            ...filterState,
+            ...filterChange,
+            include: {
+                ...filterState.include,
+                [key]: filterChange.include[key],
+            },
+            exclude: {
+                ...filterState.exclude,
+                [key]: filterChange.exclude[key],
+            },
+        });
     };
-
-    const filter = useMemo(
-        () => getFilter(guesses, pokemon),
-        [guesses, pokemon]
-    );
 
     return (
         <div className="unlimited-container">
-            <strong className="message">
-                Unlimited guesses, all Generations.
-            </strong>
-            {streak > 1 && <div>Current streak: {streak}</div>}
             {!pokemon.name && (
                 <div>
                     Game is loading, may take a minute. Please wait/refresh.
@@ -130,45 +118,27 @@ function UnlimitedGame() {
                                 }}
                             />
                         )}
-                        <div
-                            className={`game-filter ${
-                                showFilters && 'show-filter'
-                            }`}
-                        >
-                            <GenFilterDropdown
-                                onClick={setGenFilter}
-                                currentGenFilter={genFilter}
+                        <div className="top-row">
+                            <FilterContainer
+                                filterState={filterState}
+                                updateFilterState={handleFilterChange}
                             />
-                            <TypeFilter
-                                includedFilter={includedFilter}
-                                excludedFilter={excludedFilter}
-                                onClick={handleFilterChange}
+                            <SearchBar
+                                className="game-form"
+                                onSubmit={handleClick}
+                                filter={filterState}
+                                disabled={hasWon}
                             />
+                            <button
+                                type="button"
+                                class="btn btn-outline-dark btn-sm game-hint-button"
+                                onClick={() => setViewHint(!viewHint)}
+                            >
+                                {viewHint ? 'Hide' : 'Show'} hint
+                            </button>
                         </div>
-                        <button
-                            class="btn btn-link btn-sm filter-button"
-                            onClick={() => setShowFilters(!showFilters)}
-                        >
-                            Filters{' '}
-                            <i
-                                class={`bi bi-chevron-${
-                                    showFilters ? 'up' : 'down'
-                                }`}
-                            ></i>
-                        </button>
-                        <SearchBar
-                            className="game-form"
-                            onSubmit={handleClick}
-                            filter={filter}
-                            disabled={hasWon}
-                        />
-                        <button
-                            type="button"
-                            class="btn btn-outline-dark btn-sm game-hint-button"
-                            onClick={() => setViewHint(!viewHint)}
-                        >
-                            {viewHint ? 'Hide' : 'Show'} hint
-                        </button>
+                        {streak > 1 && <div>Current streak: {streak}</div>}
+
                         <div className="guesses">
                             {guesses &&
                                 guesses.map((guess) => {
@@ -187,6 +157,8 @@ function UnlimitedGame() {
             ) : (
                 <div className="game-reveal">
                     <h2>You won! The Pokemon was {pokemon.name.english}!</h2>
+                    {streak > 1 && <div>Current streak: {streak}</div>}
+
                     {pokemon.img && (
                         <div
                             className="game-answer"
@@ -209,32 +181,6 @@ function UnlimitedGame() {
                 </div>
             )}
         </div>
-    );
-}
-
-function GenFilterDropdown({ onClick, currentGenFilter }) {
-    return (
-        <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                Filter Generation
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                {GENERATIONS.map(({ name }, index) => (
-                    <Dropdown.Item
-                        active={index === currentGenFilter}
-                        onClick={() =>
-                            onClick(index !== currentGenFilter ? index : null)
-                        }
-                    >
-                        {name}
-                    </Dropdown.Item>
-                ))}
-                <Dropdown.Item onClick={() => onClick(null)}>
-                    Reset
-                </Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
     );
 }
 

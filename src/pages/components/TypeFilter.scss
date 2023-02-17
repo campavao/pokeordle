@@ -1,0 +1,23 @@
+.type-filter {
+    display: flex;
+}
+
+.filter-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.type-rows {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 10px;
+}

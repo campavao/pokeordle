@@ -1,25 +1,13 @@
 import { useState, useRef, useCallback, useMemo } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { getGeneration } from './utils';
+import { DEFAULT_FILTER_STATE } from '../constants';
 
 import * as pokedex from '../pokedex.json';
 
-const DEFAULT_FILTER = {
-    include: {
-        pokemon: [],
-        generations: [],
-        types: [],
-    },
-    exclude: {
-        pokemon: [],
-        generations: [],
-        types: [],
-    },
-};
-
 export default function SearchBar({
     onSubmit,
-    filter = DEFAULT_FILTER,
+    filter = DEFAULT_FILTER_STATE,
     disabled,
 }) {
     const { include, exclude, amountOfTypes } = filter;
@@ -67,12 +55,13 @@ export default function SearchBar({
                 ![
                     ...Object.values(filter.include).flat(),
                     ...Object.values(filter.exclude).flat(),
-                ].length
+                ].length &&
+                !amountOfTypes
             ) {
                 return true;
             }
             const generation = getGeneration(pokemon);
-            const name = pokemon.name.english.toLowerCase();
+            const name = pokemon.name.english;
             if (
                 (exclude.generations.length &&
                     exclude.generations.includes(generation)) ||
@@ -83,6 +72,7 @@ export default function SearchBar({
                 return false;
             }
 
+            const includeTypes = include.types.filter((type) => type !== 'X');
             if (
                 Object.values(filter.include).flat().length === 0 ||
                 ((!include.generations.length ||
@@ -90,7 +80,7 @@ export default function SearchBar({
                     (!include.pokemon.length ||
                         include.pokemon.includes(name)) &&
                     (!include.types.length ||
-                        include.types.every((type) =>
+                        includeTypes.every((type) =>
                             pokemon.types.includes(type)
                         )))
             ) {

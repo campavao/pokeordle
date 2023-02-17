@@ -107,6 +107,7 @@
 }
 
 .type-list {
+    display: flex;
     width: 100%;
 
     tr {
@@ -269,4 +270,8 @@
 
 .fairy {
     background-color: #ff64d6;
+}
+
+.x {
+    background-color: darkslategrey;
 }
