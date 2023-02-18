@@ -91,7 +91,7 @@ export function TimedLeaderboard() {
                     {entries.length > 0 &&
                         entries
                             .filter((entry) => entry.time === view)
-                            .filter((entry) => !useGen1 || entry.gen === '1')
+                            .filter((entry) => useGen1 ? entry.gen === '1' : (!entry.gen || entry.gen === 'all'))
                             .sort(
                                 (entry1, entry2) => entry2.score - entry1.score
                             )
@@ -102,7 +102,7 @@ export function TimedLeaderboard() {
                                         <th scope="row">{index + 1}</th>
                                         <td>{user}</td>
                                         <td>{score}</td>
-                                        {/* <td>{time}</td> */}
+                                        {/* <td>{date}</td> */}
                                     </tr>
                                 );
                             })}

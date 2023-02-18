@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getQuickImg, shuffle } from './components/utils';
 import {
     collection,
@@ -13,8 +13,7 @@ import * as pokedex from './pokedex.json';
 import './Pages.scss';
 import { db } from '../firebase';
 import { PokemonImage } from './components/PokemonImage';
-import SearchBar from './components/SearchBar';
-import { DEFAULT_FILTER_STATE } from './constants';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 function TimedGame() {
     const [currentSolution, setCurrentSolution] = useState({});
@@ -132,6 +131,22 @@ function TimedGame() {
         }
     };
 
+    const options = useMemo(() => {
+        let list = Array.from(pokedex);
+        if (useGen1) {
+            setGen1(true);
+            list = list.splice(0, 151);
+        };
+        let shuffledList = shuffle(list).splice(0, 3);
+
+        if (shuffledList.find((poke) => poke.name === currentSolution.name)) {
+            shuffledList = shuffle(list).splice(0, 3);
+        }
+        
+        shuffledList.push(currentSolution);
+        return shuffle(shuffledList)
+    }, [currentSolution, useGen1]);
+
     return (
         <div className="unlimited-container">
             <strong className="message">
@@ -209,13 +224,21 @@ function TimedGame() {
                           <div>Time remaining: {time / 1000}</div>
                           <PokemonImage pokemon={currentSolution} isHint />
 
-                          <SearchBar onSubmit={handleClick} filter={{
+                          {/* <SearchBar onSubmit={handleClick} filter={{
                             ...DEFAULT_FILTER_STATE,
                             ...(useGen1 && {include: {
                                 ...DEFAULT_FILTER_STATE.include,
                                 generations: [1]
                             }})
-                          }}/>
+                          }}/> */}
+
+                          <ButtonGroup className="game-options">
+                            {options.map(poke => 
+                                <Button variant="outline-dark" onClick={() => handleClick(poke)}>
+                                    {poke.name.english}
+                                </Button>)
+                            }
+                          </ButtonGroup>
                       </div>
                   )
                 : start && (

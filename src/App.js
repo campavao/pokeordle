@@ -68,8 +68,6 @@ function App() {
         setUsername(username);
     };
 
-    const isDesktop = window.innerWidth > 500;
-
     return (
         <div className="container">
             <Instructions show={showInstructions} close={() => handleClose()} />
@@ -79,7 +77,7 @@ function App() {
                 alt="pokeordle, the pokemon guessing game"
             ></img>
 
-            {isDesktop && (username === '' ? (
+            {username === '' ? (
                 <form onSubmit={saveUsername} style={{ paddingBottom: '20px' }}>
                     <input
                         placeholder="enter username"
@@ -107,7 +105,7 @@ function App() {
                         <i class="bi bi-pen" />
                     </button>
                 </div>
-            ))}
+            )}
 
             <button
                 className="instructions bi bi-question-circle-fill"
@@ -143,7 +141,7 @@ function App() {
                         updateView={updateView}
                     />
                     
-                    {isDesktop && <><Button
+                    <Button
                         displayName="Timed"
                         active={view === 'timed'}
                         updateView={updateView}
@@ -153,7 +151,7 @@ function App() {
                         displayName="Leaderboard"
                         active={view === 'leaderboard'}
                         updateView={updateView}
-                    /></>}
+                    />
                     {/* <li
                         className={`select-view-item ${
                             view === 'party' ? 'active' : ''
