@@ -18,7 +18,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 function TimedGame() {
     const [currentSolution, setCurrentSolution] = useState({});
     const [solutionList, setSolutionList] = useState([]);
-    const [correctList, setCorrectList] = useState([]);
+    const [completedList, setCompletedList] = useState([]);
     const [useGen1, setGen1] = useState(false);
     const [start, setStart] = useState(false);
     const [finished, setFinished] = useState(false);
@@ -56,6 +56,7 @@ function TimedGame() {
         async function addToLeaderboard() {
             const username = localStorage.getItem('username');
             if (!username) return;
+            const correctList = completedList.filter(poke => poke.isCorrect);
             const leaderboardEntry = {
                 user: username,
                 score: correctList.length,
@@ -95,7 +96,7 @@ function TimedGame() {
         if (finished && start) {
             addToLeaderboard();
         }
-    }, [finished, start, correctList.length, displayTime, useGen1]);
+    }, [finished, start, displayTime, useGen1, completedList]);
 
     const initialize = async (useGen1) => {
         let list = Array.from(pokedex);
@@ -117,18 +118,20 @@ function TimedGame() {
 
     const handleStart = (startTime) => {
         setStart(true);
-        setCorrectList([]);
+        setCompletedList([]);
         setDisplayTime(startTime / 1000);
         setTime(startTime);
     };
 
     const handleClick = (pokemon) => {
-        if (pokemon.id === solutionList?.[0]?.id) {
-            setCorrectList([pokemon, ...correctList]);
-            solutionList.shift();
-            setSolutionList(solutionList);
-            updateCurrentSolution();
+        const listObject = {
+            ...pokemon,
+            isCorrect: pokemon.id === solutionList?.[0]?.id
         }
+        setCompletedList([listObject, ...completedList]);
+        solutionList.shift();
+        setSolutionList(solutionList);
+        updateCurrentSolution();
     };
 
     const options = useMemo(() => {
@@ -142,7 +145,7 @@ function TimedGame() {
         if (shuffledList.find((poke) => poke.name === currentSolution.name)) {
             shuffledList = shuffle(list).splice(0, 3);
         }
-        
+
         shuffledList.push(currentSolution);
         return shuffle(shuffledList)
     }, [currentSolution, useGen1]);
@@ -243,9 +246,8 @@ function TimedGame() {
                   )
                 : start && (
                       <div className="game-reveal">
-                        <PokemonImage pokemon={currentSolution} />
-                        <q>{currentSolution?.name?.english}</q>
-                        <h2>Amount guessed correct: {correctList.length}!</h2>
+                        <p>Amount guessed incorrect: <strong>{completedList.filter(poke => !poke.isCorrect).length}</strong></p>
+                        <p>Amount guessed correct: <strong>{completedList.filter(poke => poke.isCorrect).length}</strong></p>
                         {localStorage.getItem('username') === '' && (
                             <p>
                                 Set a username above to keep track of your
