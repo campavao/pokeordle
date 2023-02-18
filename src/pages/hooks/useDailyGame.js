@@ -46,9 +46,13 @@ export function useDailyGame(gameName = 'hardGameState') {
         }
     }, [hasWon, guesses, pokemon]);
 
+    const updateGameState = useCallback((newGameState) => {
+        setGameState(newGameState)
+    }, [setGameState])
+
     useEffect(() => {
         if (remainingGuesses < 0) {
-            setGameState({
+            updateGameState({
                 dailyWon: false,
                 dailyDate: new Date().getDate(),
                 numGuessesLeft: 0,
@@ -59,10 +63,11 @@ export function useDailyGame(gameName = 'hardGameState') {
             setHasWon(false);
             setRemainingGuesses(0);
         }
-    }, [gameState, guesses, setGameState, remainingGuesses]);
+    }, [gameState, guesses, updateGameState, remainingGuesses]);
 
     useEffect(() => {
-        if (!pokemon.name) {
+        (async () => {
+            if (!pokemon.name) {
             const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
             const index = Number(ID_LIST[todaysNumber]);
             const solution = Array.from(pokedex).find(
@@ -71,13 +76,16 @@ export function useDailyGame(gameName = 'hardGameState') {
             if (solution.imgUrl) {
                 setPokemon(solution);
             } else {
-                getImg(solution).then((updateMon) => setPokemon(updateMon));
+                const pokemonWithImage = await getImg(solution)
+                setPokemon(pokemonWithImage);
             }
 
-            if (!gameState || gameState.dailyDate !== new Date().getDate()) {
+            const incorrectGuesses = guesses.length !== (filterState.exclude.pokemon.length + filterState.include.pokemon.length);
+
+            if (!gameState || gameState.dailyDate !== new Date().getDate() || incorrectGuesses) {
                 const streak = !gameState ? 0 : gameState.streak;
 
-                setGameState({
+                updateGameState({
                     dailyWon: false,
                     dailyDate: new Date().getDate(),
                     numGuessesLeft: 8,
@@ -85,17 +93,18 @@ export function useDailyGame(gameName = 'hardGameState') {
                     guesses: [],
                     savedFilterState: DEFAULT_FILTER_STATE,
                 });
+                setFilterState(DEFAULT_FILTER_STATE);
             } else {
                 setHasWon(gameState.dailyWon);
                 setRemainingGuesses(gameState.numGuessesLeft);
-                setGameState({
+                updateGameState({
                     ...gameState,
                     guesses: gameState.guesses,
                     savedFilterState: filterState,
                 });
             }
-        }
-    }, [filterState, gameState, pokemon.name, setGameState]);
+        }})()
+    }, [filterState, gameState, guesses.length, pokemon.name, updateGameState]);
 
     /** returns Guess object compared against the current answer. */
     const getGuessFromPokemon = useCallback(
