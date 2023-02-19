@@ -25,12 +25,12 @@ export function GameAnswer({ show, close }) {
 
         const textToShare = `Pokeordle ${todaysNumber} ${
             remainingGuesses === 0 && !hasWon ? 'X' : 8 - remainingGuesses
-        }/8 \n\n${emojiGrid}\n\n https://pokeordle.com`;
+        }/8 \n\n${emojiGrid}`;
 
         if (navigator.share) {
             navigator
                 .share({
-                    title: document.title,
+                    title: "Who's that Pokemon?",
                     text: textToShare,
                     url: window.location.href,
                 })
