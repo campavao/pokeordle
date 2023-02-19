@@ -79,7 +79,7 @@
 }
 
 .game-hint-button {
-    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .game-reset {
@@ -128,6 +128,12 @@ h2 {
 .start-buttons {
     width: 100%;
     padding-bottom: 20px;
+
+    @media (max-width: 500px) {
+        button {
+            font-size: 12px;
+        }
+    }
 }
 
 

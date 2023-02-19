@@ -56,12 +56,12 @@ function TimedGame() {
         async function addToLeaderboard() {
             const username = localStorage.getItem('username');
             if (!username) return;
-            const correctList = completedList.filter(poke => poke.isCorrect);
+            const correctList = completedList.filter((poke) => poke.isCorrect);
             const leaderboardEntry = {
                 user: username,
                 score: correctList.length,
                 time: displayTime,
-                gen: useGen1 ? '1' : 'all'
+                gen: useGen1 ? '1' : 'all',
             };
             const rawEntries = await getDocs(
                 collection(db, 'timed_leaderboard')
@@ -74,7 +74,10 @@ function TimedGame() {
             });
 
             const previousEntry = previousEntries.find(
-                (entry) => entry.user === username && entry.time === displayTime
+                (entry) =>
+                    entry.user === username &&
+                    entry.time === displayTime &&
+                    entry.gen === leaderboardEntry.gen
             );
 
             if (!previousEntry) {
@@ -91,7 +94,7 @@ function TimedGame() {
                     score: leaderboardEntry.score,
                 });
             }
-            setGen1(false)
+            setGen1(false);
         }
         if (finished && start) {
             addToLeaderboard();
@@ -126,8 +129,8 @@ function TimedGame() {
     const handleClick = (pokemon) => {
         const listObject = {
             ...pokemon,
-            isCorrect: pokemon.id === solutionList?.[0]?.id
-        }
+            isCorrect: pokemon.id === solutionList?.[0]?.id,
+        };
         setCompletedList([listObject, ...completedList]);
         solutionList.shift();
         setSolutionList(solutionList);
@@ -139,7 +142,7 @@ function TimedGame() {
         if (useGen1) {
             setGen1(true);
             list = list.splice(0, 151);
-        };
+        }
         let shuffledList = shuffle(list).splice(0, 3);
 
         if (shuffledList.find((poke) => poke.name === currentSolution.name)) {
@@ -147,7 +150,7 @@ function TimedGame() {
         }
 
         shuffledList.push(currentSolution);
-        return shuffle(shuffledList)
+        return shuffle(shuffledList);
     }, [currentSolution, useGen1]);
 
     return (
@@ -169,17 +172,17 @@ function TimedGame() {
                             <button
                                 className="btn btn-outline-dark"
                                 onClick={() => {
-                                    initialize(true)
-                                    handleStart(15000)
+                                    initialize(true);
+                                    handleStart(15000);
                                 }}
                             >
                                 15 seconds
                             </button>
                             <button
                                 className="btn btn-outline-dark"
-                                onClick={() => {                                    
-                                    initialize(true)
-                                    handleStart(30000)
+                                onClick={() => {
+                                    initialize(true);
+                                    handleStart(30000);
                                 }}
                             >
                                 30 seconds
@@ -187,8 +190,8 @@ function TimedGame() {
                             <button
                                 className="btn btn-outline-dark"
                                 onClick={() => {
-                                    initialize(true)
-                                    handleStart(60000)
+                                    initialize(true);
+                                    handleStart(60000);
                                 }}
                             >
                                 60 seconds
@@ -227,43 +230,56 @@ function TimedGame() {
                           <div>Time remaining: {time / 1000}</div>
                           <PokemonImage pokemon={currentSolution} isHint />
 
-                          {/* <SearchBar onSubmit={handleClick} filter={{
-                            ...DEFAULT_FILTER_STATE,
-                            ...(useGen1 && {include: {
-                                ...DEFAULT_FILTER_STATE.include,
-                                generations: [1]
-                            }})
-                          }}/> */}
-
                           <ButtonGroup className="game-options">
-                            {options.map(poke => 
-                                <Button variant="outline-dark" onClick={() => handleClick(poke)}>
-                                    {poke.name.english}
-                                </Button>)
-                            }
+                              {options.map((poke) => (
+                                  <Button
+                                      variant="outline-dark"
+                                      onClick={() => handleClick(poke)}
+                                  >
+                                      {poke.name.english}
+                                  </Button>
+                              ))}
                           </ButtonGroup>
                       </div>
                   )
                 : start && (
                       <div className="game-reveal">
-                        <p>Amount guessed incorrect: <strong>{completedList.filter(poke => !poke.isCorrect).length}</strong></p>
-                        <p>Amount guessed correct: <strong>{completedList.filter(poke => poke.isCorrect).length}</strong></p>
-                        {localStorage.getItem('username') === '' && (
-                            <p>
-                                Set a username above to keep track of your
-                                score!
-                            </p>
-                        )}
-                        <button
-                            class="btn btn-outline-dark btn-sm game-reset"
-                            onClick={() => {
-                                initialize();
-                                setFinished(false);
-                                setStart(false);
-                            }}
-                        >
-                            New game
-                        </button>
+                          <p>
+                              Amount guessed incorrect:{' '}
+                              <strong>
+                                  {
+                                      completedList.filter(
+                                          (poke) => !poke.isCorrect
+                                      ).length
+                                  }
+                              </strong>
+                          </p>
+                          <p>
+                              Amount guessed correct:{' '}
+                              <strong>
+                                  {
+                                      completedList.filter(
+                                          (poke) => poke.isCorrect
+                                      ).length
+                                  }
+                              </strong>
+                          </p>
+                          {localStorage.getItem('username') === '' && (
+                              <p>
+                                  Set a username above to keep track of your
+                                  score!
+                              </p>
+                          )}
+                          <button
+                              class="btn btn-outline-dark btn-sm game-reset"
+                              onClick={() => {
+                                  initialize();
+                                  setFinished(false);
+                                  setStart(false);
+                              }}
+                          >
+                              New game
+                          </button>
                       </div>
                   )}
         </div>

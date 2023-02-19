@@ -6,10 +6,9 @@ import {
     mergeFilterStates,
 } from '../components/utils';
 import { useLocalStorage } from './useLocalStorage';
-import { determineProximity } from '../components/Guess';
 
-import * as pokedex from '../pokedex.json';
 import { DEFAULT_FILTER_STATE } from '../constants';
+import * as pokedex from '../pokedex.json';
 
 const ID_LIST = process.env.REACT_APP_POKEMON_DAILY_HARD_LIST.split(',');
 
@@ -46,9 +45,12 @@ export function useDailyGame(gameName = 'hardGameState') {
         }
     }, [hasWon, guesses, pokemon]);
 
-    const updateGameState = useCallback((newGameState) => {
-        setGameState(newGameState)
-    }, [setGameState])
+    const updateGameState = useCallback(
+        (newGameState) => {
+            setGameState(newGameState);
+        },
+        [setGameState]
+    );
 
     useEffect(() => {
         if (remainingGuesses < 0) {
@@ -68,42 +70,55 @@ export function useDailyGame(gameName = 'hardGameState') {
     useEffect(() => {
         (async () => {
             if (!pokemon.name) {
-            const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
-            const index = Number(ID_LIST[todaysNumber]);
-            const solution = Array.from(pokedex).find(
-                (poke) => poke.id === index
-            );
-            if (solution.imgUrl) {
-                setPokemon(solution);
-            } else {
-                const pokemonWithImage = await getImg(solution)
-                setPokemon(pokemonWithImage);
+                const todaysNumber = Math.round(
+                    (TODAY_DATE - START_DATE) / 865e5
+                );
+                const index = Number(ID_LIST[todaysNumber]);
+                const solution = Array.from(pokedex).find(
+                    (poke) => poke.id === index
+                );
+                if (solution.imgUrl) {
+                    setPokemon(solution);
+                } else {
+                    const pokemonWithImage = await getImg(solution);
+                    setPokemon(pokemonWithImage);
+                }
+
+                const incorrectGuesses =
+                    guesses.length !==
+                    filterState.exclude.pokemon.length +
+                        filterState.include.pokemon.length;
+
+                if (incorrectGuesses) {
+                    setFilterState(DEFAULT_FILTER_STATE);
+                }
+
+                if (
+                    !gameState ||
+                    gameState.dailyDate !== new Date().getDate()
+                ) {
+                    const streak = !gameState ? 0 : gameState.streak;
+
+                    updateGameState({
+                        dailyWon: false,
+                        dailyDate: new Date().getDate(),
+                        numGuessesLeft: 8,
+                        streak: streak,
+                        guesses: [],
+                        savedFilterState: DEFAULT_FILTER_STATE,
+                    });
+                    setFilterState(DEFAULT_FILTER_STATE);
+                } else {
+                    setHasWon(gameState.dailyWon);
+                    setRemainingGuesses(gameState.numGuessesLeft);
+                    updateGameState({
+                        ...gameState,
+                        guesses: gameState.guesses,
+                        savedFilterState: filterState,
+                    });
+                }
             }
-
-            const incorrectGuesses = guesses.length !== (filterState.exclude.pokemon.length + filterState.include.pokemon.length);
-
-            if (!gameState || gameState.dailyDate !== new Date().getDate() || incorrectGuesses) {
-                const streak = !gameState ? 0 : gameState.streak;
-
-                updateGameState({
-                    dailyWon: false,
-                    dailyDate: new Date().getDate(),
-                    numGuessesLeft: 8,
-                    streak: streak,
-                    guesses: [],
-                    savedFilterState: DEFAULT_FILTER_STATE,
-                });
-                setFilterState(DEFAULT_FILTER_STATE);
-            } else {
-                setHasWon(gameState.dailyWon);
-                setRemainingGuesses(gameState.numGuessesLeft);
-                updateGameState({
-                    ...gameState,
-                    guesses: gameState.guesses,
-                    savedFilterState: filterState,
-                });
-            }
-        }})()
+        })();
     }, [filterState, gameState, guesses.length, pokemon.name, updateGameState]);
 
     /** returns Guess object compared against the current answer. */
@@ -179,7 +194,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                     dailyDate: new Date().getDate(),
                     numGuessesLeft: 0,
                     streak: 0,
-                    guesses: guesses,
+                    guesses: currentGuesses,
                     savedFilterState: DEFAULT_FILTER_STATE,
                 });
             } else {
@@ -213,57 +228,6 @@ export function useDailyGame(gameName = 'hardGameState') {
         });
     };
 
-    const handleShare = async () => {
-        const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
-        const emojiGrid = generateEmojiGrid();
-
-        const textToShare = `Pokeordle ${todaysNumber} ${
-            8 - remainingGuesses
-        }/8 \n\n${emojiGrid}`;
-        await navigator.clipboard.writeText(textToShare);
-    };
-
-    const getTypeEmoji = useCallback((types) => {
-        const typeEmojis = types.map(({ isFound, isSameIndex }) =>
-            generateEmoji(isFound && isSameIndex, isFound)
-        );
-        return typeEmojis.length > 1 ? typeEmojis.join('') : `${typeEmojis}🟩`;
-    }, []);
-
-    const generateEmoji = (isExact, isClose) =>
-        isExact ? '🟩' : isClose ? '🟨' : '⬛';
-
-    const generateEmojiGrid = useCallback(() => {
-        return guesses
-            .reverse()
-            .map((guess) => {
-                const { baseTotal, index } = guess;
-                const indexDifference = Math.abs(index.difference);
-                const baseTotalDifference = Math.abs(baseTotal.difference);
-
-                // Set Name, dumb I know but good enough for now
-                let guessText = generateEmoji(indexDifference === 0, false);
-
-                // Set Gen
-                guessText += generateEmoji(
-                    determineProximity(indexDifference) === 'correct',
-                    determineProximity(indexDifference) === 'almost'
-                );
-
-                // Set Types
-                guessText += getTypeEmoji(guess.types);
-
-                // Set Base Total
-                guessText += generateEmoji(
-                    determineProximity(baseTotalDifference) === 'correct',
-                    determineProximity(baseTotalDifference) === 'almost'
-                );
-
-                return guessText;
-            })
-            .join('\n');
-    }, [guesses, getTypeEmoji]);
-
     return {
         pokemon,
         guesses,
@@ -276,6 +240,5 @@ export function useDailyGame(gameName = 'hardGameState') {
         handleFilterChange,
         handleClick,
         setViewHint,
-        handleShare,
     };
 }

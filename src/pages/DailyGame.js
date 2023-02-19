@@ -24,13 +24,13 @@ function DailyGame() {
         guesses.length
     );
 
+    const finished = hasWon || remainingGuesses === 0;
+
     useEffect(() => {
-        if (hasWon) {
+        if (finished) {
             setShowAnswer(true);
         }
-    }, [hasWon]);
-
-    const finished = hasWon || remainingGuesses === 0;
+    }, [finished]);
 
     return (
         <div className="daily-container">
@@ -45,6 +45,16 @@ function DailyGame() {
                 )
             )}
 
+            {!hasWon && remainingGuesses < 2 && remainingGuesses > 0 && (
+                <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm game-hint-button"
+                    onClick={() => setViewHint(!viewHint)}
+                >
+                    {viewHint ? 'Hide' : 'Show'} hint
+                </button>
+            )}
+
             {pokemon.name && (
                 <div className="game-container">
                     {viewHint && (
@@ -57,6 +67,7 @@ function DailyGame() {
                             }}
                         />
                     )}
+
                     <SearchWithFilter
                         filterState={filterState}
                         handleFilterChange={handleFilterChange}
@@ -64,17 +75,7 @@ function DailyGame() {
                         disabled={hasWon || remainingGuesses <= 0}
                     />
                     <div>Remaining guesses: {remainingGuesses}</div>
-                    {!hasWon &&
-                        remainingGuesses < 2 &&
-                        remainingGuesses > 0 && (
-                            <button
-                                type="button"
-                                class="btn btn-outline-dark btn-sm game-hint-button"
-                                onClick={() => setViewHint(!viewHint)}
-                            >
-                                {viewHint ? 'Hide' : 'Show'} hint
-                            </button>
-                        )}
+
                     {finished && (
                         <button
                             type="button"
@@ -98,7 +99,9 @@ function DailyGame() {
                                 );
                             })}
                         {guesses.length < 8 &&
-                            [...emptyGuesses].map((_, index) => <Guess empty id={index} />)}
+                            [...emptyGuesses].map((_, index) => (
+                                <Guess empty id={index} />
+                            ))}
                     </div>
                 </div>
             )}

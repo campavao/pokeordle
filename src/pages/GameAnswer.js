@@ -15,7 +15,9 @@ import './components/Guess.scss';
 export function GameAnswer({ show, close }) {
     const { pokemon, guesses, hasWon, remainingGuesses, streak } =
         useDailyGame('hardGameState');
-    const [copyMessage, setCopyMessage] = useState('Share');
+    const [copyMessage, setCopyMessage] = useState(
+        'share' in navigator ? 'Share' : 'Copy'
+    );
 
     const handleShare = async () => {
         const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
@@ -23,10 +25,21 @@ export function GameAnswer({ show, close }) {
 
         const textToShare = `Pokeordle ${todaysNumber} ${
             remainingGuesses === 0 && !hasWon ? 'X' : 8 - remainingGuesses
-        }/8 \n\n${emojiGrid}`;
+        }/8 \n\n${emojiGrid}\n\n https://pokeordle.com`;
 
-        setCopyMessage('Copied!');
-        copyToClipboard(textToShare);
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: document.title,
+                    text: textToShare,
+                    url: window.location.href,
+                })
+                .then(() => console.log('Shared!'))
+                .catch((err) => console.error(err));
+        } else {
+            copyToClipboard(textToShare);
+            setCopyMessage('Copied!');
+        }
     };
 
     const getTypeEmoji = useCallback(
