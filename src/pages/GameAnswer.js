@@ -25,9 +25,11 @@ export function GameAnswer({ show, close }) {
 
         const textToShare = `Pokeordle ${todaysNumber} ${
             remainingGuesses === 0 && !hasWon ? 'X' : 8 - remainingGuesses
-        }/8 \n\n${emojiGrid}`;
+        }/8 \n\n${emojiGrid} \n\n https://pokeordle.com`;
 
-        if (navigator.share) {
+        const isMobile = window.innerWidth < 500;
+
+        if (isMobile && navigator.share) {
             navigator
                 .share({
                     title: "Who's that Pokemon?",
