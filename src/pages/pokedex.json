@@ -14574,9 +14574,7 @@
             "spAttack": 40,
             "spDefense": 40,
             "speed": 65
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/810.png"
-    },
+        } },
     {
         "id": 811,
         "name": {
@@ -14590,9 +14588,7 @@
             "spAttack": 55,
             "spDefense": 60,
             "speed": 80
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/811.png"
-    },
+        } },
     {
         "id": 812,
         "name": {
@@ -14606,9 +14602,7 @@
             "spAttack": 60,
             "spDefense": 70,
             "speed": 85
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/812.png"
-    },
+        } },
     {
         "id": 813,
         "name": {
@@ -14622,9 +14616,7 @@
             "spAttack": 40,
             "spDefense": 40,
             "speed": 69
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/813.png"
-    },
+        } },
     {
         "id": 814,
         "name": {
@@ -14638,9 +14630,7 @@
             "spAttack": 55,
             "spDefense": 60,
             "speed": 94
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/814.png"
-    },
+        } },
     {
         "id": 815,
         "name": {
@@ -14654,9 +14644,7 @@
             "spAttack": 65,
             "spDefense": 75,
             "speed": 119
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/815.png"
-    },
+        } },
     {
         "id": 816,
         "name": {
@@ -14670,9 +14658,7 @@
             "spAttack": 70,
             "spDefense": 40,
             "speed": 70
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/816.png"
-    },
+        } },
     {
         "id": 817,
         "name": {
@@ -14686,9 +14672,7 @@
             "spAttack": 95,
             "spDefense": 55,
             "speed": 90
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/817.png"
-    },
+        } },
     {
         "id": 818,
         "name": {
@@ -14702,9 +14686,7 @@
             "spAttack": 125,
             "spDefense": 65,
             "speed": 120
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/818.png"
-    },
+        } },
     {
         "id": 819,
         "name": {
@@ -14718,9 +14700,7 @@
             "spAttack": 35,
             "spDefense": 35,
             "speed": 25
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/819.png"
-    },
+        } },
     {
         "id": 820,
         "name": {
@@ -14734,9 +14714,7 @@
             "spAttack": 55,
             "spDefense": 75,
             "speed": 20
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/820.png"
-    },
+        } },
     {
         "id": 821,
         "name": {
@@ -14750,9 +14728,7 @@
             "spAttack": 33,
             "spDefense": 35,
             "speed": 57
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/821.png"
-    },
+        } },
     {
         "id": 822,
         "name": {
@@ -14766,9 +14742,7 @@
             "spAttack": 43,
             "spDefense": 55,
             "speed": 77
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/822.png"
-    },
+        } },
     {
         "id": 823,
         "name": {
@@ -14782,9 +14756,7 @@
             "spAttack": 53,
             "spDefense": 85,
             "speed": 67
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/823.png"
-    },
+        } },
     {
         "id": 824,
         "name": {
@@ -14798,9 +14770,7 @@
             "spAttack": 25,
             "spDefense": 45,
             "speed": 45
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/824.png"
-    },
+        } },
     {
         "id": 825,
         "name": {
@@ -14814,9 +14784,7 @@
             "spAttack": 50,
             "spDefense": 90,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/825.png"
-    },
+        } },
     {
         "id": 826,
         "name": {
@@ -14830,9 +14798,7 @@
             "spAttack": 80,
             "spDefense": 120,
             "speed": 90
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/826.png"
-    },
+        } },
     {
         "id": 827,
         "name": {
@@ -14846,9 +14812,7 @@
             "spAttack": 47,
             "spDefense": 52,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/827.png"
-    },
+        } },
     {
         "id": 828,
         "name": {
@@ -14862,9 +14826,7 @@
             "spAttack": 87,
             "spDefense": 92,
             "speed": 90
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/828.png"
-    },
+        } },
     {
         "id": 829,
         "name": {
@@ -14878,9 +14840,7 @@
             "spAttack": 40,
             "spDefense": 60,
             "speed": 10
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/829.png"
-    },
+        } },
     {
         "id": 830,
         "name": {
@@ -14894,9 +14854,7 @@
             "spAttack": 80,
             "spDefense": 120,
             "speed": 60
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/830.png"
-    },
+        } },
     {
         "id": 831,
         "name": {
@@ -14910,9 +14868,7 @@
             "spAttack": 40,
             "spDefense": 45,
             "speed": 48
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/831.png"
-    },
+        } },
     {
         "id": 832,
         "name": {
@@ -14926,9 +14882,7 @@
             "spAttack": 60,
             "spDefense": 90,
             "speed": 88
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/832.png"
-    },
+        } },
     {
         "id": 833,
         "name": {
@@ -14942,9 +14896,7 @@
             "spAttack": 38,
             "spDefense": 38,
             "speed": 44
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/833.png"
-    },
+        } },
     {
         "id": 834,
         "name": {
@@ -14958,9 +14910,7 @@
             "spAttack": 48,
             "spDefense": 68,
             "speed": 74
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/834.png"
-    },
+        } },
     {
         "id": 835,
         "name": {
@@ -14974,9 +14924,7 @@
             "spAttack": 40,
             "spDefense": 50,
             "speed": 26
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/835.png"
-    },
+        } },
     {
         "id": 836,
         "name": {
@@ -14990,9 +14938,7 @@
             "spAttack": 90,
             "spDefense": 60,
             "speed": 121
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/836.png"
-    },
+        } },
     {
         "id": 837,
         "name": {
@@ -15006,9 +14952,7 @@
             "spAttack": 40,
             "spDefense": 50,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/837.png"
-    },
+        } },
     {
         "id": 838,
         "name": {
@@ -15022,9 +14966,7 @@
             "spAttack": 60,
             "spDefense": 70,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/838.png"
-    },
+        } },
     {
         "id": 839,
         "name": {
@@ -15038,9 +14980,7 @@
             "spAttack": 80,
             "spDefense": 90,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/839.png"
-    },
+        } },
     {
         "id": 840,
         "name": {
@@ -15054,9 +14994,7 @@
             "spAttack": 40,
             "spDefense": 40,
             "speed": 20
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/840.png"
-    },
+        } },
     {
         "id": 841,
         "name": {
@@ -15070,9 +15008,7 @@
             "spAttack": 95,
             "spDefense": 60,
             "speed": 70
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/841.png"
-    },
+        } },
     {
         "id": 842,
         "name": {
@@ -15086,9 +15022,7 @@
             "spAttack": 100,
             "spDefense": 80,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/842.png"
-    },
+        } },
     {
         "id": 843,
         "name": {
@@ -15102,9 +15036,7 @@
             "spAttack": 35,
             "spDefense": 50,
             "speed": 46
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/843.png"
-    },
+        } },
     {
         "id": 844,
         "name": {
@@ -15118,9 +15050,7 @@
             "spAttack": 65,
             "spDefense": 70,
             "speed": 71
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/844.png"
-    },
+        } },
     {
         "id": 845,
         "name": {
@@ -15134,9 +15064,7 @@
             "spAttack": 85,
             "spDefense": 95,
             "speed": 85
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/845.png"
-    },
+        } },
     {
         "id": 846,
         "name": {
@@ -15150,9 +15078,7 @@
             "spAttack": 40,
             "spDefense": 30,
             "speed": 66
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/846.png"
-    },
+        } },
     {
         "id": 847,
         "name": {
@@ -15166,9 +15092,7 @@
             "spAttack": 60,
             "spDefense": 50,
             "speed": 136
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/847.png"
-    },
+        } },
     {
         "id": 848,
         "name": {
@@ -15182,9 +15106,7 @@
             "spAttack": 54,
             "spDefense": 35,
             "speed": 40
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/848.png"
-    },
+        } },
     {
         "id": 849,
         "name": {
@@ -15198,9 +15120,7 @@
             "spAttack": 114,
             "spDefense": 70,
             "speed": 75
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/849.png"
-    },
+        } },
     {
         "id": 850,
         "name": {
@@ -15214,9 +15134,7 @@
             "spAttack": 50,
             "spDefense": 50,
             "speed": 45
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/850.png"
-    },
+        } },
     {
         "id": 851,
         "name": {
@@ -15230,9 +15148,7 @@
             "spAttack": 90,
             "spDefense": 90,
             "speed": 65
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/851.png"
-    },
+        } },
     {
         "id": 852,
         "name": {
@@ -15246,9 +15162,7 @@
             "spAttack": 50,
             "spDefense": 50,
             "speed": 32
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/852.png"
-    },
+        } },
     {
         "id": 853,
         "name": {
@@ -15262,9 +15176,7 @@
             "spAttack": 70,
             "spDefense": 80,
             "speed": 42
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/853.png"
-    },
+        } },
     {
         "id": 854,
         "name": {
@@ -15278,9 +15190,7 @@
             "spAttack": 74,
             "spDefense": 54,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/854.png"
-    },
+        } },
     {
         "id": 855,
         "name": {
@@ -15294,9 +15204,7 @@
             "spAttack": 134,
             "spDefense": 114,
             "speed": 70
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/855.png"
-    },
+        } },
     {
         "id": 856,
         "name": {
@@ -15310,9 +15218,7 @@
             "spAttack": 56,
             "spDefense": 53,
             "speed": 39
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/856.png"
-    },
+        } },
     {
         "id": 857,
         "name": {
@@ -15326,9 +15232,7 @@
             "spAttack": 86,
             "spDefense": 73,
             "speed": 49
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/857.png"
-    },
+        } },
     {
         "id": 858,
         "name": {
@@ -15342,9 +15246,7 @@
             "spAttack": 136,
             "spDefense": 103,
             "speed": 29
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/858.png"
-    },
+        } },
     {
         "id": 859,
         "name": {
@@ -15358,9 +15260,7 @@
             "spAttack": 55,
             "spDefense": 40,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/859.png"
-    },
+        } },
     {
         "id": 860,
         "name": {
@@ -15374,9 +15274,7 @@
             "spAttack": 75,
             "spDefense": 55,
             "speed": 70
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/860.png"
-    },
+        } },
     {
         "id": 861,
         "name": {
@@ -15390,9 +15288,7 @@
             "spAttack": 95,
             "spDefense": 75,
             "speed": 60
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/861.png"
-    },
+        } },
     {
         "id": 862,
         "name": {
@@ -15406,9 +15302,7 @@
             "spAttack": 60,
             "spDefense": 81,
             "speed": 95
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/862.png"
-    },
+        } },
     {
         "id": 863,
         "name": {
@@ -15422,9 +15316,7 @@
             "spAttack": 50,
             "spDefense": 60,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/863.png"
-    },
+        } },
     {
         "id": 864,
         "name": {
@@ -15438,9 +15330,7 @@
             "spAttack": 145,
             "spDefense": 130,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/864.png"
-    },
+        } },
     {
         "id": 865,
         "name": {
@@ -15454,9 +15344,7 @@
             "spAttack": 68,
             "spDefense": 82,
             "speed": 65
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/865.png"
-    },
+        } },
     {
         "id": 866,
         "name": {
@@ -15470,9 +15358,7 @@
             "spAttack": 110,
             "spDefense": 100,
             "speed": 70
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/866.png"
-    },
+        } },
     {
         "id": 867,
         "name": {
@@ -15486,9 +15372,7 @@
             "spAttack": 50,
             "spDefense": 105,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/867.png"
-    },
+        } },
     {
         "id": 868,
         "name": {
@@ -15502,9 +15386,7 @@
             "spAttack": 50,
             "spDefense": 61,
             "speed": 34
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/868.png"
-    },
+        } },
     {
         "id": 869,
         "name": {
@@ -15518,9 +15400,7 @@
             "spAttack": 110,
             "spDefense": 121,
             "speed": 64
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/869.png"
-    },
+        } },
     {
         "id": 870,
         "name": {
@@ -15534,9 +15414,7 @@
             "spAttack": 70,
             "spDefense": 60,
             "speed": 75
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/870.png"
-    },
+        } },
     {
         "id": 871,
         "name": {
@@ -15550,9 +15428,7 @@
             "spAttack": 91,
             "spDefense": 85,
             "speed": 15
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/871.png"
-    },
+        } },
     {
         "id": 872,
         "name": {
@@ -15566,9 +15442,7 @@
             "spAttack": 45,
             "spDefense": 30,
             "speed": 20
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/872.png"
-    },
+        } },
     {
         "id": 873,
         "name": {
@@ -15582,9 +15456,7 @@
             "spAttack": 125,
             "spDefense": 90,
             "speed": 65
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/873.png"
-    },
+        } },
     {
         "id": 874,
         "name": {
@@ -15598,9 +15470,7 @@
             "spAttack": 20,
             "spDefense": 20,
             "speed": 70
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/874.png"
-    },
+        } },
     {
         "id": 875,
         "name": {
@@ -15614,9 +15484,7 @@
             "spAttack": 65,
             "spDefense": 90,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/875.png"
-    },
+        } },
     {
         "id": 876,
         "name": {
@@ -15630,9 +15498,7 @@
             "spAttack": 105,
             "spDefense": 95,
             "speed": 95
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/876.png"
-    },
+        } },
     {
         "id": 877,
         "name": {
@@ -15646,9 +15512,7 @@
             "spAttack": 70,
             "spDefense": 58,
             "speed": 97
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/877.png"
-    },
+        } },
     {
         "id": 878,
         "name": {
@@ -15662,9 +15526,7 @@
             "spAttack": 40,
             "spDefense": 49,
             "speed": 40
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/878.png"
-    },
+        } },
     {
         "id": 879,
         "name": {
@@ -15678,9 +15540,7 @@
             "spAttack": 80,
             "spDefense": 69,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/879.png"
-    },
+        } },
     {
         "id": 880,
         "name": {
@@ -15694,9 +15554,7 @@
             "spAttack": 80,
             "spDefense": 70,
             "speed": 75
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/880.png"
-    },
+        } },
     {
         "id": 881,
         "name": {
@@ -15710,9 +15568,7 @@
             "spAttack": 90,
             "spDefense": 80,
             "speed": 55
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/881.png"
-    },
+        } },
     {
         "id": 882,
         "name": {
@@ -15726,9 +15582,7 @@
             "spAttack": 70,
             "spDefense": 80,
             "speed": 75
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/882.png"
-    },
+        } },
     {
         "id": 883,
         "name": {
@@ -15742,9 +15596,7 @@
             "spAttack": 80,
             "spDefense": 90,
             "speed": 55
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/883.png"
-    },
+        } },
     {
         "id": 884,
         "name": {
@@ -15758,9 +15610,7 @@
             "spAttack": 120,
             "spDefense": 50,
             "speed": 85
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/884.png"
-    },
+        } },
     {
         "id": 885,
         "name": {
@@ -15774,9 +15624,7 @@
             "spAttack": 40,
             "spDefense": 30,
             "speed": 82
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/885.png"
-    },
+        } },
     {
         "id": 886,
         "name": {
@@ -15790,9 +15638,7 @@
             "spAttack": 60,
             "spDefense": 50,
             "speed": 102
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/886.png"
-    },
+        } },
     {
         "id": 887,
         "name": {
@@ -15806,9 +15652,7 @@
             "spAttack": 100,
             "spDefense": 75,
             "speed": 142
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/887.png"
-    },
+        } },
     {
         "id": 888,
         "name": {
@@ -15822,9 +15666,7 @@
             "spAttack": 80,
             "spDefense": 115,
             "speed": 138
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/888.png"
-    },
+        } },
     {
         "id": 889,
         "name": {
@@ -15838,9 +15680,7 @@
             "spAttack": 80,
             "spDefense": 115,
             "speed": 138
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/889.png"
-    },
+        } },
     {
         "id": 890,
         "name": {
@@ -15854,9 +15694,7 @@
             "spAttack": 145,
             "spDefense": 95,
             "speed": 130
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/890.png"
-    },
+        } },
     {
         "id": 891,
         "name": {
@@ -15870,9 +15708,7 @@
             "spAttack": 53,
             "spDefense": 50,
             "speed": 72
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/891.png"
-    },
+        } },
     {
         "id": 892,
         "name": {
@@ -15886,9 +15722,7 @@
             "spAttack": 63,
             "spDefense": 60,
             "speed": 97
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/892.png"
-    },
+        } },
     {
         "id": 893,
         "name": {
@@ -15902,9 +15736,7 @@
             "spAttack": 70,
             "spDefense": 95,
             "speed": 105
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/893.png"
-    },
+        } },
     {
         "id": 894,
         "name": {
@@ -15918,9 +15750,7 @@
             "spAttack": 100,
             "spDefense": 50,
             "speed": 200
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/894.png"
-    },
+        } },
     {
         "id": 895,
         "name": {
@@ -15934,9 +15764,7 @@
             "spAttack": 100,
             "spDefense": 50,
             "speed": 80
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/895.png"
-    },
+        } },
     {
         "id": 896,
         "name": {
@@ -15950,9 +15778,7 @@
             "spAttack": 65,
             "spDefense": 110,
             "speed": 30
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/896.png"
-    },
+        } },
     {
         "id": 897,
         "name": {
@@ -15966,9 +15792,7 @@
             "spAttack": 145,
             "spDefense": 80,
             "speed": 130
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/897.png"
-    },
+        } },
     {
         "id": 898,
         "name": {
@@ -15982,9 +15806,7 @@
             "spAttack": 80,
             "spDefense": 80,
             "speed": 80
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/898.png"
-    },
+        } },
     {
         "id": 899,
         "name": {
@@ -15998,9 +15820,7 @@
             "spAttack": 105,
             "spDefense": 75,
             "speed": 65
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/899.png"
-    },
+        } },
     {
         "id": 900,
         "name": {
@@ -16014,9 +15834,7 @@
             "spAttack": 45,
             "spDefense": 70,
             "speed": 85
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/900.png"
-    },
+        } },
     {
         "id": 901,
         "name": {
@@ -16030,9 +15848,7 @@
             "spAttack": 45,
             "spDefense": 80,
             "speed": 50
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/901.png"
-    },
+        } },
     {
         "id": 902,
         "name": {
@@ -16046,9 +15862,7 @@
             "spAttack": 80,
             "spDefense": 75,
             "speed": 78
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/902.png"
-    },
+        } },
     {
         "id": 903,
         "name": {
@@ -16062,9 +15876,7 @@
             "spAttack": 40,
             "spDefense": 80,
             "speed": 120
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/903.png"
-    },
+        } },
     {
         "id": 904,
         "name": {
@@ -16078,9 +15890,7 @@
             "spAttack": 65,
             "spDefense": 65,
             "speed": 85
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/904.png"
-    },
+        } },
     {
         "id": 905,
         "name": {
@@ -16094,16 +15904,13 @@
             "spAttack": 135,
             "spDefense": 80,
             "speed": 106
-        },
-        "imgUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/905.png"
-    },
+        } },
     {
         "id": 906,
         "name": {
             "english": "Sprigatito"
         },
         "types": ["Grass"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/906.png",
         "base": {
             "hp": 40,
             "attack": 61,
@@ -16119,7 +15926,6 @@
             "english": "Floragato"
         },
         "types": ["Grass"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/907.png",
         "base": {
             "hp": 61,
             "attack": 80,
@@ -16135,7 +15941,6 @@
             "english": "Meowscarada"
         },
         "types": ["Grass", "Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/908.png",
         "base": {
             "hp": 76,
             "attack": 110,
@@ -16151,7 +15956,6 @@
             "english": "Fuecoco"
         },
         "types": ["Fire"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/909.png",
         "base": {
             "hp": 67,
             "attack": 45,
@@ -16167,7 +15971,6 @@
             "english": "Crocalor"
         },
         "types": ["Fire"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/910.png",
         "base": {
             "hp": 81,
             "attack": 55,
@@ -16183,7 +15986,6 @@
             "english": "Skeledirge"
         },
         "types": ["Fire", "Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/911.png",
         "base": {
             "hp": 104,
             "attack": 75,
@@ -16199,7 +16001,6 @@
             "english": "Quaxly"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/912.png",
         "base": {
             "hp": 55,
             "attack": 65,
@@ -16215,7 +16016,6 @@
             "english": "Quaxwell"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/913.png",
         "base": {
             "hp": 70,
             "attack": 85,
@@ -16231,7 +16031,6 @@
             "english": "Quaquaval"
         },
         "types": ["Water", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/914.png",
         "base": {
             "hp": 85,
             "attack": 120,
@@ -16247,7 +16046,6 @@
             "english": "Lechonk"
         },
         "types": ["Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/915.png",
         "base": {
             "hp": 54,
             "attack": 45,
@@ -16263,7 +16061,6 @@
             "english": "Oinkologne"
         },
         "types": ["Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/916.png",
         "base": {
             "hp": 115,
             "attack": 90,
@@ -16279,7 +16076,6 @@
             "english": "Tarountula"
         },
         "types": ["Bug"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/917.png",
         "base": {
             "hp": 35,
             "attack": 41,
@@ -16295,7 +16091,6 @@
             "english": "Spidops"
         },
         "types": ["Bug"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/918.png",
         "base": {
             "hp": 60,
             "attack": 79,
@@ -16311,7 +16106,6 @@
             "english": "Nymble"
         },
         "types": ["Bug"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/919.png",
         "base": {
             "hp": 33,
             "attack": 46,
@@ -16327,7 +16121,6 @@
             "english": "Lokix"
         },
         "types": ["Bug", "Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/920.png",
         "base": {
             "hp": 71,
             "attack": 102,
@@ -16343,7 +16136,6 @@
             "english": "Pawmi"
         },
         "types": ["Electric"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/921.png",
         "base": {
             "hp": 45,
             "attack": 50,
@@ -16359,7 +16151,6 @@
             "english": "Pawmo"
         },
         "types": ["Electric", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/922.png",
         "base": {
             "hp": 60,
             "attack": 75,
@@ -16375,7 +16166,6 @@
             "english": "Pawmot"
         },
         "types": ["Electric", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/923.png",
         "base": {
             "hp": 70,
             "attack": 115,
@@ -16391,7 +16181,6 @@
             "english": "Tandemaus"
         },
         "types": ["Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/924.png",
         "base": {
             "hp": 50,
             "attack": 50,
@@ -16407,7 +16196,6 @@
             "english": "Maushold"
         },
         "types": ["Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/925.png",
         "base": {
             "hp": 74,
             "attack": 75,
@@ -16423,7 +16211,6 @@
             "english": "Fidough"
         },
         "types": ["Fairy"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/926.png",
         "base": {
             "hp": 37,
             "attack": 55,
@@ -16439,7 +16226,6 @@
             "english": "Dachsbun"
         },
         "types": ["Fairy"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/927.png",
         "base": {
             "hp": 57,
             "attack": 80,
@@ -16455,7 +16241,6 @@
             "english": "Smoliv"
         },
         "types": ["Grass", "Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/928.png",
         "base": {
             "hp": 41,
             "attack": 35,
@@ -16471,7 +16256,6 @@
             "english": "Dolliv"
         },
         "types": ["Grass", "Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/929.png",
         "base": {
             "hp": 52,
             "attack": 53,
@@ -16487,7 +16271,6 @@
             "english": "Arboliva"
         },
         "types": ["Grass", "Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/930.png",
         "base": {
             "hp": 78,
             "attack": 69,
@@ -16503,7 +16286,6 @@
             "english": "Squawkabilly"
         },
         "types": ["Normal", "Flying"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/931.png",
         "base": {
             "hp": 82,
             "attack": 96,
@@ -16519,7 +16301,6 @@
             "english": "Nacli"
         },
         "types": ["Rock"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/932.png",
         "base": {
             "hp": 55,
             "attack": 55,
@@ -16535,7 +16316,6 @@
             "english": "Naclstack"
         },
         "types": ["Rock"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/933.png",
         "base": {
             "hp": 60,
             "attack": 60,
@@ -16551,7 +16331,6 @@
             "english": "Garganacl"
         },
         "types": ["Rock"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/934.png",
         "base": {
             "hp": 100,
             "attack": 100,
@@ -16567,7 +16346,6 @@
             "english": "Charcadet"
         },
         "types": ["Fire"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/935.png",
         "base": {
             "hp": 40,
             "attack": 50,
@@ -16583,7 +16361,6 @@
             "english": "Armarouge"
         },
         "types": ["Fire", "Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/936.png",
         "base": {
             "hp": 85,
             "attack": 60,
@@ -16599,7 +16376,6 @@
             "english": "Ceruledge"
         },
         "types": ["Fire", "Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/937.png",
         "base": {
             "hp": 75,
             "attack": 125,
@@ -16615,7 +16391,6 @@
             "english": "Tadbulb"
         },
         "types": ["Electric"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/938.png",
         "base": {
             "hp": 61,
             "attack": 31,
@@ -16631,7 +16406,6 @@
             "english": "Bellibolt"
         },
         "types": ["Electric"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/939.png",
         "base": {
             "hp": 109,
             "attack": 64,
@@ -16647,7 +16421,6 @@
             "english": "Wattrel"
         },
         "types": ["Electric", "Flying"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/940.png",
         "base": {
             "hp": 40,
             "attack": 40,
@@ -16663,7 +16436,6 @@
             "english": "Kilowattrel"
         },
         "types": ["Electric", "Flying"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/941.png",
         "base": {
             "hp": 70,
             "attack": 70,
@@ -16679,7 +16451,6 @@
             "english": "Maschiff"
         },
         "types": ["Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/942.png",
         "base": {
             "hp": 60,
             "attack": 78,
@@ -16695,7 +16466,6 @@
             "english": "Mabosstiff"
         },
         "types": ["Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/943.png",
         "base": {
             "hp": 80,
             "attack": 120,
@@ -16711,7 +16481,6 @@
             "english": "Shroodle"
         },
         "types": ["Poison", "Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/944.png",
         "base": {
             "hp": 40,
             "attack": 65,
@@ -16727,7 +16496,6 @@
             "english": "Grafaiai"
         },
         "types": ["Poison", "Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/945.png",
         "base": {
             "hp": 63,
             "attack": 95,
@@ -16743,7 +16511,6 @@
             "english": "Bramblin"
         },
         "types": ["Grass", "Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/946.png",
         "base": {
             "hp": 40,
             "attack": 65,
@@ -16759,7 +16526,6 @@
             "english": "Brambleghast"
         },
         "types": ["Grass", "Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/947.png",
         "base": {
             "hp": 55,
             "attack": 115,
@@ -16775,7 +16541,6 @@
             "english": "Toedscool"
         },
         "types": ["Ground", "Grass"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/948.png",
         "base": {
             "hp": 40,
             "attack": 40,
@@ -16791,7 +16556,6 @@
             "english": "Toedscruel"
         },
         "types": ["Ground", "Grass"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/949.png",
         "base": {
             "hp": 80,
             "attack": 70,
@@ -16807,7 +16571,6 @@
             "english": "Klawf"
         },
         "types": ["Rock"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/950.png",
         "base": {
             "hp": 70,
             "attack": 100,
@@ -16823,7 +16586,6 @@
             "english": "Capsakid"
         },
         "types": ["Grass"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/951.png",
         "base": {
             "hp": 50,
             "attack": 62,
@@ -16839,7 +16601,6 @@
             "english": "Scovillain"
         },
         "types": ["Grass", "Fire"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/952.png",
         "base": {
             "hp": 65,
             "attack": 108,
@@ -16855,7 +16616,6 @@
             "english": "Rellor"
         },
         "types": ["Bug"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/953.png",
         "base": {
             "hp": 41,
             "attack": 50,
@@ -16871,7 +16631,6 @@
             "english": "Rabsca"
         },
         "types": ["Bug", "Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/954.png",
         "base": {
             "hp": 75,
             "attack": 50,
@@ -16887,7 +16646,6 @@
             "english": "Flittle"
         },
         "types": ["Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/955.png",
         "base": {
             "hp": 30,
             "attack": 35,
@@ -16903,7 +16661,6 @@
             "english": "Espathra"
         },
         "types": ["Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/956.png",
         "base": {
             "hp": 95,
             "attack": 60,
@@ -16919,7 +16676,6 @@
             "english": "Tinkatink"
         },
         "types": ["Fairy", "Steel"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/957.png",
         "base": {
             "hp": 50,
             "attack": 45,
@@ -16935,7 +16691,6 @@
             "english": "Tinkatuff"
         },
         "types": ["Fairy", "Steel"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/958.png",
         "base": {
             "hp": 65,
             "attack": 55,
@@ -16951,7 +16706,6 @@
             "english": "Tinkaton"
         },
         "types": ["Fairy", "Steel"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/959.png",
         "base": {
             "hp": 85,
             "attack": 75,
@@ -16967,7 +16721,6 @@
             "english": "Wiglett"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/960.png",
         "base": {
             "hp": 10,
             "attack": 55,
@@ -16983,7 +16736,6 @@
             "english": "Wugtrio"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/961.png",
         "base": {
             "hp": 35,
             "attack": 100,
@@ -16999,7 +16751,6 @@
             "english": "Bombirdier"
         },
         "types": ["Flying", "Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/962.png",
         "base": {
             "hp": 70,
             "attack": 103,
@@ -17015,7 +16766,6 @@
             "english": "Finizen"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/963.png",
         "base": {
             "hp": 70,
             "attack": 45,
@@ -17031,7 +16781,6 @@
             "english": "Palafin"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/964.png",
         "base": {
             "hp": 100,
             "attack": 160,
@@ -17047,7 +16796,6 @@
             "english": "Varoom"
         },
         "types": ["Steel", "Poison"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/965.png",
         "base": {
             "hp": 45,
             "attack": 70,
@@ -17063,7 +16811,6 @@
             "english": "Revavroom"
         },
         "types": ["Steel", "Poison"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/966.png",
         "base": {
             "hp": 80,
             "attack": 119,
@@ -17079,7 +16826,6 @@
             "english": "Cyclizar"
         },
         "types": ["Dragon", "Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/967.png",
         "base": {
             "hp": 70,
             "attack": 95,
@@ -17095,7 +16841,6 @@
             "english": "Orthworm"
         },
         "types": ["Steel"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/968.png",
         "base": {
             "hp": 70,
             "attack": 85,
@@ -17111,7 +16856,6 @@
             "english": "Glimmet"
         },
         "types": ["Rock", "Poison"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/969.png",
         "base": {
             "hp": 48,
             "attack": 35,
@@ -17127,7 +16871,6 @@
             "english": "Glimmora"
         },
         "types": ["Rock", "Poison"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/970.png",
         "base": {
             "hp": 83,
             "attack": 55,
@@ -17143,7 +16886,6 @@
             "english": "Greavard"
         },
         "types": ["Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/971.png",
         "base": {
             "hp": 50,
             "attack": 61,
@@ -17159,7 +16901,6 @@
             "english": "Houndstone"
         },
         "types": ["Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/972.png",
         "base": {
             "hp": 72,
             "attack": 101,
@@ -17175,7 +16916,6 @@
             "english": "Flamigo"
         },
         "types": ["Flying", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/973.png",
         "base": {
             "hp": 82,
             "attack": 115,
@@ -17191,7 +16931,6 @@
             "english": "Cetoddle"
         },
         "types": ["Ice"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/974.png",
         "base": {
             "hp": 108,
             "attack": 68,
@@ -17207,7 +16946,6 @@
             "english": "Cetitan"
         },
         "types": ["Ice"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/975.png",
         "base": {
             "hp": 170,
             "attack": 113,
@@ -17223,7 +16961,6 @@
             "english": "Veluza"
         },
         "types": ["Water", "Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/976.png",
         "base": {
             "hp": 90,
             "attack": 102,
@@ -17239,7 +16976,6 @@
             "english": "Dondozo"
         },
         "types": ["Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/977.png",
         "base": {
             "hp": 150,
             "attack": 100,
@@ -17255,7 +16991,6 @@
             "english": "Tatsugiri"
         },
         "types": ["Dragon", "Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/978.png",
         "base": {
             "hp": 68,
             "attack": 50,
@@ -17271,7 +17006,6 @@
             "english": "Annihilape"
         },
         "types": ["Fighting", "Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/979.png",
         "base": {
             "hp": 110,
             "attack": 115,
@@ -17287,7 +17021,6 @@
             "english": "Clodsire"
         },
         "types": ["Poison", "Ground"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/980.png",
         "base": {
             "hp": 130,
             "attack": 75,
@@ -17303,7 +17036,6 @@
             "english": "Farigiraf"
         },
         "types": ["Normal", "Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/981.png",
         "base": {
             "hp": 120,
             "attack": 90,
@@ -17319,7 +17051,6 @@
             "english": "Dudunsparce"
         },
         "types": ["Normal"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/982.png",
         "base": {
             "hp": 125,
             "attack": 100,
@@ -17335,7 +17066,6 @@
             "english": "Kingambit"
         },
         "types": ["Dark", "Steel"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/983.png",
         "base": {
             "hp": 100,
             "attack": 135,
@@ -17351,7 +17081,6 @@
             "english": "Great Tusk"
         },
         "types": ["Ground", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/984.png",
         "base": {
             "hp": 115,
             "attack": 131,
@@ -17367,7 +17096,6 @@
             "english": "Scream Tail"
         },
         "types": ["Fairy", "Psychic"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/985.png",
         "base": {
             "hp": 115,
             "attack": 65,
@@ -17383,7 +17111,6 @@
             "english": "Brute Bonnet"
         },
         "types": ["Grass", "Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/986.png",
         "base": {
             "hp": 111,
             "attack": 127,
@@ -17399,7 +17126,6 @@
             "english": "Flutter Mane"
         },
         "types": ["Ghost", "Fairy"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/987.png",
         "base": {
             "hp": 55,
             "attack": 55,
@@ -17415,7 +17141,6 @@
             "english": "Slither Wing"
         },
         "types": ["Bug", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/988.png",
         "base": {
             "hp": 85,
             "attack": 135,
@@ -17431,7 +17156,6 @@
             "english": "Sandy Shocks"
         },
         "types": ["Electric", "Ground"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/989.png",
         "base": {
             "hp": 85,
             "attack": 81,
@@ -17447,7 +17171,6 @@
             "english": "Iron Treads"
         },
         "types": ["Ground", "Steel"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/990.png",
         "base": {
             "hp": 90,
             "attack": 112,
@@ -17463,7 +17186,6 @@
             "english": "Iron Bundle"
         },
         "types": ["Ice", "Water"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/991.png",
         "base": {
             "hp": 56,
             "attack": 80,
@@ -17479,7 +17201,6 @@
             "english": "Iron Hands"
         },
         "types": ["Fighting", "Electric"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/992.png",
         "base": {
             "hp": 154,
             "attack": 140,
@@ -17495,7 +17216,6 @@
             "english": "Iron Jugulis"
         },
         "types": ["Dark", "Flying"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/993.png",
         "base": {
             "hp": 94,
             "attack": 80,
@@ -17511,7 +17231,6 @@
             "english": "Iron Moth"
         },
         "types": ["Fire", "Poison"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/994.png",
         "base": {
             "hp": 80,
             "attack": 70,
@@ -17527,7 +17246,6 @@
             "english": "Iron Thorns"
         },
         "types": ["Rock", "Electric"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/995.png",
         "base": {
             "hp": 100,
             "attack": 134,
@@ -17543,7 +17261,6 @@
             "english": "Frigibax"
         },
         "types": ["Dragon", "Ice"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/996.png",
         "base": {
             "hp": 65,
             "attack": 75,
@@ -17559,7 +17276,6 @@
             "english": "Arctibax"
         },
         "types": ["Dragon", "Ice"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/997.png",
         "base": {
             "hp": 90,
             "attack": 95,
@@ -17575,7 +17291,6 @@
             "english": "Baxcalibur"
         },
         "types": ["Dragon", "Ice"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/998.png",
         "base": {
             "hp": 115,
             "attack": 145,
@@ -17591,7 +17306,6 @@
             "english": "Gimmighoul"
         },
         "types": ["Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/999.png",
         "base": {
             "hp": 45,
             "attack": 30,
@@ -17607,7 +17321,6 @@
             "english": "Gholdengo"
         },
         "types": ["Steel", "Ghost"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1000.png",
         "base": {
             "hp": 87,
             "attack": 60,
@@ -17623,7 +17336,6 @@
             "english": "Wo-Chien"
         },
         "types": ["Dark", "Grass"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1001.png",
         "base": {
             "hp": 85,
             "attack": 85,
@@ -17639,7 +17351,6 @@
             "english": "Chien-Pao"
         },
         "types": ["Dark", "Ice"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1002.png",
         "base": {
             "hp": 80,
             "attack": 120,
@@ -17655,7 +17366,6 @@
             "english": "Ting-Lu"
         },
         "types": ["Dark", "Ground"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1003.png",
         "base": {
             "hp": 155,
             "attack": 110,
@@ -17671,7 +17381,6 @@
             "english": "Chi-Yu"
         },
         "types": ["Dark", "Fire"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1004.png",
         "base": {
             "hp": 55,
             "attack": 80,
@@ -17687,7 +17396,6 @@
             "english": "Roaring Moon"
         },
         "types": ["Dragon", "Dark"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1005.png",
         "base": {
             "hp": 105,
             "attack": 139,
@@ -17703,7 +17411,6 @@
             "english": "Iron Valiant"
         },
         "types": ["Fairy", "Fighting"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1006.png",
         "base": {
             "hp": 74,
             "attack": 130,
@@ -17719,7 +17426,6 @@
             "english": "Koraidon"
         },
         "types": ["Fighting", "Dragon"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1007.png",
         "base": {
             "hp": 100,
             "attack": 135,
@@ -17735,7 +17441,6 @@
             "english": "Miraidon"
         },
         "types": ["Electric", "Dragon"],
-        "imgUrl": "https://www.serebii.net/scarletviolet/pokemon/new/1008.png",
         "base": {
             "hp": 100,
             "attack": 85,
