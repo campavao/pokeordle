@@ -17,18 +17,13 @@ function Pokedex() {
     const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
 
     const updateImages = useCallback(async ({ start, limit }) => {
-        const arr =
-            limit >= 905
-                ? Array.from(pokedexJson)
-                      .filter((_, index) => start <= index && index < limit)
-                      .map((poke) => ({ default: poke.imgUrl }))
-                : await Promise.all(
-                      Array.from(pokedexJson)
-                          .filter((_, index) => start <= index && index < limit)
-                          .map(({ id }) => {
-                              return getImgUrl(id);
-                          })
-                  );
+        const arr = await Promise.all(
+            Array.from(pokedexJson)
+                .filter((_, index) => start <= index && index < limit)
+                .map(({ id }) => {
+                    return getImgUrl(id);
+                })
+        );
         setImages(arr);
     }, []);
 
@@ -68,8 +63,13 @@ function Pokedex() {
         setPage(updatePage);
     };
 
-    const showPokemon = (index) => {
-        setPokemon(pokedexJson[page.start + index]);
+    const showPokemon = async (index) => {
+        const img = await getImgUrl(page.start + index + 1);
+        const pokemonWithImage = {
+            ...pokedexJson[page.start + index],
+            img,
+        };
+        setPokemon(pokemonWithImage);
     };
 
     const handleFilterChange = (filterChange, key) => {
@@ -88,7 +88,7 @@ function Pokedex() {
     };
 
     const handleClick = async (poke) => {
-        const img = !poke.imgUrl && (await getImgUrl(poke.id));
+        const img = await getImgUrl(poke.id);
         setPokemon({
             ...poke,
             img,
@@ -119,7 +119,7 @@ function Pokedex() {
             </div>
             <Button
                 onClick={() => setShow(!show)}
-                style={{ width: '100%', maxWidth:'unset' }}
+                style={{ width: '100%', maxWidth: 'unset' }}
                 className="select-view-item "
             >
                 Show
@@ -131,9 +131,7 @@ function Pokedex() {
                             className="game-answer"
                             aria-label={pokemon?.name?.english}
                             style={{
-                                backgroundImage: `url(${
-                                    pokemon.imgUrl ?? pokemon.img?.default
-                                })`,
+                                backgroundImage: `url(${pokemon.img?.default})`,
                             }}
                         />
                         {pokemon.name.english}

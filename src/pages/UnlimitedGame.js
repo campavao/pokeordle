@@ -30,15 +30,12 @@ function UnlimitedGame() {
         }
     }, [pokemon.name]);
 
-    const initialize = () => {
+    const initialize = async () => {
         setGuesses([]);
         const index = getIntWithinRange(Math.random(), 1, 906);
         const pokemon = pokedex[index];
-        if (pokemon.imgUrl) {
-            setPokemon(pokemon);
-        } else {
-            getImg(pokemon).then((updatedMon) => setPokemon(updatedMon));
-        }
+        const imgPokemon = await getImg(pokemon);
+        setPokemon(imgPokemon);
     };
 
     const handleClick = (search) => {
@@ -63,7 +60,6 @@ function UnlimitedGame() {
                     difference: pokemonBaseTotal - validBaseTotal,
                     stats: search.base,
                 },
-                imgUrl: search.imgUrl,
             };
             const updatedGuesses = [guess, ...guesses];
             setGuesses(updatedGuesses);
@@ -76,19 +72,20 @@ function UnlimitedGame() {
 
             setFilterState(newFilterState);
 
-            if (search.id === pokemon.id || MAX_GUESSES - updatedGuesses.length === 0) {
+            if (
+                search.id === pokemon.id ||
+                MAX_GUESSES - updatedGuesses.length === 0
+            ) {
                 setGameOver(true);
                 setFilterState(DEFAULT_FILTER_STATE);
 
-
                 if (search.id === pokemon.id) {
                     setStreak(streak + 1);
-                    setHasWon(true)
+                    setHasWon(true);
                 } else {
-                    setStreak(1)
+                    setStreak(1);
                 }
-               
-            } 
+            }
         }
     };
 
@@ -118,14 +115,12 @@ function UnlimitedGame() {
                 pokemon.name && (
                     <div className="game-container">
                         {streak > 1 && <div>Current streak: {streak}</div>}
-
                         <SearchWithFilter
                             filterState={filterState}
                             handleFilterChange={handleFilterChange}
                             handleClick={handleClick}
                             disabled={isGameOver}
                         />
-                       
                         Remaining guesses: {MAX_GUESSES - guesses.length}
                         <div className="guesses">
                             {guesses &&
@@ -144,7 +139,10 @@ function UnlimitedGame() {
                 )
             ) : (
                 <div className="game-reveal">
-                    <h2>You {!hasWon ? 'lost.' : 'won!'} The Pokemon was {pokemon.name.english}</h2>
+                    <h2>
+                        You {!hasWon ? 'lost.' : 'won!'} The Pokemon was{' '}
+                        {pokemon.name.english}
+                    </h2>
                     {streak > 1 && <div>Current streak: {streak}</div>}
 
                     <PokemonImage pokemon={pokemon} />

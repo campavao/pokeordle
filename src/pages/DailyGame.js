@@ -61,9 +61,7 @@ function DailyGame() {
                         <div
                             className="game-hint"
                             style={{
-                                backgroundImage: `url(${
-                                    pokemon.imgUrl ?? pokemon.img?.default
-                                })`,
+                                backgroundImage: `url(${pokemon.img?.default})`,
                             }}
                         />
                     )}

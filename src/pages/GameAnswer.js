@@ -121,9 +121,7 @@ export function GameAnswer({ show, close }) {
                             className="game-answer"
                             aria-label={pokemon?.name?.english}
                             style={{
-                                backgroundImage: `url(${
-                                    pokemon.imgUrl ?? pokemon.img?.default
-                                })`,
+                                backgroundImage: `url(${pokemon.img?.default})`,
                             }}
                         />
                         <button

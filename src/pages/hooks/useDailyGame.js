@@ -77,12 +77,8 @@ export function useDailyGame(gameName = 'hardGameState') {
                 const solution = Array.from(pokedex).find(
                     (poke) => poke.id === index
                 );
-                if (solution.imgUrl) {
-                    setPokemon(solution);
-                } else {
-                    const pokemonWithImage = await getImg(solution);
-                    setPokemon(pokemonWithImage);
-                }
+                const pokemonWithImage = await getImg(solution);
+                setPokemon(pokemonWithImage);
 
                 const incorrectGuesses =
                     guesses.length !==
@@ -152,7 +148,6 @@ export function useDailyGame(gameName = 'hardGameState') {
                     difference: pokemonBaseTotal - guessPokemonBaseTotal,
                     stats: base,
                 },
-                imgUrl: guessPokemon.imgUrl,
             };
         },
         [pokemon]
