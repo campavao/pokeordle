@@ -1,12 +1,11 @@
-export function PokemonImage({pokemon, isHint}) {
+import { getImgNumber } from './utils';
+
+export function PokemonImage({ pokemon, isHint }) {
     return (
-        <div
-            className={isHint ? "game-hint" : "game-answer"}
-            style={{
-                backgroundImage: `url(${
-                    pokemon.imgUrl ?? pokemon.img?.default
-                })`,
-            }}
+        <img
+            className={isHint ? 'game-hint' : 'game-answer'}
+            src={pokemon.imgUrl ?? `/images/${getImgNumber(pokemon.id)}.png`}
+            alt="hint"
         />
-    )
+    );
 }

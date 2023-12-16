@@ -5,6 +5,7 @@ import { GameAnswer } from './GameAnswer';
 
 import './Pages.scss';
 import { SearchWithFilter } from './components/SearchWithFilter';
+import { getImgNumber } from './components/utils';
 
 function DailyGame() {
     const {
@@ -58,13 +59,13 @@ function DailyGame() {
             {pokemon.name && (
                 <div className="game-container">
                     {viewHint && (
-                        <div
+                        <img
                             className="game-hint"
-                            style={{
-                                backgroundImage: `url(${
-                                    pokemon.imgUrl ?? pokemon.img?.default
-                                })`,
-                            }}
+                            src={
+                                pokemon.imgUrl ??
+                                `/images/${getImgNumber(pokemon.id)}.png`
+                            }
+                            alt="hint"
                         />
                     )}
 

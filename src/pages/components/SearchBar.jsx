@@ -1,17 +1,16 @@
 import { useState, useRef, useCallback, useMemo } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { getGeneration } from './utils';
+import { filterSuggestionsWithFilterState } from './utils';
 import { DEFAULT_FILTER_STATE } from '../constants';
 
 import * as pokedex from '../pokedex.json';
 
 export default function SearchBar({
     onSubmit,
+    onChange,
     filter = DEFAULT_FILTER_STATE,
     disabled,
 }) {
-    const { include, exclude, amountOfTypes } = filter;
-
     const [preventSubmit, setPreventSubmit] = useState(true);
 
     const typeRef = useRef();
@@ -47,65 +46,17 @@ export default function SearchBar({
         } else {
             setPreventSubmit(true);
         }
+        onChange?.(search);
     };
-
-    const filterSuggestions = useCallback(
-        (pokemon) => {
-            if (
-                ![
-                    ...Object.values(filter.include).flat(),
-                    ...Object.values(filter.exclude).flat(),
-                ].length &&
-                !amountOfTypes
-            ) {
-                return true;
-            }
-            const generation = getGeneration(pokemon);
-            const name = pokemon.name.english;
-            if (
-                (exclude.generations.length &&
-                    exclude.generations.includes(generation)) ||
-                (exclude.pokemon.length && exclude.pokemon.includes(name)) ||
-                exclude.types.some((type) => pokemon.types.includes(type)) ||
-                (amountOfTypes && pokemon.types.length !== amountOfTypes)
-            ) {
-                return false;
-            }
-
-            const includeTypes = include.types.filter((type) => type !== 'X');
-            if (
-                Object.values(filter.include).flat().length === 0 ||
-                ((!include.generations.length ||
-                    include.generations.includes(generation)) &&
-                    (!include.pokemon.length ||
-                        include.pokemon.includes(name)) &&
-                    (!include.types.length ||
-                        includeTypes.every((type) =>
-                            pokemon.types.includes(type)
-                        )))
-            ) {
-                return !amountOfTypes || pokemon.types.length === amountOfTypes;
-            }
-        },
-        [
-            exclude.generations,
-            exclude.pokemon,
-            exclude.types,
-            filter.exclude,
-            filter.include,
-            include.generations,
-            include.pokemon,
-            include.types,
-            amountOfTypes,
-        ]
-    );
 
     const options = useMemo(
         () =>
             Array.from(pokedex)
-                .filter(filterSuggestions)
+                .filter((pokemon) =>
+                    filterSuggestionsWithFilterState(pokemon, filter)
+                )
                 .map((pokemon) => pokemon.name.english),
-        [filterSuggestions]
+        [filter]
     );
 
     return (

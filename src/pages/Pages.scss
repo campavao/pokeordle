@@ -123,6 +123,12 @@ h2 {
 
 .leaderboard-table {
     width: 100%;
+    td {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis ellipsis;
+        max-width: 175px;
+    }
 }
 
 .start-buttons {
@@ -168,18 +174,9 @@ h2 {
 }
 
 .filter-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 0.33fr 0.66fr;
     align-items: baseline;
-
-    > p {
-        text-align: center;
-        width: 33%;
-        margin: 0;
-    }
-
-    > div {
-        width: 100%;
-    }
 
     @media (max-width: 500px) {
         flex-direction: column;

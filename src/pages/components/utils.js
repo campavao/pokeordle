@@ -213,11 +213,15 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
     return {
         include: {
             generations: convertToSet([
-                ...prevFilterState.include.generations.filter(gen => !nextFilterState.exclude.generations.includes(gen)),
+                ...prevFilterState.include.generations.filter(
+                    (gen) => !nextFilterState.exclude.generations.includes(gen)
+                ),
                 ...nextFilterState.include.generations,
             ]),
             types: convertToSet([
-                ...prevFilterState.include.types.filter(type => !nextFilterState.exclude.types.includes(type)),
+                ...prevFilterState.include.types.filter(
+                    (type) => !nextFilterState.exclude.types.includes(type)
+                ),
                 ...nextFilterState.include.types,
             ]),
             pokemon: convertToSet([
@@ -227,11 +231,15 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
         },
         exclude: {
             generations: convertToSet([
-                ...prevFilterState.exclude.generations.filter(gen => !nextFilterState.include.generations.includes(gen)),
+                ...prevFilterState.exclude.generations.filter(
+                    (gen) => !nextFilterState.include.generations.includes(gen)
+                ),
                 ...nextFilterState.exclude.generations,
             ]),
             types: convertToSet([
-                ...prevFilterState.exclude.types.filter(type => !nextFilterState.include.types.includes(type)),
+                ...prevFilterState.exclude.types.filter(
+                    (type) => !nextFilterState.include.types.includes(type)
+                ),
                 ...nextFilterState.exclude.types,
             ]),
             pokemon: convertToSet([
@@ -241,9 +249,9 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
         },
         amountOfTypes:
             nextFilterState?.amountOfTypes || prevFilterState?.amountOfTypes,
+        bst: nextFilterState?.bst ?? prevFilterState?.bst,
     };
 }
-
 
 export const getBaseStats = (guessPokemon) => {
     const { hp, attack, defense, spAttack, spDefense, speed } =
@@ -251,34 +259,8 @@ export const getBaseStats = (guessPokemon) => {
     return hp + attack + defense + spAttack + spDefense + speed;
 };
 
-export const getImgUrl = async (index) => {
-    const imgNum =
-        index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
-    return await import(`../../images/${imgNum}.png`);
-};
-
-export const getImg = async (pokemon) => {
-    const index = pokemon.id;
-    if (!index) return;
-    return {
-        ...pokemon,
-        img: await getImgUrl(index),
-    };
-};
-
-export const getQuickImg = async (pokemon) => {
-    const index = pokemon.id;
-    if (!index) return;
-    if (pokemon.imgUrl) {
-        return pokemon;
-    }
-    return await getImgUrl(index).then((imgSrc) => {
-        return {
-            ...pokemon,
-            img: imgSrc,
-        };
-    });
-};
+export const getImgNumber = (index) =>
+    index < 10 ? `00${index}` : index < 100 ? `0${index}` : index;
 
 export function shuffle(array) {
     let currentIndex = array.length,
@@ -337,3 +319,51 @@ export function getFilters(guesses, pokemon) {
 
     return { guessedGen, includeFilter, excludedFilter };
 }
+
+export const filterSuggestionsWithFilterState = (pokemon, filter) => {
+    const { include, exclude, amountOfTypes, bst } = filter;
+
+    if (
+        ![...Object.values(include).flat(), ...Object.values(exclude).flat()]
+            .length &&
+        !amountOfTypes &&
+        !bst
+    ) {
+        return true;
+    }
+
+    const generation = getGeneration(pokemon);
+    const name = pokemon.name.english;
+    if (
+        (exclude.generations.length &&
+            exclude.generations.includes(generation)) ||
+        (exclude.pokemon.length && exclude.pokemon.includes(name)) ||
+        exclude.types.some((type) => pokemon.types.includes(type)) ||
+        (amountOfTypes && pokemon.types.length !== amountOfTypes)
+    ) {
+        return false;
+    }
+
+    const includeTypes = include.types.filter((type) => type !== 'X');
+    if (
+        Object.values(filter.include).flat().length === 0 ||
+        ((!include.generations.length ||
+            include.generations.includes(generation)) &&
+            (!include.pokemon.length || include.pokemon.includes(name)) &&
+            (!include.types.length ||
+                includeTypes.every((type) => pokemon.types.includes(type))))
+    ) {
+        let hasBst = true;
+        if (bst) {
+            const pokemonBst = getBaseStats(pokemon);
+            const min = bst - 20;
+            const max = bst + 20;
+
+            hasBst = min <= pokemonBst && pokemonBst <= max;
+        }
+        return (
+            hasBst && (!amountOfTypes || pokemon.types.length === amountOfTypes)
+        );
+    }
+};
+

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { getQuickImg, shuffle } from './components/utils';
+import {  shuffle } from './components/utils';
 import {
     collection,
     addDoc,
@@ -114,9 +114,7 @@ function TimedGame() {
 
     const updateCurrentSolution = (newSolutionList = solutionList) => {
         const pokemon = newSolutionList[0];
-        getQuickImg(pokemon).then((pokeWithImg) =>
-            setCurrentSolution(pokeWithImg)
-        );
+        setCurrentSolution(pokemon)
     };
 
     const handleStart = (startTime) => {

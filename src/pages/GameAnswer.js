@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { determineProximity } from './components/Guess';
-import { determineGeneration } from './components/utils';
+import { determineGeneration, getImgNumber } from './components/utils';
 
 import { useDailyGame } from './hooks/useDailyGame';
 
@@ -118,14 +118,13 @@ export function GameAnswer({ show, close }) {
                             The Pokemon was {pokemon?.name?.english}!
                         </h2>
                         Current Streak: {streak}
-                        <div
+                        <img
                             className="game-answer"
-                            aria-label={pokemon?.name?.english}
-                            style={{
-                                backgroundImage: `url(${
-                                    pokemon.imgUrl ?? pokemon.img?.default
-                                })`,
-                            }}
+                            src={
+                                pokemon?.imgUrl ??
+                                `/images/${getImgNumber(pokemon.id)}.png`
+                            }
+                            alt={pokemon?.name?.english}
                         />
                         <button
                             className="type-list-item correct-type"

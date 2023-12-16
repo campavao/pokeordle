@@ -7,7 +7,7 @@ import TimedGame from './pages/TimedGame';
 import TeraRaidBattle from './pages/TeraRaidBattle';
 import { TimedLeaderboard } from './pages/TimedLeaderboard';
 import { Instructions } from './pages/Instructions';
-import logo from './images/Pokeordle.png';
+import { Login } from './pages/Login';
 
 import './App.scss';
 
@@ -21,9 +21,7 @@ function App() {
     const [showInstructions, setShowInstructions] = useState(
         viewState?.showInstructions || false
     );
-    const [username, setUsername] = useState(
-        localStorage.getItem('username') || ''
-    );
+    const [showLogin, setShowLogin] = useState(false);
 
     const updateView = (newView) => {
         setView(newView);
@@ -48,64 +46,44 @@ function App() {
         }
     }, [viewState]);
 
-    const handleClose = () => {
-        if (viewState.showInstructions) {
-            localStorage.setItem(
-                'viewState',
-                JSON.stringify({
-                    ...viewState,
-                    showInstructions: false,
-                })
-            );
+    const handleClose = (modal = 'instructions') => {
+        switch (modal) {
+            case 'instructions': {
+                if (viewState.showInstructions) {
+                    localStorage.setItem(
+                        'viewState',
+                        JSON.stringify({
+                            ...viewState,
+                            showInstructions: false,
+                        })
+                    );
+                }
+                setShowInstructions(false);
+                break;
+            }
+            case 'login': {
+                setShowLogin(false);
+                break;
+            }
+            default:
+                console.error('Unknown modal type', modal);
         }
-        setShowInstructions(false);
-    };
-
-    const saveUsername = (e) => {
-        e.preventDefault();
-        const username = e.target?.[0]?.value;
-        localStorage.setItem('username', username);
-        setUsername(username);
     };
 
     return (
         <div className="container">
             <Instructions show={showInstructions} close={() => handleClose()} />
+            <Login show={showLogin} close={() => handleClose('login')} />
             <img
                 className="logo"
-                src={logo}
+                src={'./images/Pokeordle.png'}
                 alt="pokeordle, the pokemon guessing game"
             ></img>
 
-            {username === '' ? (
-                <form onSubmit={saveUsername} style={{ paddingBottom: '20px' }}>
-                    <input
-                        placeholder="enter username"
-                        defaultValue={localStorage.getItem('username') || ''}
-                    ></input>
-                    <button type="submit" className="btn btn-light btn-sm">
-                        Save
-                    </button>
-                </form>
-            ) : (
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginBottom: '20px',
-                    }}
-                >
-                    Current username: {username}
-                    <button
-                        className="btn btn-link btn-sm"
-                        onClick={() => setUsername('')}
-                        aria-label="change username"
-                    >
-                        <i class="bi bi-pen" />
-                    </button>
-                </div>
-            )}
+            <button
+                className="login bi bi-door-open"
+                onClick={() => setShowLogin(true)}
+            ></button>
 
             <button
                 className="instructions bi bi-question-circle-fill"
@@ -120,11 +98,11 @@ function App() {
                         viewName="daily"
                         updateView={updateView}
                     /> */}
-                    <Button
+                    {/* <Button
                         displayName="Tera"
                         active={view === 'Tera'}
                         updateView={updateView}
-                    />
+                    /> */}
                     <Button
                         displayName="Pokedex"
                         active={view === 'Pokedex'}
@@ -140,13 +118,13 @@ function App() {
                         active={view === 'Unlimited'}
                         updateView={updateView}
                     />
-                    
+
                     <Button
                         displayName="Timed"
                         active={view === 'timed'}
                         updateView={updateView}
                     />
-                    
+
                     <Button
                         displayName="Leaderboard"
                         active={view === 'leaderboard'}

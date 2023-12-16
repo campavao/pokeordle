@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import {  useRef } from 'react';
 import { Popover, OverlayTrigger, ProgressBar } from 'react-bootstrap';
 
-import { getImgUrl, determineGeneration } from './utils';
+import { getImgNumber, determineGeneration } from './utils';
 
 import TypeList from './TypeList';
 
@@ -18,7 +18,7 @@ export default function Guess(props) {
         showArrows = false,
         showId = false,
         empty = false,
-        id
+        id,
     } = props;
     const { name, index, types, baseTotal, imgUrl } = guess ?? {
         name: '?',
@@ -30,18 +30,7 @@ export default function Guess(props) {
             stats: null,
         },
     };
-    const [image, setImage] = useState('');
     const ref = useRef(null);
-
-    useEffect(() => {
-        async function updateImage() {
-            const img = await getImgUrl(index.id);
-            setImage(img);
-        }
-        if (index.id > 0 && !imgUrl) {
-            updateImage();
-        }
-    }, [index, imgUrl]);
 
     if (empty) {
         return (
@@ -63,11 +52,10 @@ export default function Guess(props) {
         const baseIndexClass = determineProximity(absIndexDifference);
         return (
             <div className="name">
-                <div
+                <img
+                    src={imgUrl ?? `/images/${getImgNumber(index.id)}.png`}
+                    alt=""
                     className="game-answer"
-                    style={{
-                        backgroundImage: `url(${imgUrl ?? image?.default})`,
-                    }}
                 />
                 {name}
                 {showId && (

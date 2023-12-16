@@ -1,140 +1,91 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import React, { useState, useCallback } from 'react';
+import { Modal } from 'react-bootstrap';
 
-import { getImgUrl, getBaseStats } from './components/utils';
+import {
+    getBaseStats,
+    filterSuggestionsWithFilterState,
+    getImgNumber,
+} from './components/utils';
 
-import { DEFAULT_FILTER_STATE, GENERATIONS } from './constants';
+import { DEFAULT_FILTER_STATE } from './constants';
+import { SearchWithFilter } from './components/SearchWithFilter';
 
 import * as pokedexJson from './pokedex.json';
 import './Pokedex.scss';
-import { SearchWithFilter } from './components/SearchWithFilter';
 
 function Pokedex() {
-    const [page, setPage] = useState({ start: 0, limit: 151, gen: 1 });
-    const [images, setImages] = useState([]);
     const [pokemon, setPokemon] = useState(undefined);
-    const [show, setShow] = useState(false);
     const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
+    const [pokemonOnPage, setPokemonOnPage] = useState(Array.from(pokedexJson));
 
-    const updateImages = useCallback(async ({ start, limit }) => {
-        const arr =
-            limit >= 905
-                ? Array.from(pokedexJson)
-                      .filter((_, index) => start <= index && index < limit)
-                      .map((poke) => ({ default: poke.imgUrl }))
-                : await Promise.all(
-                      Array.from(pokedexJson)
-                          .filter((_, index) => start <= index && index < limit)
-                          .map(({ id }) => {
-                              return getImgUrl(id);
-                          })
-                  );
-        setImages(arr);
-    }, []);
-
-    useEffect(() => {
-        if (!images.length && show) {
-            updateImages(page);
-        }
-    }, [images, page, show, updateImages]);
-
-    const changeGeneration = async (amount) => {
-        setShow(false);
-        const currentIndex = page.gen - 1;
-        let updatePage = {};
-
-        // I hate this logic with my entire being, but I can't figure out a cleaner way to do this
-        if (amount === 1) {
-            const limitIndex = page.gen;
-            const startRange = GENERATIONS[currentIndex].range;
-            const limitRange = GENERATIONS[limitIndex].range;
-            updatePage = {
-                start: startRange,
-                limit: limitRange,
-                gen: page.gen + 1,
+    const handleFilterChange = useCallback(
+        (filterChange, key) => {
+            let newFilterState = {
+                ...filterState,
+                ...filterChange,
             };
-        } else {
-            const limitIndex = currentIndex - 1;
-            const startRange =
-                limitIndex === 0 ? 0 : GENERATIONS[limitIndex - 1].range;
-            const limitRange = GENERATIONS[currentIndex - 1].range;
-            updatePage = {
-                start: startRange,
-                limit: limitRange,
-                gen: page.gen - 1,
-            };
-        }
-        setImages([]);
-        setPage(updatePage);
-    };
 
-    const showPokemon = (index) => {
-        setPokemon(pokedexJson[page.start + index]);
-    };
+            if (key) {
+                newFilterState = {
+                    ...filterState,
+                    ...filterChange,
+                    include: {
+                        ...filterState.include,
+                        [key]: filterChange.include[key],
+                    },
+                    exclude: {
+                        ...filterState.exclude,
+                        [key]: filterChange.exclude[key],
+                    },
+                };
+            }
 
-    const handleFilterChange = (filterChange, key) => {
-        setFilterState({
-            ...filterState,
-            ...filterChange,
-            include: {
-                ...filterState.include,
-                [key]: filterChange.include[key],
-            },
-            exclude: {
-                ...filterState.exclude,
-                [key]: filterChange.exclude[key],
-            },
-        });
-    };
+            setFilterState(newFilterState);
 
-    const handleClick = async (poke) => {
-        const img = !poke.imgUrl && (await getImgUrl(poke.id));
-        setPokemon({
-            ...poke,
-            img,
-        });
-    };
+            setPokemonOnPage(() =>
+                Array.from(pokedexJson).filter((pokemon) =>
+                    filterSuggestionsWithFilterState(pokemon, newFilterState)
+                )
+            );
+        },
+        [filterState]
+    );
+
+
+    const handleType = useCallback(
+        (search) => {
+            setPokemonOnPage(() =>
+                Array.from(pokedexJson).filter(
+                    (pokemon) =>
+                        filterSuggestionsWithFilterState(
+                            pokemon,
+                            filterState
+                        ) && searchWithin(pokemon.name.english, search)
+                )
+            );
+        },
+        [filterState]
+    );
 
     return (
         <div className="pokedex-container">
             <SearchWithFilter
                 filterState={filterState}
                 handleFilterChange={handleFilterChange}
-                handleClick={handleClick}
+                handleClick={setPokemon}
+                onChange={handleType}
             />
-            <div className="nav">
-                <button
-                    onClick={() => changeGeneration(-1)}
-                    disabled={page.gen === 1}
-                >
-                    Prev
-                </button>
-                Current Gen {page.gen}
-                <button
-                    onClick={() => changeGeneration(1)}
-                    disabled={page.gen === GENERATIONS.length}
-                >
-                    Next
-                </button>
-            </div>
-            <Button
-                onClick={() => setShow(!show)}
-                style={{ width: '100%', maxWidth:'unset' }}
-                className="select-view-item "
-            >
-                Show
-            </Button>
+
             {pokemon && (
                 <Modal show backdrop onHide={() => setPokemon(undefined)}>
                     <div className="pokemodal">
-                        <div
+                        <img
                             className="game-answer"
-                            aria-label={pokemon?.name?.english}
-                            style={{
-                                backgroundImage: `url(${
-                                    pokemon.imgUrl ?? pokemon.img?.default
-                                })`,
-                            }}
+                            src={
+                                pokemon?.imgUrl ??
+                                `/images/${getImgNumber(pokemon.id)}.png`
+                            }
+                            alt=""
                         />
                         {pokemon.name.english}
                         <div>Types: {pokemon.types.join(', ')}</div>
@@ -142,16 +93,24 @@ function Pokedex() {
                     </div>
                 </Modal>
             )}
-            {images.map((img, index) => {
+            {pokemonOnPage.map((pokemon, index) => {
                 return (
                     <button
                         key={index}
-                        className="entry"
-                        style={{
-                            backgroundImage: `url("${img.default}")`,
-                        }}
-                        onClick={() => showPokemon(index)}
-                    />
+                        className="pokedex-button"
+                        onClick={() => setPokemon(pokemon)}
+                    >
+                        <img
+                            className="pokedex-image"
+                            src={
+                                pokemon?.imgUrl ??
+                                `/images/${getImgNumber(pokemon.id)}.png`
+                            }
+                            loading="lazy"
+                            alt=""
+                        />
+                        {pokemon.name.english}
+                    </button>
                 );
             })}
         </div>
@@ -159,3 +118,7 @@ function Pokedex() {
 }
 
 export default Pokedex;
+
+const searchWithin = (toSearch = '', toFind = '') => {
+    return toSearch.toLowerCase().includes(toFind.toLowerCase());
+};

@@ -1,5 +1,5 @@
 import './TypeFilter.scss';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 import { useState } from 'react';
 
 import { FILTER_TYPES, GENERATIONS } from '../constants';
@@ -25,6 +25,29 @@ export function FilterContainer({ filterState, updateFilterState }) {
                     <TypeFilter
                         filterState={filterState}
                         updateFilterState={updateFilterState}
+                    />
+                </div>
+                <div className="filter-row bst">
+                    <div>
+                        <p>Base Stat Total: </p>
+                        {filterState.bst && (
+                            <button
+                                onClick={() =>
+                                    updateFilterState({ bst: undefined })
+                                }
+                                className={`type-list-item correct-type bst-type`}
+                            >
+                                {filterState.bst - 20} - {filterState.bst + 20}
+                            </button>
+                        )}
+                    </div>
+                    <Form.Range
+                        max={800}
+                        min={100}
+                        onChange={(e) =>
+                            updateFilterState({ bst: Number(e?.target?.value) })
+                        }
+                        value={filterState.bst}
                     />
                 </div>
             </Modal>

@@ -40,7 +40,7 @@
         list-style: none;
         height: 40px;
         max-width: 140px;
-        min-width: 60px;
+        min-width: 110px;
         border: 1px solid black;
         border-radius: 4px;
         margin: 2px;
@@ -83,3 +83,10 @@
     border: none;
 }
 
+.login {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+}

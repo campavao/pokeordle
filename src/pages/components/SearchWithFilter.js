@@ -5,6 +5,7 @@ export function SearchWithFilter({
     filterState,
     handleFilterChange,
     handleClick,
+    onChange,
     disabled,
 }) {
     return (
@@ -16,6 +17,7 @@ export function SearchWithFilter({
             <SearchBar
                 className="game-form"
                 onSubmit={handleClick}
+                onChange={onChange}
                 filter={filterState}
                 disabled={disabled}
             />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Guess from './components/Guess';
 import TypeList from './components/TypeList';
-import { filterSuggestions, getBaseStats, getImg } from './components/utils';
+import { filterSuggestions, getBaseStats } from './components/utils';
 
 import * as pokedex from './pokedex.json';
 import './Pages.scss';
@@ -38,7 +38,7 @@ function DailyGame() {
             const solution = Array.from(pokedex).find(
                 (poke) => poke.id === index
             );
-            getImg(solution).then((updatedMon) => setPokemon(updatedMon));
+            // getImg(solution).then((updatedMon) => setPokemon(updatedMon));
 
             const gameState = getGameState();
 

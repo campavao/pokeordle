@@ -100,7 +100,7 @@ export function TimedLeaderboard() {
                                 return (
                                     <tr>
                                         <th scope="row">{index + 1}</th>
-                                        <td>{user}</td>
+                                        <td title={user}>{user}</td>
                                         <td>{score}</td>
                                         {/* <td>{date}</td> */}
                                     </tr>

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
     getBaseStats,
     getFilterFromGuess,
-    getImg,
     mergeFilterStates,
 } from '../components/utils';
 import { useLocalStorage } from './useLocalStorage';
@@ -77,12 +76,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                 const solution = Array.from(pokedex).find(
                     (poke) => poke.id === index
                 );
-                if (solution.imgUrl) {
-                    setPokemon(solution);
-                } else {
-                    const pokemonWithImage = await getImg(solution);
-                    setPokemon(pokemonWithImage);
-                }
+                setPokemon(solution);
 
                 const incorrectGuesses =
                     guesses.length !==
@@ -209,18 +203,25 @@ export function useDailyGame(gameName = 'hardGameState') {
     };
 
     const handleFilterChange = (filterChange, key) => {
-        const newFilterState = {
+        let newFilterState = {
             ...filterState,
             ...filterChange,
-            include: {
-                ...filterState.include,
-                [key]: filterChange.include[key],
-            },
-            exclude: {
-                ...filterState.exclude,
-                [key]: filterChange.exclude[key],
-            },
         };
+
+        if (key) {
+            newFilterState = {
+                ...filterState,
+                ...filterChange,
+                include: {
+                    ...filterState.include,
+                    [key]: filterChange.include[key],
+                },
+                exclude: {
+                    ...filterState.exclude,
+                    [key]: filterChange.exclude[key],
+                },
+            };
+        }
         setFilterState(newFilterState);
         setGameState({
             ...gameState,
