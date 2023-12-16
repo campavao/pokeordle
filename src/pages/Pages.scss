@@ -176,9 +176,17 @@ h2 {
 .filter-row {
     display: grid;
     grid-template-columns: 0.33fr 0.66fr;
-    align-items: baseline;
+
+    p {
+        width: 100%;
+    }
+
+    .type-filter {
+        width: 100%;
+    }
 
     @media (max-width: 500px) {
+        display: flex;
         flex-direction: column;
         align-items: center;
     }

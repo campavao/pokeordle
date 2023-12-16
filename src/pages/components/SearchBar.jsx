@@ -28,7 +28,6 @@ export default function SearchBar({
 
         if (!search) {
             console.warn('no search');
-            return;
         }
 
         typeRef.current.clear();

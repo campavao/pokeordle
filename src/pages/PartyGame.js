@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { shuffle } from './components/utils';
 
@@ -14,7 +14,7 @@ function PartyGame() {
     const [remainingTypes, setRemainingTypes] = useState([]);
     const typeRef = React.createRef();
 
-    const initialize = () => {
+    const initialize = useCallback(() => {
         setGuess([]);
         setGuesses([]);
         const gen1List = Array.from(pokedex).slice(0, 151);
@@ -34,7 +34,7 @@ function PartyGame() {
                 .map((solutionPokemon) => solutionPokemon.type.flat())
                 .flat()
         );
-    };
+    }, []);
 
     useEffect(() => {
         if (solution.length === 0) {

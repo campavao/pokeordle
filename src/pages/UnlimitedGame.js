@@ -58,6 +58,7 @@ function UnlimitedGame() {
                     difference: pokemonBaseTotal - validBaseTotal,
                     stats: search.base,
                 },
+                imgUrl: search.imgUrl,
             };
             const updatedGuesses = [guess, ...guesses];
             setGuesses(updatedGuesses);
