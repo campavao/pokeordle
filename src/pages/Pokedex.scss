@@ -24,7 +24,7 @@
 }
 
 .pokedex-button {
-    min-width: 100px;
+    width: 100px;
     min-height: 130px;
     display: flex;
     flex-direction: column;
@@ -35,10 +35,14 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+
+    @media (max-width: 500px) {
+        max-width: 80px;
+    }
 }
 
 .pokedex-image {
-    max-width: 90px;
+    max-width: 100px;
 }
 
 .tera-raid-container {
