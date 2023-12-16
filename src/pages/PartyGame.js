@@ -3,7 +3,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import { shuffle } from './components/utils';
 
 import * as pokedex from './pokedex.json';
-import '../sprites/sprites.scss';
+// import '../sprites/sprites.scss';
 import './Pages.scss';
 
 function PartyGame() {

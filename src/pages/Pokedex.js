@@ -75,7 +75,6 @@ function Pokedex() {
                 handleClick={setPokemon}
                 onChange={handleType}
             />
-
             {pokemon && (
                 <Modal show backdrop onHide={() => setPokemon(undefined)}>
                     <div className="pokemodal">

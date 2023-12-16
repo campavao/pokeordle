@@ -29,7 +29,7 @@ function UnlimitedGame() {
         }
     }, [pokemon.name]);
 
-    const initialize = () => {
+    const initialize = async () => {
         setGuesses([]);
         const index = getIntWithinRange(Math.random(), 1, 906);
         const pokemon = pokedex[index];
@@ -58,7 +58,6 @@ function UnlimitedGame() {
                     difference: pokemonBaseTotal - validBaseTotal,
                     stats: search.base,
                 },
-                imgUrl: search.imgUrl,
             };
             const updatedGuesses = [guess, ...guesses];
             setGuesses(updatedGuesses);

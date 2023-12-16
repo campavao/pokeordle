@@ -146,7 +146,6 @@ export function useDailyGame(gameName = 'hardGameState') {
                     difference: pokemonBaseTotal - guessPokemonBaseTotal,
                     stats: base,
                 },
-                imgUrl: guessPokemon.imgUrl,
             };
         },
         [pokemon]
