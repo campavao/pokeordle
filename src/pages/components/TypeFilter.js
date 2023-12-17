@@ -13,43 +13,51 @@ export function FilterContainer({ filterState, updateFilterState }) {
                 Filter
             </Button>
             <Modal show={showFilter} onHide={() => setShowFilter(false)}>
-                <div className="filter-row">
-                    <p>Generation:</p>
-                    <GenFilter
-                        filterState={filterState}
-                        updateFilterState={updateFilterState}
-                    />
-                </div>
-                <div className="filter-row">
-                    <p>Types:</p>
-                    <TypeFilter
-                        filterState={filterState}
-                        updateFilterState={updateFilterState}
-                    />
-                </div>
-                <div className="filter-row bst">
-                    <div>
-                        <p>Base Stat Total: </p>
-                        {filterState.bst && (
-                            <button
-                                onClick={() =>
-                                    updateFilterState({ bst: undefined })
-                                }
-                                className={`type-list-item correct-type bst-type`}
-                            >
-                                {filterState.bst - 20} - {filterState.bst + 20}
-                            </button>
-                        )}
+                <Modal.Header closeButton>
+                    <strong>Filter</strong>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="filter-row">
+                        <p>Generation:</p>
+                        <GenFilter
+                            filterState={filterState}
+                            updateFilterState={updateFilterState}
+                        />
                     </div>
-                    <Form.Range
-                        max={800}
-                        min={100}
-                        onChange={(e) =>
-                            updateFilterState({ bst: Number(e?.target?.value) })
-                        }
-                        value={filterState.bst}
-                    />
-                </div>
+                    <div className="filter-row">
+                        <p>Types:</p>
+                        <TypeFilter
+                            filterState={filterState}
+                            updateFilterState={updateFilterState}
+                        />
+                    </div>
+                    <div className="filter-row bst">
+                        <div>
+                            <p>Base Stat Total: </p>
+                            {filterState.bst && (
+                                <button
+                                    onClick={() =>
+                                        updateFilterState({ bst: undefined })
+                                    }
+                                    className={`type-list-item correct-type bst-type`}
+                                >
+                                    {filterState.bst - 20} -{' '}
+                                    {filterState.bst + 20}
+                                </button>
+                            )}
+                        </div>
+                        <Form.Range
+                            max={800}
+                            min={100}
+                            onChange={(e) =>
+                                updateFilterState({
+                                    bst: Number(e?.target?.value),
+                                })
+                            }
+                            value={filterState.bst}
+                        />
+                    </div>
+                </Modal.Body>
             </Modal>
         </div>
     );

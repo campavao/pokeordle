@@ -92,26 +92,28 @@ function Pokedex() {
                     </div>
                 </Modal>
             )}
-            {pokemonOnPage.map((pokemon, index) => {
-                return (
-                    <button
-                        key={index}
-                        className="pokedex-button"
-                        onClick={() => setPokemon(pokemon)}
-                    >
-                        <img
-                            className="pokedex-image"
-                            src={
-                                pokemon?.imgUrl ??
-                                `/images/${getImgNumber(pokemon.id)}.png`
-                            }
-                            loading="lazy"
-                            alt=""
-                        />
-                        {pokemon.name.english}
-                    </button>
-                );
-            })}
+            <div className="pokedex-buttons">
+                {pokemonOnPage.map((pokemon, index) => {
+                    return (
+                        <button
+                            key={index}
+                            className="pokedex-button"
+                            onClick={() => setPokemon(pokemon)}
+                        >
+                            <img
+                                className="pokedex-image"
+                                src={
+                                    pokemon?.imgUrl ??
+                                    `/images/${getImgNumber(pokemon.id)}.png`
+                                }
+                                loading="lazy"
+                                alt=""
+                            />
+                            {pokemon.name.english}
+                        </button>
+                    );
+                })}
+            </div>
         </div>
     );
 }

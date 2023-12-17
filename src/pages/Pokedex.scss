@@ -1,11 +1,6 @@
 .pokedex-container {
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px;
 }
 
 
@@ -24,10 +19,11 @@
 }
 
 .pokedex-button {
-    width: 100px;
-    min-height: 130px;
+    height: 100px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
     gap: 4px;
 
     border: none;
@@ -37,13 +33,13 @@
     background-size: contain;
 
     @media (max-width: 500px) {
-        max-width: 80px;
         font-size: 12px;
     }
 }
 
 .pokedex-image {
-    max-width: 100px;
+    max-width: 80px;
+    max-height: 80px;
 }
 
 .tera-raid-container {
@@ -80,5 +76,17 @@
             }
         }
 
+    }
+}
+
+.pokedex-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    row-gap: 12px;
+    padding-bottom: 12px;
+
+    @media (max-width: 767px) {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
