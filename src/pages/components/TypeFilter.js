@@ -31,31 +31,65 @@ export function FilterContainer({ filterState, updateFilterState }) {
                             updateFilterState={updateFilterState}
                         />
                     </div>
-                    <div className="filter-row bst">
+                    <div className="bst-row">
                         <div>
-                            <p>Base Stat Total: </p>
-                            {filterState.bst && (
+                            <div className="bst">
+                                <p>Base Stat Total: </p>
+                                {filterState.bst && (
+                                    <button
+                                        onClick={() =>
+                                            updateFilterState({
+                                                bst: undefined,
+                                            })
+                                        }
+                                        className={`type-list-item correct-type bst-type`}
+                                    >
+                                        {filterState.bst}
+                                    </button>
+                                )}
+                            </div>
+                            <Form.Range
+                                max={800}
+                                min={100}
+                                onChange={(e) =>
+                                    updateFilterState({
+                                        bst: Number(e?.target?.value),
+                                    })
+                                }
+                            />
+                        </div>
+                        {filterState.bst && (
+                            <div className="bst">
                                 <button
                                     onClick={() =>
-                                        updateFilterState({ bst: undefined })
+                                        updateFilterState({
+                                            bstMod: 20,
+                                        })
                                     }
-                                    className={`type-list-item correct-type bst-type`}
+                                    className={`type-list-item bst-type ${
+                                        filterState.bstMod === 20
+                                            ? 'correct-type'
+                                            : 'absent-type'
+                                    }`}
                                 >
-                                    {filterState.bst - 20} -{' '}
-                                    {filterState.bst + 20}
+                                    +/- 20
                                 </button>
-                            )}
-                        </div>
-                        <Form.Range
-                            max={800}
-                            min={100}
-                            onChange={(e) =>
-                                updateFilterState({
-                                    bst: Number(e?.target?.value),
-                                })
-                            }
-                            value={filterState.bst}
-                        />
+                                <button
+                                    onClick={() =>
+                                        updateFilterState({
+                                            bstMod: 100,
+                                        })
+                                    }
+                                    className={`type-list-item bst-type ${
+                                        filterState.bstMod === 100
+                                            ? 'correct-type'
+                                            : 'absent-type'
+                                    }`}
+                                >
+                                    +/- 100
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </Modal.Body>
             </Modal>
@@ -140,7 +174,7 @@ export function Filter(props) {
                     />
                 )}
             </div>
-            <Modal show={filterKey} onHide={() => setFilterKey(undefined)} closeButton>
+            <Modal show={filterKey} onHide={() => setFilterKey(undefined)}>
                 <ListComponent
                     {...props}
                     onClick={onUpdate}

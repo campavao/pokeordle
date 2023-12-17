@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
+import { useDebounce } from 'use-debounce';
 
 import {
     getBaseStats,
@@ -17,6 +18,7 @@ function Pokedex() {
     const [pokemon, setPokemon] = useState(undefined);
     const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
     const [pokemonOnPage, setPokemonOnPage] = useState(Array.from(pokedexJson));
+    const [debouncedPokemon] = useDebounce(pokemonOnPage, 1000);
 
     const handleFilterChange = useCallback(
         (filterChange, key) => {
@@ -50,7 +52,6 @@ function Pokedex() {
         },
         [filterState]
     );
-
 
     const handleType = useCallback(
         (search) => {
@@ -93,7 +94,7 @@ function Pokedex() {
                 </Modal>
             )}
             <div className="pokedex-buttons">
-                {pokemonOnPage.map((pokemon, index) => {
+                {debouncedPokemon.map((pokemon, index) => {
                     return (
                         <button
                             key={index}

@@ -58,4 +58,5 @@ export const DEFAULT_FILTER_STATE = {
         generations: [],
         types: [],
     },
+    bstMod: 20,
 };

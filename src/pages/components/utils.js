@@ -250,6 +250,7 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
         amountOfTypes:
             nextFilterState?.amountOfTypes || prevFilterState?.amountOfTypes,
         bst: nextFilterState?.bst ?? prevFilterState?.bst,
+        bstMod: nextFilterState?.bstMod ?? prevFilterState?.bstMod ?? 20,
     };
 }
 
@@ -321,7 +322,7 @@ export function getFilters(guesses, pokemon) {
 }
 
 export const filterSuggestionsWithFilterState = (pokemon, filter) => {
-    const { include, exclude, amountOfTypes, bst } = filter;
+    const { include, exclude, amountOfTypes, bst, bstMod = 20 } = filter;
 
     if (
         ![...Object.values(include).flat(), ...Object.values(exclude).flat()]
@@ -356,8 +357,8 @@ export const filterSuggestionsWithFilterState = (pokemon, filter) => {
         let hasBst = true;
         if (bst) {
             const pokemonBst = getBaseStats(pokemon);
-            const min = bst - 20;
-            const max = bst + 20;
+            const min = bst - bstMod;
+            const max = bst + bstMod;
 
             hasBst = min <= pokemonBst && pokemonBst <= max;
         }
