@@ -156,16 +156,26 @@ export const getFilterFromGuesses = (guesses, pokemon) => {
         guesses.some((guess) => guess.types.length === 1) &&
         pokemon.types?.length;
 
+    const correctEvolutionStage = guesses.find(
+        (guess) => guess.evolutionStage === pokemon.evolutionStage
+    )?.evolutionStage;
+
+    const excludedEvolutions = guesses
+        .filter((guess) => guess.evolutionStage !== pokemon.evolutionStage)
+        .map((guess) => guess.evolutionStage);
+
     return {
         include: {
             generations: generations.include,
             types: types.include,
             pokemon: [],
+            evolutions: [correctEvolutionStage],
         },
         exclude: {
             generations: generations.exclude,
             types: types.exclude,
             pokemon: guesses.map((guess) => guess?.name?.english),
+            evolutions: excludedEvolutions,
         },
         amountOfTypes,
     };
@@ -189,19 +199,30 @@ export const getFilterFromGuess = (guess, pokemon) => {
     const amountOfTypes =
         pokemon && guess.types.length === 1 && pokemon.types?.length;
 
-    const includeMonoType = amountOfTypes && pokemon.types?.length === guess.types.length ? ['X'] : [];
-    const excludeMonoType = amountOfTypes && pokemon.types?.length !== guess.types.length ? ['X'] : [];
+    const includeMonoType =
+        amountOfTypes && pokemon.types?.length === guess.types.length
+            ? ['X']
+            : [];
+    const excludeMonoType =
+        amountOfTypes && pokemon.types?.length !== guess.types.length
+            ? ['X']
+            : [];
+
+    const correctEvolutionStage =
+        guess.evolutionStage === pokemon.evolutionStage;
 
     return {
         include: {
             generations: generations.include,
             types: [...types.include, ...includeMonoType],
             pokemon: [],
+            evolutions: correctEvolutionStage ? [guess.evolutionStage] : [],
         },
         exclude: {
             generations: generations.exclude,
             types: [...types.exclude, ...excludeMonoType],
             pokemon: [guess.name ?? guess],
+            evolutions: !correctEvolutionStage ? [guess.evolutionStage] : [],
         },
         amountOfTypes,
     };
@@ -228,6 +249,12 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
                 ...prevFilterState.include.pokemon,
                 ...nextFilterState.include.pokemon,
             ]),
+            evolutions: convertToSet([
+                ...prevFilterState.include.evolutions?.filter(
+                    (evo) => !nextFilterState.exclude.evolutions?.includes(evo)
+                ),
+                ...(nextFilterState.include.evolutions ?? []),
+            ]),
         },
         exclude: {
             generations: convertToSet([
@@ -245,6 +272,12 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
             pokemon: convertToSet([
                 ...prevFilterState.exclude.pokemon,
                 ...nextFilterState.exclude.pokemon,
+            ]),
+            evolutions: convertToSet([
+                ...prevFilterState.exclude.evolutions?.filter(
+                    (evo) => !nextFilterState.include.evolutions?.includes(evo)
+                ),
+                ...(nextFilterState.exclude.evolutions ?? []),
             ]),
         },
         amountOfTypes:
@@ -335,24 +368,57 @@ export const filterSuggestionsWithFilterState = (pokemon, filter) => {
 
     const generation = getGeneration(pokemon);
     const name = pokemon.name.english;
+    const excludesGeneration =
+        exclude.generations.length && exclude.generations.includes(generation);
+
+    const excludesPokemon =
+        exclude.pokemon.length && exclude.pokemon.includes(name);
+
+    const excludesType = exclude.types.some((type) =>
+        pokemon.types.includes(type)
+    );
+
+    const excludesEvolution = exclude.evolutions?.includes(
+        pokemon.evolutionStage
+    );
+
+    const notEnoughTypes =
+        amountOfTypes && pokemon.types.length !== amountOfTypes;
+
     if (
-        (exclude.generations.length &&
-            exclude.generations.includes(generation)) ||
-        (exclude.pokemon.length && exclude.pokemon.includes(name)) ||
-        exclude.types.some((type) => pokemon.types.includes(type)) ||
-        (amountOfTypes && pokemon.types.length !== amountOfTypes)
+        excludesGeneration ||
+        excludesPokemon ||
+        excludesType ||
+        excludesEvolution ||
+        notEnoughTypes
     ) {
         return false;
     }
 
-    const includeTypes = include.types.filter((type) => type !== 'X');
+    const includedTypes = include.types.filter((type) => type !== 'X');
+
+    const includesNothing = Object.values(filter.include).flat().length === 0;
+
+    const includesGeneration =
+        !include.generations.length || include.generations.includes(generation);
+
+    const includesPokemon =
+        !include.pokemon.length || include.pokemon.includes(name);
+
+    const includesTypes =
+        !include.types.length ||
+        includedTypes.every((type) => pokemon.types.includes(type));
+
+    const includesEvolution =
+        !include.evolutions?.length ||
+        include.evolutions?.includes(pokemon.evolutionStage);
+
     if (
-        Object.values(filter.include).flat().length === 0 ||
-        ((!include.generations.length ||
-            include.generations.includes(generation)) &&
-            (!include.pokemon.length || include.pokemon.includes(name)) &&
-            (!include.types.length ||
-                includeTypes.every((type) => pokemon.types.includes(type))))
+        includesNothing ||
+        (includesGeneration &&
+            includesPokemon &&
+            includesTypes &&
+            includesEvolution)
     ) {
         let hasBst = true;
         if (bst) {

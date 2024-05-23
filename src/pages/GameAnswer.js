@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { determineProximity } from './components/Guess';
+import { determineProximity, isAlmostEvolution } from './components/Guess';
 import { determineGeneration, getImgNumber } from './components/utils';
 
 import { useDailyGame } from './hooks/useDailyGame';
@@ -63,8 +63,7 @@ export function GameAnswer({ show, close }) {
         const guessesCopy = [...guesses];
         return guessesCopy
             .map((guess) => {
-                const { baseTotal, index } = guess;
-                const indexDifference = Math.abs(index.difference);
+                const { baseTotal } = guess;
                 const { proximity: genProximity } = determineGeneration(
                     guess,
                     pokemon
@@ -73,17 +72,20 @@ export function GameAnswer({ show, close }) {
                 const baseTotalProximity =
                     determineProximity(baseTotalDifference);
 
-                // Set Name, dumb I know but good enough for now
-                let guessText = generateEmoji(indexDifference === 0, false);
-
                 // Set Gen
-                guessText += generateEmoji(
+                let guessText = generateEmoji(
                     genProximity === 'correct',
                     genProximity === 'almost'
                 );
 
                 // Set Types
                 guessText += getTypeEmoji(guess.types);
+
+                // Set Evolution
+                guessText += generateEmoji(
+                    guess.evolutionStage === pokemon.evolutionStage,
+                    isAlmostEvolution(guess.evolutionStage, pokemon)
+                );
 
                 // Set Base Total
                 guessText += generateEmoji(

@@ -137,7 +137,7 @@
     &-item {
         color: white;
         font-weight: 500;
-        height: 30px;
+        height: fit-content;
         width: 85px;
         min-width: 85px;
         list-style: none;
@@ -196,6 +196,14 @@
     }
 }
 
+.evolution {
+    display: flex;
+    gap: 4px;
+
+    @media (min-width: 500px) {
+        flex-direction: column;
+    }
+}
 
 .base-total {
     min-width: 190px;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useDebounce } from 'use-debounce';
 
@@ -13,11 +13,26 @@ import { SearchWithFilter } from './components/SearchWithFilter';
 
 import * as pokedexJson from './pokedex.json';
 import './Pokedex.scss';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function Pokedex() {
     const [pokemon, setPokemon] = useState(undefined);
-    const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
-    const [pokemonOnPage, setPokemonOnPage] = useState(Array.from(pokedexJson));
+    const [search, setSearch] = useState('');
+    const [filterState, setFilterState] = useLocalStorage(
+        'pokedex_filter_state',
+        DEFAULT_FILTER_STATE
+    );
+
+    const pokemonOnPage = useMemo(
+        () =>
+            Array.from(pokedexJson).filter(
+                (pokemon) =>
+                    filterSuggestionsWithFilterState(pokemon, filterState) &&
+                    (!search || searchWithin(pokemon.name.english, search))
+            ),
+        [filterState, search]
+    );
+
     const [debouncedPokemon] = useDebounce(pokemonOnPage, 1000);
 
     const handleFilterChange = useCallback(
@@ -43,41 +58,33 @@ function Pokedex() {
             }
 
             setFilterState(newFilterState);
-
-            setPokemonOnPage(() =>
-                Array.from(pokedexJson).filter((pokemon) =>
-                    filterSuggestionsWithFilterState(pokemon, newFilterState)
-                )
-            );
         },
-        [filterState]
+        [filterState, setFilterState]
     );
 
-    const handleType = useCallback(
-        (search) => {
-            setPokemonOnPage(() =>
-                Array.from(pokedexJson).filter(
-                    (pokemon) =>
-                        filterSuggestionsWithFilterState(
-                            pokemon,
-                            filterState
-                        ) && searchWithin(pokemon.name.english, search)
-                )
-            );
-        },
-        [filterState]
-    );
+    const handleType = useCallback((search) => {
+        const value = Array.isArray(search) ? search[0] : search;
+        setSearch(value);
+    }, []);
+
+    const onPokemonClick = useCallback(async (pokemon) => {
+        setPokemon(pokemon);
+    }, []);
+
+    const onClearPokemon = useCallback(() => {
+        setPokemon(undefined);
+    }, []);
 
     return (
         <div className="pokedex-container">
             <SearchWithFilter
                 filterState={filterState}
                 handleFilterChange={handleFilterChange}
-                handleClick={setPokemon}
+                handleClick={onPokemonClick}
                 onChange={handleType}
             />
             {pokemon && (
-                <Modal show backdrop onHide={() => setPokemon(undefined)}>
+                <Modal show backdrop onHide={onClearPokemon}>
                     <div className="pokemodal">
                         <img
                             className="game-answer"
@@ -90,6 +97,7 @@ function Pokedex() {
                         {pokemon.name.english}
                         <div>Types: {pokemon.types.join(', ')}</div>
                         <div>Base Stat Total: {getBaseStats(pokemon)}</div>
+                        <div>Evolution: {pokemon.evolutionStage}</div>
                     </div>
                 </Modal>
             )}
@@ -99,7 +107,7 @@ function Pokedex() {
                         <button
                             key={index}
                             className="pokedex-button"
-                            onClick={() => setPokemon(pokemon)}
+                            onClick={() => onPokemonClick(pokemon)}
                         >
                             <img
                                 className="pokedex-image"

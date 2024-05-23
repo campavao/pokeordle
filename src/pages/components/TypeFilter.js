@@ -2,7 +2,7 @@ import './TypeFilter.scss';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-import { FILTER_TYPES, GENERATIONS } from '../constants';
+import { FILTER_TYPES, GENERATIONS, EVOLUTION_STAGES } from '../constants';
 
 export function FilterContainer({ filterState, updateFilterState }) {
     const [showFilter, setShowFilter] = useState(false);
@@ -27,6 +27,13 @@ export function FilterContainer({ filterState, updateFilterState }) {
                     <div className="filter-row">
                         <p>Types:</p>
                         <TypeFilter
+                            filterState={filterState}
+                            updateFilterState={updateFilterState}
+                        />
+                    </div>
+                    <div className="filter-row">
+                        <p>Evolutions:</p>
+                        <EvolutionFilter
                             filterState={filterState}
                             updateFilterState={updateFilterState}
                         />
@@ -115,7 +122,7 @@ export function Filter(props) {
             value = Number.parseInt(value);
         }
         const key = overrideKey ?? filterKey;
-        const previousFilter = filterState[key][filterType];
+        const previousFilter = filterState[key][filterType] ?? [];
         const newFilterState = {
             ...filterState,
             [key]: {
@@ -147,7 +154,12 @@ export function Filter(props) {
     return (
         <div className="type-filter">
             <div className="filter-column">
-                <Button variant="outline" onClick={showModal} value="include">
+                <Button
+                    style={{ padding: 0 }}
+                    variant="outline"
+                    onClick={showModal}
+                    value="include"
+                >
                     Include +
                 </Button>
 
@@ -161,7 +173,12 @@ export function Filter(props) {
                 )}
             </div>
             <div className="filter-column">
-                <Button variant="outline" onClick={showModal} value="exclude">
+                <Button
+                    style={{ padding: 0 }}
+                    variant="outline"
+                    onClick={showModal}
+                    value="exclude"
+                >
                     Exclude +
                 </Button>
 
@@ -265,5 +282,37 @@ function TypeRows({
                 );
             })}
         </div>
+    );
+}
+
+export function EvolutionFilter(props) {
+    const EvoRows = ({ list = [], onClick, exclude = [], disabled = [] }) => {
+        return (
+            <div className="type-rows">
+                {list.map((item) => (
+                    <button
+                        key={'evo-' + item}
+                        onClick={onClick}
+                        className={`type-list-item ${
+                            exclude.includes(item) || disabled.includes(item)
+                                ? 'absent-type'
+                                : 'correct-type'
+                        }`}
+                        disabled={disabled.includes(item)}
+                    >
+                        {item}
+                    </button>
+                ))}
+            </div>
+        );
+    };
+
+    return (
+        <Filter
+            {...props}
+            filterType="evolutions"
+            listComponent={EvoRows}
+            options={EVOLUTION_STAGES}
+        />
     );
 }

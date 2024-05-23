@@ -3,12 +3,23 @@ import { Popover, OverlayTrigger, ProgressBar } from 'react-bootstrap';
 
 import { getImgNumber, determineGeneration } from './utils';
 
+import { EVOLUTION_STAGES } from '../constants';
+
 import TypeList from './TypeList';
 
 import './Guess.scss';
 
 export const determineProximity = (checkNum) => {
     return checkNum < 20 ? 'correct' : checkNum < 100 ? 'almost' : 'absent';
+};
+
+export const isAlmostEvolution = (evolutionStage, pokemon) => {
+    return (
+        Math.abs(
+            EVOLUTION_STAGES.indexOf(evolutionStage) -
+                EVOLUTION_STAGES.indexOf(pokemon.evolutionStage)
+        ) === 1
+    );
 };
 
 export default function Guess(props) {
@@ -20,7 +31,7 @@ export default function Guess(props) {
         empty = false,
         id,
     } = props;
-    const { name, index, types, baseTotal, imgUrl } = guess ?? {
+    const { name, index, types, baseTotal, imgUrl, evolutionStage } = guess ?? {
         name: '?',
         index: 0,
         types: ['?', '?'],
@@ -29,6 +40,7 @@ export default function Guess(props) {
             difference: 0,
             stats: null,
         },
+        evolutionStage: 'No evolution',
     };
     const ref = useRef(null);
 
@@ -38,6 +50,7 @@ export default function Guess(props) {
                 <Name empty />
                 <Generation empty />
                 <Types empty />
+                <Evolution empty />
                 <BaseTotal empty />
             </div>
         );
@@ -137,6 +150,7 @@ export default function Guess(props) {
                                     style={{
                                         marginBottom: '10px',
                                     }}
+                                    key={name + value}
                                 >
                                     {name}: {value}
                                     <ProgressBar
@@ -154,7 +168,7 @@ export default function Guess(props) {
         return (
             <OverlayTrigger
                 trigger="click"
-                overlay={popover}
+                overlay={empty ? <div /> : popover}
                 container={ref}
                 placement="bottom"
             >
@@ -193,12 +207,30 @@ export default function Guess(props) {
         );
     }
 
+    function Evolution({ empty }) {
+        let proximity = 'absent';
+        if (pokemon && evolutionStage === pokemon.evolutionStage) {
+            proximity = 'correct';
+        } else if (pokemon && isAlmostEvolution(evolutionStage, pokemon)) {
+            proximity = 'almost';
+        }
+
+        return (
+            <div className={`evolution ${empty ? 'absent' : proximity}`}>
+                <div>Evolution:</div>
+                <div>{empty ? '?' : evolutionStage}</div>
+            </div>
+        );
+    }
+
     return (
         <div className="guess" key={name} ref={ref}>
             <Name />
             <Generation />
             <Types />
+            <Evolution />
             <BaseTotal />
         </div>
     );
 }
+

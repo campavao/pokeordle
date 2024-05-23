@@ -63,7 +63,7 @@ export default function TypeList(props) {
                     : 'absent-type';
 
                 return (
-                    <div>
+                    <div key={type}>
                         {!enableSuperEffective
                             ? null
                             : superEffective[type] > 1

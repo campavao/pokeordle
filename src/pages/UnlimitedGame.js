@@ -59,6 +59,7 @@ function UnlimitedGame() {
                     stats: search.base,
                 },
                 imgUrl: search.imgUrl,
+                evolutionStage: search.evolutionStage,
             };
             const updatedGuesses = [guess, ...guesses];
             setGuesses(updatedGuesses);

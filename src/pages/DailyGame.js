@@ -101,7 +101,11 @@ function DailyGame() {
                             })}
                         {guesses.length < 8 &&
                             [...emptyGuesses].map((_, index) => (
-                                <Guess empty id={index} />
+                                <Guess
+                                    key={'guess-' + index}
+                                    empty
+                                    id={index}
+                                />
                             ))}
                     </div>
                 </div>

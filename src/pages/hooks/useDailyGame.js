@@ -147,6 +147,7 @@ export function useDailyGame(gameName = 'hardGameState') {
                     stats: base,
                 },
                 imgUrl: guessPokemon.imgUrl,
+                evolutionStage: guessPokemon.evolutionStage,
             };
         },
         [pokemon]

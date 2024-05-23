@@ -52,11 +52,15 @@ export const DEFAULT_FILTER_STATE = {
         pokemon: [],
         generations: [],
         types: [],
+        evolutions: [],
     },
     exclude: {
         pokemon: [],
         generations: [],
         types: [],
+        evolutions: [],
     },
     bstMod: 20,
 };
+
+export const EVOLUTION_STAGES = ['No evolution', 'First', 'Second', 'Third'];
