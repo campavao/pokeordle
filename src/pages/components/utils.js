@@ -231,6 +231,9 @@ export const getFilterFromGuess = (guess, pokemon) => {
 const convertToSet = (arr) => Array.from(new Set(arr));
 
 export function mergeFilterStates(prevFilterState, nextFilterState) {
+    const previousIncludeEvolutions = prevFilterState.include.evolutions ?? [];
+    const previousExcludeEvolutions = prevFilterState.exclude.evolutions ?? [];
+
     return {
         include: {
             generations: convertToSet([
@@ -250,7 +253,7 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
                 ...nextFilterState.include.pokemon,
             ]),
             evolutions: convertToSet([
-                ...prevFilterState.include.evolutions?.filter(
+                ...previousIncludeEvolutions.filter(
                     (evo) => !nextFilterState.exclude.evolutions?.includes(evo)
                 ),
                 ...(nextFilterState.include.evolutions ?? []),
@@ -274,7 +277,7 @@ export function mergeFilterStates(prevFilterState, nextFilterState) {
                 ...nextFilterState.exclude.pokemon,
             ]),
             evolutions: convertToSet([
-                ...prevFilterState.exclude.evolutions?.filter(
+                ...previousExcludeEvolutions.filter(
                     (evo) => !nextFilterState.include.evolutions?.includes(evo)
                 ),
                 ...(nextFilterState.exclude.evolutions ?? []),
