@@ -1,11 +1,36 @@
-import './TypeFilter.scss';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { useState } from 'react';
-
+import { useState, useCallback } from 'react';
+import ReactGA from 'react-ga4';
 import { FILTER_TYPES, GENERATIONS, EVOLUTION_STAGES } from '../constants';
 
-export function FilterContainer({ filterState, updateFilterState }) {
+import './TypeFilter.scss';
+
+export function FilterContainer({
+    filterState,
+    updateFilterState: setFilterState,
+}) {
     const [showFilter, setShowFilter] = useState(false);
+
+    ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Filter',
+        eventAction: showFilter ? 'Show' : 'Hide',
+    });
+
+    const updateFilterState = useCallback(
+        (newFilterState, filterType) => {
+            setFilterState(newFilterState, filterType);
+
+            ReactGA.send({
+                hitType: 'event',
+                eventCategory: 'Filter',
+                eventAction: 'Update',
+                eventLabel: filterType,
+                value: newFilterState,
+            });
+        },
+        [setFilterState]
+    );
 
     return (
         <div className="filter">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import ReactGA from 'react-ga4';
 import {
     getBaseStats,
     getFilterFromGuess,
@@ -67,52 +68,50 @@ export function useDailyGame(gameName = 'hardGameState') {
     }, [gameState, guesses, updateGameState, remainingGuesses]);
 
     useEffect(() => {
-        (async () => {
-            if (!pokemon.name) {
-                const todaysNumber = Math.round(
-                    (TODAY_DATE - START_DATE) / 865e5
-                );
-                const index = Number(ID_LIST[todaysNumber]);
-                const solution = Array.from(pokedex).find(
-                    (poke) => poke.id === index
-                );
-                setPokemon(solution);
+        if (!pokemon.name) {
+            ReactGA.send({
+                hitType: 'event',
+                eventCategory: 'Daily Game',
+                eventAction: 'Load',
+            });
+            const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
+            const index = Number(ID_LIST[todaysNumber]);
+            const solution = Array.from(pokedex).find(
+                (poke) => poke.id === index
+            );
+            setPokemon(solution);
 
-                const incorrectGuesses =
-                    guesses.length !==
-                    filterState.exclude.pokemon.length +
-                        filterState.include.pokemon.length;
+            const incorrectGuesses =
+                guesses.length !==
+                filterState.exclude.pokemon.length +
+                    filterState.include.pokemon.length;
 
-                if (incorrectGuesses) {
-                    setFilterState(DEFAULT_FILTER_STATE);
-                }
-
-                if (
-                    !gameState ||
-                    gameState.dailyDate !== new Date().getDate()
-                ) {
-                    const streak = !gameState ? 0 : gameState.streak;
-
-                    updateGameState({
-                        dailyWon: false,
-                        dailyDate: new Date().getDate(),
-                        numGuessesLeft: 8,
-                        streak: streak,
-                        guesses: [],
-                        savedFilterState: DEFAULT_FILTER_STATE,
-                    });
-                    setFilterState(DEFAULT_FILTER_STATE);
-                } else {
-                    setHasWon(gameState.dailyWon);
-                    setRemainingGuesses(gameState.numGuessesLeft);
-                    updateGameState({
-                        ...gameState,
-                        guesses: gameState.guesses,
-                        savedFilterState: filterState,
-                    });
-                }
+            if (incorrectGuesses) {
+                setFilterState(DEFAULT_FILTER_STATE);
             }
-        })();
+
+            if (!gameState || gameState.dailyDate !== new Date().getDate()) {
+                const streak = !gameState ? 0 : gameState.streak;
+
+                updateGameState({
+                    dailyWon: false,
+                    dailyDate: new Date().getDate(),
+                    numGuessesLeft: 8,
+                    streak: streak,
+                    guesses: [],
+                    savedFilterState: DEFAULT_FILTER_STATE,
+                });
+                setFilterState(DEFAULT_FILTER_STATE);
+            } else {
+                setHasWon(gameState.dailyWon);
+                setRemainingGuesses(gameState.numGuessesLeft);
+                updateGameState({
+                    ...gameState,
+                    guesses: gameState.guesses,
+                    savedFilterState: filterState,
+                });
+            }
+        }
     }, [filterState, gameState, guesses.length, pokemon.name, updateGameState]);
 
     /** returns Guess object compared against the current answer. */
@@ -203,32 +202,35 @@ export function useDailyGame(gameName = 'hardGameState') {
         }
     };
 
-    const handleFilterChange = (filterChange, key) => {
-        let newFilterState = {
-            ...filterState,
-            ...filterChange,
-        };
-
-        if (key) {
-            newFilterState = {
+    const handleFilterChange = useCallback(
+        (filterChange, key) => {
+            let newFilterState = {
                 ...filterState,
                 ...filterChange,
-                include: {
-                    ...filterState.include,
-                    [key]: filterChange.include[key],
-                },
-                exclude: {
-                    ...filterState.exclude,
-                    [key]: filterChange.exclude[key],
-                },
             };
-        }
-        setFilterState(newFilterState);
-        setGameState({
-            ...gameState,
-            savedFilterState: newFilterState,
-        });
-    };
+
+            if (key) {
+                newFilterState = {
+                    ...filterState,
+                    ...filterChange,
+                    include: {
+                        ...filterState.include,
+                        [key]: filterChange.include[key],
+                    },
+                    exclude: {
+                        ...filterState.exclude,
+                        [key]: filterChange.exclude[key],
+                    },
+                };
+            }
+            setFilterState(newFilterState);
+            setGameState({
+                ...gameState,
+                savedFilterState: newFilterState,
+            });
+        },
+        [filterState, gameState, setGameState, setFilterState]
+    );
 
     return {
         pokemon,

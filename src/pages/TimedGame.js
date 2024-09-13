@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {  shuffle } from './components/utils';
+import ReactGA from 'react-ga4';
+import { shuffle } from './components/utils';
 import {
     collection,
     addDoc,
@@ -16,6 +17,11 @@ import { PokemonImage } from './components/PokemonImage';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 function TimedGame() {
+    ReactGA.send({
+        hitType: 'pageview',
+        page: '/',
+        title: 'timed',
+    });
     const [currentSolution, setCurrentSolution] = useState({});
     const [solutionList, setSolutionList] = useState([]);
     const [completedList, setCompletedList] = useState([]);
@@ -114,14 +120,21 @@ function TimedGame() {
 
     const updateCurrentSolution = (newSolutionList = solutionList) => {
         const pokemon = newSolutionList[0];
-        setCurrentSolution(pokemon)
+        setCurrentSolution(pokemon);
     };
 
     const handleStart = (startTime) => {
         setStart(true);
         setCompletedList([]);
-        setDisplayTime(startTime / 1000);
+        const timeInSeconds = startTime / 1000;
+        setDisplayTime(timeInSeconds);
         setTime(startTime);
+        ReactGA.send({
+            hitType: 'event',
+            eventCategory: 'Timed Game',
+            eventAction: 'Start',
+            eventLabel: timeInSeconds,
+        });
     };
 
     const handleClick = (pokemon) => {

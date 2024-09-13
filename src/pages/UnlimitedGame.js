@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import ReactGA from 'react-ga4';
 import Guess from './components/Guess';
 import {
     getIntWithinRange,
@@ -16,6 +17,11 @@ import { PokemonImage } from './components/PokemonImage';
 const MAX_GUESSES = 8;
 
 function UnlimitedGame() {
+    ReactGA.send({
+        hitType: 'pageview',
+        page: '/',
+        title: 'unlimited',
+    });
     const [pokemon, setPokemon] = useState({});
     const [guesses, setGuesses] = useState([]);
     const [isGameOver, setGameOver] = useState(false);
@@ -89,28 +95,31 @@ function UnlimitedGame() {
         }
     };
 
-    const handleFilterChange = (filterChange, key) => {
-        let newFilterState = {
-            ...filterState,
-            ...filterChange,
-        };
-
-        if (key) {
-            newFilterState = {
+    const handleFilterChange = useCallback(
+        (filterChange, key) => {
+            let newFilterState = {
                 ...filterState,
                 ...filterChange,
-                include: {
-                    ...filterState.include,
-                    [key]: filterChange.include[key],
-                },
-                exclude: {
-                    ...filterState.exclude,
-                    [key]: filterChange.exclude[key],
-                },
             };
-        }
-        setFilterState(newFilterState);
-    };
+
+            if (key) {
+                newFilterState = {
+                    ...filterState,
+                    ...filterChange,
+                    include: {
+                        ...filterState.include,
+                        [key]: filterChange.include[key],
+                    },
+                    exclude: {
+                        ...filterState.exclude,
+                        [key]: filterChange.exclude[key],
+                    },
+                };
+            }
+            setFilterState(newFilterState);
+        },
+        [filterState]
+    );
 
     return (
         <div className="unlimited-container">

@@ -1,8 +1,14 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
 import { db } from '../firebase.js';
 
 export function TimedLeaderboard() {
+    ReactGA.send({
+        hitType: 'pageview',
+        page: '/',
+        title: 'leaderboard',
+    });
     const [entries, setEntries] = useState([]);
     const [view, setView] = useState(15);
     const [useGen1, setGen1] = useState(false);
@@ -22,8 +28,8 @@ export function TimedLeaderboard() {
 
     const handleViewChange = (view, gen1 = false) => {
         setView(view);
-        setGen1(gen1)
-    }
+        setGen1(gen1);
+    };
 
     return (
         <div className="leaderboard">
@@ -55,7 +61,9 @@ export function TimedLeaderboard() {
                 </button>
                 <button
                     className={`btn ${
-                        view === 15 && !useGen1 ? 'btn-dark' : 'btn-outline-dark'
+                        view === 15 && !useGen1
+                            ? 'btn-dark'
+                            : 'btn-outline-dark'
                     }`}
                     onClick={() => handleViewChange(15)}
                 >
@@ -63,7 +71,9 @@ export function TimedLeaderboard() {
                 </button>
                 <button
                     className={`btn ${
-                        view === 30 && !useGen1 ? 'btn-dark' : 'btn-outline-dark'
+                        view === 30 && !useGen1
+                            ? 'btn-dark'
+                            : 'btn-outline-dark'
                     }`}
                     onClick={() => handleViewChange(30)}
                 >
@@ -71,7 +81,9 @@ export function TimedLeaderboard() {
                 </button>
                 <button
                     className={`btn ${
-                        view === 60 && !useGen1 ? 'btn-dark' : 'btn-outline-dark'
+                        view === 60 && !useGen1
+                            ? 'btn-dark'
+                            : 'btn-outline-dark'
                     }`}
                     onClick={() => handleViewChange(60)}
                 >
@@ -91,7 +103,11 @@ export function TimedLeaderboard() {
                     {entries.length > 0 &&
                         entries
                             .filter((entry) => entry.time === view)
-                            .filter((entry) => useGen1 ? entry.gen === '1' : (!entry.gen || entry.gen === 'all'))
+                            .filter((entry) =>
+                                useGen1
+                                    ? entry.gen === '1'
+                                    : !entry.gen || entry.gen === 'all'
+                            )
                             .sort(
                                 (entry1, entry2) => entry2.score - entry1.score
                             )

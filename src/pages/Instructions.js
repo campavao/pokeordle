@@ -1,9 +1,14 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ReactGA from 'react-ga4';
 
 import './components/Guess.scss';
-
 export function Instructions({ show = false, close }) {
+    ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Instructions',
+        eventAction: 'Show',
+    });
     return (
         <Modal show={show} onHide={close} scrollable={true}>
             <Modal.Header closeButton style={{ flexDirection: 'column' }}>

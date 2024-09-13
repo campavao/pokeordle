@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext, useCallback } from 'react';
 import UnlimitedGame from './pages/UnlimitedGame';
 import Pokedex from './pages/Pokedex';
 import PartyGame from './pages/PartyGame';
@@ -8,20 +8,48 @@ import TeraRaidBattle from './pages/TeraRaidBattle';
 import { TimedLeaderboard } from './pages/TimedLeaderboard';
 import { Instructions } from './pages/Instructions';
 import { Login } from './pages/Login';
+import ReactGA from 'react-ga4';
 
 import './App.scss';
 
 export const DailyContext = createContext({ remainingGuesses: 0, guesses: [] });
 
 function App() {
+    ReactGA.initialize('G-PEHMY8Z69K');
+    ReactGA.send({
+        hitType: 'pageview',
+        page: '/',
+        title: 'home',
+    });
+
     const [viewState, setViewState] = useState(
         JSON.parse(localStorage.getItem('viewState'))
     );
     const [view, setView] = useState(viewState?.view || 'Daily');
-    const [showInstructions, setShowInstructions] = useState(
+    const [showInstructions, setShowInstructionsState] = useState(
         viewState?.showInstructions || false
     );
     const [showLogin, setShowLogin] = useState(false);
+
+    const setShowInstructions = useCallback(
+        (show) => {
+            setShowInstructionsState(show);
+            localStorage.setItem(
+                'viewState',
+                JSON.stringify({
+                    ...viewState,
+                    showInstructions: show,
+                })
+            );
+
+            ReactGA.send({
+                hitType: 'event',
+                eventCategory: 'Instructions',
+                eventAction: show ? 'Show' : 'Hide',
+            });
+        },
+        [viewState]
+    );
 
     const updateView = (newView) => {
         setView(newView);
@@ -44,7 +72,7 @@ function App() {
             setViewState(initalViewState);
             setShowInstructions(true);
         }
-    }, [viewState]);
+    }, [setShowInstructions, viewState]);
 
     const handleClose = (modal = 'instructions') => {
         switch (modal) {

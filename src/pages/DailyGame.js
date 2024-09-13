@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
 import Guess from './components/Guess';
 import { useDailyGame } from './hooks/useDailyGame';
 import { GameAnswer } from './GameAnswer';
@@ -19,6 +20,11 @@ function DailyGame() {
         handleClick,
         setViewHint,
     } = useDailyGame('hardGameState');
+    ReactGA.send({
+        hitType: 'pageview',
+        page: '/',
+        title: 'daily',
+    });
     const [showAnswer, setShowAnswer] = useState(hasWon);
 
     const emptyGuesses = ['?', '?', '?', '?', '?', '?', '?', '?'].slice(

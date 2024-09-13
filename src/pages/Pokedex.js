@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useDebounce } from 'use-debounce';
+import ReactGA from 'react-ga4';
 
+import { useLocalStorage } from './hooks/useLocalStorage';
 import {
     getBaseStats,
     filterSuggestionsWithFilterState,
@@ -13,9 +15,13 @@ import { SearchWithFilter } from './components/SearchWithFilter';
 
 import * as pokedexJson from './pokedex.json';
 import './Pokedex.scss';
-import { useLocalStorage } from './hooks/useLocalStorage';
 
 function Pokedex() {
+    ReactGA.send({
+        hitType: 'pageview',
+        page: '/',
+        title: 'pokedex',
+    });
     const [pokemon, setPokemon] = useState(undefined);
     const [search, setSearch] = useState('');
     const [filterState, setFilterState] = useLocalStorage(
