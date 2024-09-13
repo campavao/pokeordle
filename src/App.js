@@ -15,7 +15,7 @@ import './App.scss';
 export const DailyContext = createContext({ remainingGuesses: 0, guesses: [] });
 
 function App() {
-    ReactGA.initialize('G-PEHMY8Z69K', { debug: true });
+    ReactGA.initialize('G-PEHMY8Z69K');
     ReactGA.send({
         hitType: 'pageview',
         page: '/',
