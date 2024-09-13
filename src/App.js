@@ -15,7 +15,7 @@ import './App.scss';
 export const DailyContext = createContext({ remainingGuesses: 0, guesses: [] });
 
 function App() {
-    ReactGA.initialize('G-PEHMY8Z69K');
+    ReactGA.initialize('G-PEHMY8Z69K', { debug: true });
     ReactGA.send({
         hitType: 'pageview',
         page: '/',
@@ -42,10 +42,9 @@ function App() {
                 })
             );
 
-            ReactGA.send({
-                hitType: 'event',
-                eventCategory: 'Instructions',
-                eventAction: show ? 'Show' : 'Hide',
+            ReactGA.event({
+                category: 'Instructions',
+                action: show ? 'Show' : 'Hide',
             });
         },
         [viewState]

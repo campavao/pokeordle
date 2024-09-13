@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -13,11 +13,15 @@ import { copyToClipboard } from './copyToClipboard';
 import './components/Guess.scss';
 
 export function GameAnswer({ show, close }) {
-    ReactGA.send({
-        hitType: 'event',
-        eventCategory: 'Game Answer',
-        eventAction: 'Show',
-    });
+    useEffect(() => {
+        if (show) {
+            ReactGA.event({
+                category: 'Game Answer',
+                action: show ? 'Show' : 'Hide',
+            });
+        }
+    }, [show]);
+
     const { pokemon, guesses, hasWon, remainingGuesses, streak } =
         useDailyGame('hardGameState');
     const [copyMessage, setCopyMessage] = useState(

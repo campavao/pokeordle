@@ -129,11 +129,11 @@ function TimedGame() {
         const timeInSeconds = startTime / 1000;
         setDisplayTime(timeInSeconds);
         setTime(startTime);
-        ReactGA.send({
-            hitType: 'event',
-            eventCategory: 'Timed Game',
-            eventAction: 'Start',
-            eventLabel: timeInSeconds,
+
+        ReactGA.event({
+            category: 'Timed Game',
+            action: 'Start',
+            label: timeInSeconds,
         });
     };
 

@@ -1,5 +1,5 @@
 import { Button, Modal, Form } from 'react-bootstrap';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { FILTER_TYPES, GENERATIONS, EVOLUTION_STAGES } from '../constants';
 
@@ -11,22 +11,21 @@ export function FilterContainer({
 }) {
     const [showFilter, setShowFilter] = useState(false);
 
-    ReactGA.send({
-        hitType: 'event',
-        eventCategory: 'Filter',
-        eventAction: showFilter ? 'Show' : 'Hide',
-    });
+    useEffect(() => {
+        ReactGA.event({
+            category: 'Filter',
+            action: showFilter ? 'Show' : 'Hide',
+        });
+    }, [showFilter]);
 
     const updateFilterState = useCallback(
         (newFilterState, filterType) => {
             setFilterState(newFilterState, filterType);
 
-            ReactGA.send({
-                hitType: 'event',
-                eventCategory: 'Filter',
-                eventAction: 'Update',
-                eventLabel: filterType,
-                value: newFilterState,
+            ReactGA.event({
+                category: 'Filter',
+                action: 'Update',
+                label: filterType,
             });
         },
         [setFilterState]
