@@ -44,7 +44,7 @@ function App() {
 
             ReactGA.event({
                 category: 'Instructions',
-                action: show ? 'Show' : 'Hide',
+                action: show ? 'Show Instructions' : 'Hide Instructions',
             });
         },
         [viewState]

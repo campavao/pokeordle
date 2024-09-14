@@ -17,7 +17,7 @@ export function GameAnswer({ show, close }) {
         if (show) {
             ReactGA.event({
                 category: 'Game Answer',
-                action: show ? 'Show' : 'Hide',
+                action: show ? 'Show Answer' : 'Hide Answer',
             });
         }
     }, [show]);

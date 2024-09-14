@@ -132,8 +132,8 @@ function TimedGame() {
 
         ReactGA.event({
             category: 'Timed Game',
-            action: 'Start',
-            label: timeInSeconds,
+            action: 'Start Timed Game',
+            label: `Start Timed Game: ${timeInSeconds}`,
         });
     };
 

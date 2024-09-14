@@ -14,7 +14,7 @@ export function FilterContainer({
     useEffect(() => {
         ReactGA.event({
             category: 'Filter',
-            action: showFilter ? 'Show' : 'Hide',
+            action: showFilter ? 'Show Filter' : 'Hide Filter',
         });
     }, [showFilter]);
 
@@ -24,7 +24,7 @@ export function FilterContainer({
 
             ReactGA.event({
                 category: 'Filter',
-                action: 'Update',
+                action: 'Update Filter',
                 label: filterType,
             });
         },

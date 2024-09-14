@@ -17,17 +17,21 @@ import { PokemonImage } from './components/PokemonImage';
 const MAX_GUESSES = 8;
 
 function UnlimitedGame() {
-    ReactGA.send({
-        hitType: 'pageview',
-        page: '/',
-        title: 'unlimited',
-    });
+
     const [pokemon, setPokemon] = useState({});
     const [guesses, setGuesses] = useState([]);
     const [isGameOver, setGameOver] = useState(false);
     const [hasWon, setHasWon] = useState(false);
     const [streak, setStreak] = useState(1);
     const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
+
+    useEffect(() => {
+        ReactGA.send({
+            hitType: 'pageview',
+            page: '/',
+            title: 'unlimited',
+        });
+    }, []);
 
     useEffect(() => {
         if (!pokemon.name) {

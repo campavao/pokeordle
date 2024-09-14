@@ -71,7 +71,7 @@ export function useDailyGame(gameName = 'hardGameState') {
         if (!pokemon.name) {
             ReactGA.event({
                 category: 'Daily Game',
-                action: 'Load',
+                action: 'Load Daily Game',
             });
             const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
             const index = Number(ID_LIST[todaysNumber]);
