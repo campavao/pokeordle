@@ -13,6 +13,7 @@ import { copyToClipboard } from './copyToClipboard';
 import './components/Guess.scss';
 
 export function GameAnswer({ show, close }) {
+
     useEffect(() => {
         if (show) {
             ReactGA.event({
@@ -24,6 +25,7 @@ export function GameAnswer({ show, close }) {
 
     const { pokemon, guesses, hasWon, remainingGuesses, streak } =
         useDailyGame('hardGameState');
+
     const [copyMessage, setCopyMessage] = useState(
         'share' in navigator ? 'Share' : 'Copy'
     );

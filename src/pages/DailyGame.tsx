@@ -20,6 +20,7 @@ function DailyGame() {
         handleClick,
         setViewHint,
     } = useDailyGame('hardGameState');
+
     ReactGA.send({
         hitType: 'pageview',
         page: '/',
@@ -55,7 +56,7 @@ function DailyGame() {
             {!hasWon && remainingGuesses < 2 && remainingGuesses > 0 && (
                 <button
                     type="button"
-                    class="btn btn-outline-dark btn-sm game-hint-button"
+                    className="btn btn-outline-dark btn-sm game-hint-button"
                     onClick={() => setViewHint(!viewHint)}
                 >
                     {viewHint ? 'Hide' : 'Show'} hint
@@ -67,10 +68,7 @@ function DailyGame() {
                     {viewHint && (
                         <img
                             className="game-hint"
-                            src={
-                                pokemon.imgUrl ??
-                                `/images/${getImgNumber(pokemon.id)}.png`
-                            }
+                            src={`/images/${getImgNumber(pokemon.id)}.png`}
                             alt="hint"
                         />
                     )}
@@ -86,7 +84,7 @@ function DailyGame() {
                     {finished && (
                         <button
                             type="button"
-                            class="btn btn-outline-dark btn-sm game-hint-button"
+                            className="btn btn-outline-dark btn-sm game-hint-button"
                             onClick={() => setShowAnswer(!showAnswer)}
                         >
                             {showAnswer ? 'Hide' : 'Show'} answer
@@ -117,14 +115,7 @@ function DailyGame() {
                 </div>
             )}
             {showAnswer && (
-                <GameAnswer
-                    show
-                    close={() => setShowAnswer(false)}
-                    hasWon={hasWon}
-                    guesses={guesses}
-                    pokemon={pokemon}
-                    remainingGuesses={remainingGuesses}
-                />
+                <GameAnswer show close={() => setShowAnswer(false)} />
             )}
         </div>
     );

@@ -6,7 +6,7 @@ export default function TypeList(props) {
     const {
         types = [],
         useTypeColors = true,
-        possibleTypes,
+        possibleTypes = 0,
         justShow = false,
         enableSuperEffective = false,
         strong = false,
@@ -42,7 +42,7 @@ export default function TypeList(props) {
             : 'miss';
     };
 
-    if (possibleTypes && typeList.length < 2) {
+    if (typeList.length < 2) {
         typeList.push(possibleTypes === 1 ? 'X' : '?');
     }
 
