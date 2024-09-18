@@ -1,58 +1,58 @@
 {
-    "name": "pokeordle",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@testing-library/jest-dom": "^5.16.5",
-        "@testing-library/react": "^12.1.5",
-        "@testing-library/user-event": "^13.5.0",
-        "@types/jest": "^29.5.13",
-        "@types/node": "^22.5.5",
-        "@types/react": "^18.3.7",
-        "@types/react-dom": "^18.3.0",
-        "bootstrap": "^5.2.1",
-        "bootstrap-icons": "^1.9.1",
-        "express": "^4.18.1",
-        "firebase": "^9.9.4",
-        "react": "^17.0.2",
-        "react-bootstrap": "^2.5.0",
-        "react-bootstrap-typeahead": "^6.0.0",
-        "react-dom": "^17.0.2",
-        "react-firebase-hooks": "^5.0.3",
-        "react-ga4": "^2.1.0",
-        "react-scripts": "5.0.0",
-        "sass": "^1.54.9",
-        "use-debounce": "^10.0.0",
-        "web-vitals": "^2.1.4"
-    },
-    "scripts": {
-        "dev": "react-scripts start",
-        "start": "node server/server.js",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "source-map-loader": "^5.0.0",
-        "ts-loader": "^9.5.1",
-        "typescript": "^5.6.2"
-    }
+  "name": "pokeordle",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.7",
+    "@types/react-dom": "^18.3.0",
+    "bootstrap": "^5.2.1",
+    "bootstrap-icons": "^1.9.1",
+    "express": "^4.18.1",
+    "firebase": "^9.9.4",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.5.0",
+    "react-bootstrap-typeahead": "^6.0.0",
+    "react-dom": "^17.0.2",
+    "react-firebase-hooks": "^5.0.3",
+    "react-ga4": "^2.1.0",
+    "sass": "^1.54.9",
+    "use-debounce": "^10.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "source-map-loader": "^5.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.6"
+  }
 }

@@ -1,4 +1,4 @@
-import { Pokemon } from '../types';
+import { Pokemon } from '../pokedex';
 import SearchBar from './SearchBar';
 import { FilterContainer } from './TypeFilter';
 

@@ -8,15 +8,13 @@ import {
 import { useLocalStorage } from './useLocalStorage';
 
 import { DEFAULT_FILTER_STATE } from '../constants';
-import * as pokedex from '../pokedex.json';
-import { Pokemon } from '../types';
+import { Pokedex, Pokemon } from '../pokedex';
 
-const ID_LIST = process.env.REACT_APP_POKEMON_DAILY_HARD_LIST?.split(',') || [];
-
+const ID_LIST = import.meta.env.VITE_POKEMON_DAILY_HARD_LIST?.split(',') || [];
 const START_DATE = new Date('3/15/2022').setHours(0, 0, 0, 0);
 const TODAY_DATE = new Date().setHours(0, 0, 0, 0);
 
-const EMPTY_POKEMON: Pokemon = {
+export const EMPTY_POKEMON: Pokemon = {
   id: 0,
   name: {
     english: '',
@@ -96,7 +94,7 @@ export function useDailyGame(gameName = 'hardGameState') {
       });
       const todaysNumber = Math.round((TODAY_DATE - START_DATE) / 865e5);
       const index = Number(ID_LIST[todaysNumber]);
-      const solution = Array.from(pokedex).find((poke) => poke.id === index);
+      const solution = Pokedex.find((poke) => poke.id === index);
 
       setPokemon(solution ?? EMPTY_POKEMON);
 
