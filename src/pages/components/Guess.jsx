@@ -31,7 +31,7 @@ export default function Guess(props) {
         empty = false,
         id,
     } = props;
-    const { name, index, types, baseTotal, imgUrl, evolutionStage } = guess ?? {
+    const { name, index, types, baseTotal, evolutionStage } = guess ?? {
         name: '?',
         index: 0,
         types: ['?', '?'],
@@ -66,7 +66,7 @@ export default function Guess(props) {
         return (
             <div className="name">
                 <img
-                    src={imgUrl ?? `/images/${getImgNumber(index.id)}.png`}
+                    src={`/images/${getImgNumber(index.id)}.png`}
                     alt=""
                     className="game-answer"
                 />
