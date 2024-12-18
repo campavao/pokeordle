@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactGA from 'react-ga4';
 import {
     getBaseStats,
@@ -12,7 +12,8 @@ import * as pokedex from '../pokedex.json';
 
 const ID_LIST = process.env.REACT_APP_POKEMON_DAILY_HARD_LIST.split(',');
 
-const START_DATE = new Date('3/15/2022').setHours(0, 0, 0, 0);
+// Old start date 3/15/2022
+const START_DATE = new Date('12/18/2024').setHours(0, 0, 0, 0);
 const TODAY_DATE = new Date().setHours(0, 0, 0, 0);
 
 export function useDailyGame(gameName = 'hardGameState') {
