@@ -52,5 +52,8 @@
     "serialize-javascript": "^6.0.2",
     "ws": "^8.18.3",
     "brace-expansion": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
